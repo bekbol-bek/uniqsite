@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест создан успешно!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .test-link-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px dashed #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .test-link-container:hover {
+            border-color: #4facfe;
+            background: #f0f8ff;
+        }
+
+        .test-link-label {
+            display: block;
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .test-link {
+            color: #4facfe;
+            text-decoration: none;
+            font-size: 16px;
+            word-break: break-all;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .test-link:hover {
+            color: #2c8eff;
+            text-decoration: underline;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .test-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .test-info h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .test-info p {
+            color: #856404;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 480px) {
+            .success-container {
+                padding: 30px 20px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">🎉</div>
+
+        <h2>Тест успешно создан!</h2>
+        <p class="subtitle">Ваш тест готов к прохождению. Поделитесь ссылкой с учениками.</p>
+
+        <div class="test-link-container">
+            <span class="test-link-label">Ссылка для прохождения теста:</span>
+            <a href="{{ test_link }}" class="test-link" id="testLink">{{ test_link }}</a>
+            <button class="copy-btn" onclick="copyToClipboard()"><i class="fi fi-sr-duplicate"></i> Копировать ссылку</button>
+        </div>
+
+        <div class="test-info">
+            <h4>💡 Что дальше?</h4>
+            <p>• Поделитесь ссылкой с учениками</p>
+            <p>• Отслеживайте результаты в своем профиле</p>
+            <p>• Вы можете создать еще тесты в любое время</p>
+        </div>
+
+        <div class="buttons-container">
+            <a href="{% url 'quiz:profile' %}" class="btn btn-primary">
+                <i class="fi fi-sr-user"></i> Перейти в профиль
+            </a>
+            <a href="{% url 'quiz:create_test' 'text' %}" class="btn btn-secondary">
+                <i class="fi fi-br-plus"></i> Создать еще тест
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const testLink = document.getElementById('testLink');
+            const tempInput = document.createElement('input');
+            tempInput.value = testLink.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Показываем уведомление
+            const copyBtn = event.target;
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✅ Скопировано!';
+            copyBtn.style.background = '#17a2b8';
+
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.background = '#28a745';
+            }, 2000);
+        }
+
+        // Добавляем анимацию для элементов при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.test-link-container, .buttons-container, .test-info');
+            elements.forEach((element, index) => {
+                element.style.animation = `slideUp 0.6s ease-out ${index * 0.2}s both`;
+            });
+        });
+    </script>
+</body>
+</html>

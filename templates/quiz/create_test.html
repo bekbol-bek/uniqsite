@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Создать тест</title></head>
+<body>
+<h1>Создать тест</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <h3>Вопросы</h3>
+  {{ formset.management_form }}
+  <table>
+  {% for f in formset %}
+    <tr><td>{{ f.as_p }}</td></tr>
+  {% endfor %}
+  </table>
+  <button type="submit">Создать</button>
+</form>
+<a href="{% url 'quiz:profile' %}">Отмена</a>
+</body>
+</html>

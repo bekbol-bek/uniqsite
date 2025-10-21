@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <title>Фото тест: {{ test.title }}</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --success-dark: #059669;
+            --danger: #ef4444;
+            --danger-dark: #dc2626;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .test-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.3' fill='%23ffffff'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    background-size: 1200px 150px, cover;
+    background-position: 0% 100%, center;
+    background-repeat: repeat-x, no-repeat;
+    animation: waveMove 8s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position: 0% 100%, center; }
+    100% { background-position: 1200px 100%, center; }
+}
+
+        .test-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .test-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .test-content {
+            padding: 40px;
+        }
+
+        .completion-alert {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 1px solid #fcd34d;
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .completion-alert h3 {
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .questions-container {
+            margin: 32px 0;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .question-card.unanswered {
+            border-left: 4px solid var(--danger);
+        }
+
+        .question-card.answered {
+            border-left: 4px solid var(--success);
+        }
+
+
+
+        .question-number {
+    display: inline-block;
+    background: #6366f1;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .question-image {
+            margin: 20px 0;
+            text-align: center;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .question-image img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: var(--radius);
+            transition: transform 0.3s ease;
+        }
+
+        .question-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 20px 0;
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+
+        .answers-container {
+            margin-top: 24px;
+        }
+
+        /* Текстовые ответы */
+        .text-answers {
+            display: grid;
+            gap: 12px;
+        }
+
+      .answer-option {
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.answer-option:hover {
+    border-color: var(--primary);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.answer-option.selected {
+    border-color: var(--success);
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.selection-indicator {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--gray-300);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Стиль для выбранного индикатора */
+.selection-indicator.selected {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+/* Галочка внутри выбранного индикатора */
+.selection-indicator.selected::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+        .answer-text {
+            font-weight: 500;
+            color: var(--gray-800);
+            font-size: 1rem;
+        }
+
+        /* Фото ответы */
+        .photo-answers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .photo-answer-option {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-answer-option:hover {
+            border-color: var(--primary);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .photo-answer-option.selected {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+        }
+
+        .answer-image {
+            margin-bottom: 12px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .answer-image img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-answer-option:hover .answer-image img {
+            transform: scale(1.05);
+        }
+
+        /* Сопоставление */
+        .matching-container {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .matching-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .matching-items {
+            display: grid;
+            gap: 16px;
+        }
+
+        .matching-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .matching-image {
+            flex-shrink: 0;
+        }
+
+        .matching-image img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+
+        .matching-item select {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        .matching-item select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Найди ошибку */
+        .find-error-container {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .find-error-container label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .find-error-container textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            resize: vertical;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .find-error-container textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .no-questions {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            border: 2px dashed var(--gray-300);
+        }
+
+        .no-questions p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            margin-bottom: 0;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--success), var(--success-dark));
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            min-width: 240px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--success-dark), #047857);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                background: var(--gray-100);
+            }
+
+            .test-container {
+                border-radius: var(--radius);
+            }
+
+            .test-header {
+                padding: 30px 20px;
+            }
+
+            .test-title {
+                font-size: 1.6rem;
+            }
+
+            .test-content {
+                padding: 24px;
+            }
+
+            .question-card {
+                padding: 24px;
+            }
+
+            .photo-answers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .matching-item {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .matching-image img {
+                width: 100%;
+                height: 120px;
+            }
+
+            .form-input, .form-select {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .test-header {
+                padding: 24px 16px;
+            }
+
+            .test-title {
+                font-size: 1.4rem;
+            }
+
+            .test-content {
+                padding: 20px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .question-title {
+                font-size: 1.1rem;
+            }
+
+            .submit-btn {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Улучшения для accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+
+        /* Стили для модального окна с увеличенным фото */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Улучшаем отображение маленьких фото в сетке */
+        .photo-answers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .photo-answer-option {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 8px;
+            transition: all 0.3s ease;
+            background: var(--surface);
+            position: relative;
+        }
+
+        .photo-answer-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-answer-option.selected {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .answer-image {
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .answer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-answer-option:hover .answer-image img {
+            transform: scale(1.05);
+        }
+
+        .zoom-indicator {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-answer-option:hover .zoom-indicator {
+            opacity: 1;
+        }
+
+        .answer-text {
+            display: block;
+            margin-top: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            animation: zoomIn 0.3s ease;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .photo-answers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .answer-image {
+                height: 100px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 80%;
+            }
+
+            .close-modal {
+                top: -50px;
+                right: 0;
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-answers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .answer-image {
+                height: 150px;
+            }
+        }
+/* Добавьте эти стили в ваш CSS */
+.matching-image {
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.matching-image img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.matching-image:hover img {
+    transform: scale(1.05);
+}
+
+.zoom-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.matching-image:hover .zoom-indicator,
+.answer-image:hover .zoom-indicator,
+.question-image:hover .zoom-indicator {
+    opacity: 1;
+}
+
+/* Стили для модального окна (если еще не добавлены) */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: -10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    animation: zoomIn 0.3s ease;
+}
+/* Стили для отвеченных и неотвеченных вопросов */
+.question-card.unanswered {
+    border-left: 4px solid #ef4444 !important;
+    background-color: #fef2f2 !important;
+}
+
+.question-card.answered {
+    border-left: 4px solid #10b981 !important;
+    background-color: #f0fdf4 !important;
+}
+
+/* Стили для выбранных ответов */
+.answer-option.selected {
+    border-color: #10b981 !important;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15) !important;
+}
+
+.photo-answer-option.selected {
+    border-color: #10b981 !important;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Стили для индикатора выбора */
+.selection-indicator {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.selection-indicator.selected {
+    background: #10b981 !important;
+    border-color: #10b981 !important;
+}
+
+.selection-indicator.selected::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1 class="test-title">
+                 {{ test.title }}
+            </h1>
+            {% if test.description %}
+                <p class="test-description">{{ test.description }}</p>
+            {% endif %}
+        </div>
+
+        <div class="test-content">
+            {% if already_completed %}
+            <div class="completion-alert">
+                <h3><i class="fi fi-sr-shield-exclamation"></i> Вы уже проходили этот тест</h3>
+                <p>Каждый тест можно пройти только один раз</p>
+                <a href="{% url 'quiz:show_result' existing_result.id %}" class="btn btn-primary">
+                    <i class="fi fi-sr-chart-histogram"></i> Посмотреть результат
+                </a>
+            </div>
+            {% endif %}
+
+            {% if not already_completed %}
+            <form method="post" enctype="multipart/form-data" id="photoTestForm">
+                {% csrf_token %}
+
+                <div class="info-section">
+                    <div class="form-group">
+                        <label class="form-label required"><i class="fi fi-ss-employee-man-alt"></i> Ваше имя (необязательно)</label>
+                        <input type="text" name="student_name" placeholder="Введите ваше имя" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required"><i class="fi fi-ss-users-class"></i> Ваш класс (опционально)</label>
+                        <select name="class_group" class="form-input form-select" required>
+                            <option value="">-- Не выбрано --</option>
+                            <option value="1-А">1-А</option>
+                            <option value="1-Б">1-Б</option>
+                            <option value="1-В">1-В</option>
+                            <option value="1-Г">1-Г</option>
+                            <option value="1-Д">1-Д</option>
+                            <option value="1-Е">1-Е</option>
+                            <option value="1-Ж">1-Ж</option>
+                            <option value="1-З">1-З</option>
+                            <option value="1-И">1-И</option>
+                            <option value="1-К">1-К</option>
+
+                            <option value="2-А">2-А</option>
+                            <option value="2-Б">2-Б</option>
+                            <option value="2-В">2-В</option>
+                            <option value="2-Г">2-Г</option>
+                            <option value="2-Д">2-Д</option>
+                            <option value="2-Е">2-Е</option>
+                            <option value="2-Ж">2-Ж</option>
+                            <option value="2-З">2-З</option>
+                            <option value="2-И">2-И</option>
+                            <option value="2-К">2-К</option>
+
+                            <option value="3-А">3-А</option>
+                            <option value="3-Б">3-Б</option>
+                            <option value="3-В">3-В</option>
+                            <option value="3-Г">3-Г</option>
+                            <option value="3-Д">3-Д</option>
+                            <option value="3-Е">3-Е</option>
+                            <option value="3-Ж">3-Ж</option>
+                            <option value="3-З">3-З</option>
+                            <option value="3-И">3-И</option>
+                            <option value="3-К">3-К</option>
+
+                            <option value="4-А">4-А</option>
+                            <option value="4-Б">4-Б</option>
+                            <option value="4-В">4-В</option>
+                            <option value="4-Г">4-Г</option>
+                            <option value="4-Д">4-Д</option>
+                            <option value="4-Е">4-Е</option>
+                            <option value="4-Ж">4-Ж</option>
+                            <option value="4-З">4-З</option>
+                            <option value="4-И">4-И</option>
+                            <option value="4-К">4-К</option>
+
+                            <option value="5-А">5-А</option>
+                            <option value="5-Б">5-Б</option>
+                            <option value="5-В">5-В</option>
+                            <option value="5-Г">5-Г</option>
+                            <option value="5-Д">5-Д</option>
+                            <option value="5-Е">5-Е</option>
+                            <option value="5-Ж">5-Ж</option>
+                            <option value="5-З">5-З</option>
+                            <option value="5-И">5-И</option>
+                            <option value="5-К">5-К</option>
+
+                            <option value="6-А">6-А</option>
+                            <option value="6-Б">6-Б</option>
+                            <option value="6-В">6-В</option>
+                            <option value="6-Г">6-Г</option>
+                            <option value="6-Д">6-Д</option>
+                            <option value="6-Е">6-Е</option>
+                            <option value="6-Ж">6-Ж</option>
+                            <option value="6-З">6-З</option>
+                            <option value="6-И">6-И</option>
+                            <option value="6-К">6-К</option>
+
+                            <option value="7-А">7-А</option>
+                            <option value="7-Б">7-Б</option>
+                            <option value="7-В">7-В</option>
+                            <option value="7-Г">7-Г</option>
+                            <option value="7-Д">7-Д</option>
+                            <option value="7-Е">7-Е</option>
+                            <option value="7-Ж">7-Ж</option>
+                            <option value="7-З">7-З</option>
+                            <option value="7-И">7-И</option>
+                            <option value="7-К">7-К</option>
+
+                            <option value="8-А">8-А</option>
+                            <option value="8-Б">8-Б</option>
+                            <option value="8-В">8-В</option>
+                            <option value="8-Г">8-Г</option>
+                            <option value="8-Д">8-Д</option>
+                            <option value="8-Е">8-Е</option>
+                            <option value="8-Ж">8-Ж</option>
+                            <option value="8-З">8-З</option>
+                            <option value="8-и">8-И</option>
+                            <option value="8-К">8-К</option>
+
+                            <option value="9-А">9-А</option>
+                            <option value="9-Б">9-Б</option>
+                            <option value="9-В">9-В</option>
+                            <option value="9-Г">9-Г</option>
+                            <option value="9-Д">9-Д</option>
+                            <option value="9-Е">9-Е</option>
+                            <option value="9-Ж">9-Ж</option>
+                            <option value="9-З">9-З</option>
+                            <option value="9-И">9-И</option>
+                            <option value="9-К">9-К</option>
+
+                            <option value="10-А">10-А</option>
+                            <option value="10-Б">10-Б</option>
+                            <option value="10-В">10-В</option>
+                            <option value="10-Г">10-Г</option>
+                            <option value="10-Д">10-Д</option>
+                            <option value="10-Е">10-Е</option>
+                            <option value="10-Ж">10-Ж</option>
+                            <option value="10-З">10-З</option>
+                            <option value="10-И">10-И</option>
+                            <option value="10-К">10-К</option>
+
+                            <option value="11-А">11-А</option>
+                            <option value="11-Б">11-Б</option>
+                            <option value="11-В">11-В</option>
+                            <option value="11-Г">11-Г</option>
+                            <option value="11-Д">11-Д</option>
+                            <option value="11-Е">11-Е</option>
+                            <option value="11-Ж">11-Ж</option>
+                            <option value="11-З">11-З</option>
+                            <option value="11-И">11-И</option>
+                            <option value="11-К">11-К</option>
+                        </select>
+                    </div>
+                </div>
+                 {% if test.timer_seconds and test.timer_seconds > 0 %}
+                        <div id="global-timer" class="timer">
+                            <i class="fi fi-sr-hourglass-end"></i> Осталось времени: <span id="secs">{{ test.timer_seconds }}</span> сек
+                        </div>
+                    {% endif %}
+
+                <div class="questions-container">
+                    {% for question in questions %}
+                    <div class="question-card" data-question-id="{{ question.id }}" data-format="{{ question.question_format }}">
+
+
+
+                        <div class="question-number">Вопрос {{ forloop.counter }}</div>
+
+                        {% if question.image %}
+                        <div class="question-image">
+                            <img src="{{ question.image.url }}" alt="Изображение вопроса">
+                        </div>
+                        {% endif %}
+
+                        {% if question.text %}
+                        <div class="question-text">
+                            {{ question.text }}
+                        </div>
+                        {% endif %}
+
+                        <div class="answers-container">
+                            {% if question.question_format == 'text_answers' %}
+                                    <div class="text-answers">
+                                        {% for answer in question.answers.all %}
+                                        <div class="answer-option" onclick="selectAnswer(this, {{ question.id }}, {{ answer.id }})">
+                                            <div class="selection-indicator"></div>
+                                            <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}" required style="display: none;">
+                                            <span class="answer-text">{{ answer.text }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                            {% elif question.question_format == 'photo_answers' %}
+                                <div class="photo-answers-grid">
+                                    {% for answer in question.answers.all %}
+                                    <div class="photo-answer-option" onclick="selectAnswer(this, {{ question.id }}, {{ answer.id }})">
+                                        <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}" required style="display: none;">
+                                        {% if answer.image %}
+                                        <div class="answer-image">
+                                            <img src="{{ answer.image.url }}" alt="Изображение ответа">
+                                        </div>
+                                        {% endif %}
+                                        {% if answer.text %}
+                                        <span class="answer-text">{{ answer.text }}</span>
+                                        {% endif %}
+                                        <div class="selection-indicator"></div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% elif question.question_format == 'matching' %}
+                                <div class="matching-container">
+                                    <p class="matching-title">
+                                        <i class="fi fi-sr-shuffle"></i> Сопоставьте фото с правильными названиями
+                                    </p>
+                                    <div class="matching-items">
+                                        {% for answer in question.answers.all %}
+                                        <div class="matching-item">
+                                            {% if answer.image %}
+                                            <div class="matching-image">
+                                                <img src="{{ answer.image.url }}" alt="Изображение для сопоставления">
+                                            </div>
+                                            {% endif %}
+                                            <select name="match_{{ question.id }}_{{ forloop.counter0 }}" required>
+                                                <option value="">-- Выберите название --</option>
+                                                {% for option in question.answers.all %}
+                                                <option value="{{ option.id }}">{{ option.matching_text }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            {% elif question.question_format == 'find_error' %}
+                                <div class="find-error-container">
+                                    <label>
+                                        <i class="fi fi-sr-search-alt"></i> Опишите ошибку, которую вы нашли
+                                    </label>
+                                    <textarea name="find_error_{{ question.id }}"
+                                              placeholder="Опишите ошибку, которую вы нашли на изображении..."
+                                              required></textarea>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="no-questions">
+                        <p><i class="fi fi-sr-picture"></i> В этом тесте пока нет вопросов.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if questions %}
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">
+                        <i class="fi fi-sr-check-circle"></i> Отправить ответы
+                    </button>
+                </div>
+                {% endif %}
+            </form>
+            {% endif %}
+        </div>
+    </div>
+     <!-- Добавляем модальное окно в конец body -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <img class="modal-image" id="modalImage" src="" alt="Увеличенное изображение">
+        </div>
+    </div>
+
+    <script>
+ // Функция для открытия увеличенного изображения
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+
+            // Блокируем прокрутку body при открытом модальном окне
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Функция для закрытия модального окна
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+
+            // Восстанавливаем прокрутку body
+            document.body.style.overflow = '';
+        }
+
+        // Добавляем обработчики событий для всех изображений в ответах
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчики для изображений в ответах
+            document.querySelectorAll('.photo-answer-option .answer-image img').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Предотвращаем всплытие, чтобы не выбирался ответ
+                    openImageModal(this.src);
+                });
+
+                // Добавляем курсор указателя для изображений
+                img.style.cursor = 'zoom-in';
+            });
+
+            // Обработчики для изображений вопросов
+            document.querySelectorAll('.question-image img').forEach(img => {
+                img.addEventListener('click', function() {
+                    openImageModal(this.src);
+                });
+
+                // Добавляем курсор указателя и индикатор
+                img.style.cursor = 'zoom-in';
+                img.style.transition = 'transform 0.3s ease';
+
+                img.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+
+                img.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Закрытие модального окна
+            document.getElementById('closeModal').addEventListener('click', closeImageModal);
+
+            // Закрытие при клике на фон
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeImageModal();
+                }
+            });
+
+            // Закрытие по клавише Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeImageModal();
+                }
+            });
+
+            // Добавляем индикаторы увеличения к изображениям
+            document.querySelectorAll('.photo-answer-option .answer-image').forEach(container => {
+                const zoomIndicator = document.createElement('div');
+                zoomIndicator.className = 'zoom-indicator';
+                zoomIndicator.innerHTML = '🔍';
+                container.appendChild(zoomIndicator);
+            });
+        });
+{% if test.timer_seconds and test.timer_seconds > 0 %}
+(function(){
+    let seconds = {{ test.timer_seconds }};
+    const timerElement = document.getElementById('secs');
+    const form = document.getElementById('photoTestForm'); // ИСПРАВЛЕНО: voiceTestForm → photoTestForm
+    const timerContainer = document.getElementById('global-timer');
+
+    const timerInterval = setInterval(() => {
+        seconds--;
+        if (timerElement) timerElement.textContent = seconds;
+
+        // Меняем цвет при малом времени
+        if (seconds <= 30 && timerContainer) {
+            timerContainer.style.background = '#dc2626';
+        }
+
+        if (seconds <= 0) {
+            clearInterval(timerInterval);
+            // Автоматически заполняем незавершенные ответы и отправляем форму
+            autoCompleteAndSubmit();
+        }
+    }, 1000);
+})();
+{% endif %}
+
+// Функция автоматического завершения и отправки теста
+function autoCompleteAndSubmit() {
+    console.log('⏰ Таймер истек, автоматическая отправка...');
+
+    const questions = document.querySelectorAll('.question-card');
+    let hasUnanswered = false;
+
+    questions.forEach((question) => {
+        const questionId = question.getAttribute('data-question-id');
+        const format = question.getAttribute('data-format');
+        let isAnswered = false;
+
+        console.log(`🔍 Автопроверка вопроса ${questionId}, формат: ${format}`);
+
+        if (format === 'text_answers' || format === 'photo_answers') {
+            isAnswered = document.querySelector(`input[name="question_${questionId}"]:checked`);
+            console.log(`📻 Автопроверка radio:`, isAnswered ? 'ОТВЕЧЕНО' : 'НЕ ОТВЕЧЕНО');
+
+            if (!isAnswered) {
+                hasUnanswered = true;
+                const firstOption = document.querySelector(`input[name="question_${questionId}"]`);
+                if (firstOption) {
+                    firstOption.checked = true;
+                    console.log(`🤖 Автовыбор первого варианта: ${firstOption.value}`);
+                    const answerOption = firstOption.closest('.answer-option, .photo-answer-option');
+                    if (answerOption) {
+                        answerOption.classList.add('selected');
+                    }
+                    question.classList.remove('unanswered');
+                    question.classList.add('answered');
+                }
+            }
+        }
+        else if (format === 'matching') {
+            const selects = question.querySelectorAll(`select[name^="matching_${questionId}_"]`);
+            let allSelected = true;
+
+            selects.forEach(select => {
+                console.log(`📝 Автопроверка select ${select.name}: "${select.value}"`);
+                if (!select.value) {
+                    allSelected = false;
+                    hasUnanswered = true;
+                    if (select.options.length > 1) {
+                        select.value = select.options[1].value;
+                        console.log(`🤖 Автовыбор для ${select.name}: ${select.value}`);
+                    }
+                }
+            });
+
+            if (allSelected) {
+                question.classList.add('answered');
+                question.classList.remove('unanswered');
+            }
+        }
+        else if (format === 'find_error') {
+            const textarea = question.querySelector(`textarea[name="find_error_${questionId}"]`);
+            console.log(`🔎 Автопроверка textarea:`, textarea ? `текст: "${textarea.value}"` : 'НЕ НАЙДЕН');
+
+            if (!textarea || !textarea.value.trim()) {
+                hasUnanswered = true;
+                if (textarea) {
+                    textarea.value = "Ошибка не найдена";
+                    console.log(`🤖 Автозаполнение textarea: "${textarea.value}"`);
+                }
+                question.classList.add('answered');
+                question.classList.remove('unanswered');
+            }
+        }
+    });
+
+    // СОБИРАЕМ ДАННЫЕ ПЕРЕД ОТПРАВКОЙ
+    const form = document.getElementById('photoTestForm');
+    const formData = new FormData(form);
+    console.log('=== ДАННЫЕ ПЕРЕД АВТООТПРАВКОЙ ===');
+    for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+
+    alert('Время вышло! Тест будет автоматически отправлен.' + (hasUnanswered ? ' Неотвеченные вопросы заполнены автоматически.' : ''));
+
+    // ВРЕМЕННО УДАЛЯЕМ обработчик submit чтобы он не блокировал отправку
+    const originalSubmitHandler = form.onsubmit;
+    form.onsubmit = null;
+
+    // Отправляем форму
+    form.submit();
+
+    // Восстанавливаем обработчик (на всякий случай)
+    setTimeout(() => {
+        form.onsubmit = originalSubmitHandler;
+    }, 1000);
+}
+
+function selectAnswer(element, questionId, answerId) {
+    const questionCard = element.closest('.question-card');
+    const format = questionCard.getAttribute('data-format');
+
+    if (format === 'text_answers' || format === 'photo_answers') {
+        // Снимаем выделение со всех ответов этого вопроса
+        const allAnswers = questionCard.querySelectorAll('.answer-option, .photo-answer-option');
+        allAnswers.forEach(option => {
+            option.classList.remove('selected');
+
+            // Также снимаем выделение с индикаторов
+            const indicator = option.querySelector('.selection-indicator');
+            if (indicator) {
+                indicator.classList.remove('selected');
+            }
+        });
+
+        // Выделяем выбранный ответ
+        element.classList.add('selected');
+
+        // Выделяем индикатор выбора
+        const indicator = element.querySelector('.selection-indicator');
+        if (indicator) {
+            indicator.classList.add('selected');
+        }
+
+        // Находим скрытый radio input и отмечаем его
+        const radioInput = element.querySelector('input[type="radio"]');
+        if (radioInput) {
+            radioInput.checked = true;
+        }
+
+        // ВАЖНО: Отмечаем вопрос как отвеченный для валидации
+        questionCard.classList.add('answered');
+        questionCard.classList.remove('unanswered');
+
+        console.log(`Ответ выбран для вопроса ${questionId}, формат: ${format}`);
+    }
+}
+// Валидация формы с отладкой
+document.getElementById('photoTestForm').addEventListener('submit', function(e) {
+    let isValid = true;
+    const questions = document.querySelectorAll('.question-card');
+    let unansweredQuestions = [];
+
+    // СОБИРАЕМ ВСЕ ДАННЫЕ ФОРМЫ ДЛЯ ОТЛАДКИ
+    const formData = new FormData(this);
+    console.log('=== ДАННЫЕ ФОРМЫ ПЕРЕД ОТПРАВКОЙ ===');
+    for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+
+    questions.forEach((question, index) => {
+        const questionId = question.getAttribute('data-question-id');
+        const format = question.getAttribute('data-format');
+        let questionAnswered = true;
+
+        console.log(`🔍 Проверка вопроса ${index + 1}, ID: ${questionId}, формат: ${format}`);
+
+        if (format === 'text_answers' || format === 'photo_answers') {
+            const radioName = `question_${questionId}`;
+            const radioChecked = question.querySelector(`input[name="${radioName}"]:checked`);
+            console.log(`📻 Radio ${radioName}:`, radioChecked ? `выбран ответ ${radioChecked.value}` : 'НЕ ВЫБРАН');
+
+            if (!radioChecked) {
+                isValid = false;
+                questionAnswered = false;
+                question.classList.add('unanswered');
+                question.classList.remove('answered');
+            } else {
+                question.classList.add('answered');
+                question.classList.remove('unanswered');
+            }
+        }
+        else if (format === 'matching') {
+            const selects = question.querySelectorAll(`select[name^="matching_${questionId}_"]`);
+            console.log(`🔄 Matching selects для вопроса ${questionId}:`, selects.length);
+
+            let allSelected = true;
+            selects.forEach((select, selectIndex) => {
+                console.log(`📝 Select ${select.name}: значение = "${select.value}"`);
+                if (!select.value) {
+                    allSelected = false;
+                    isValid = false;
+                    questionAnswered = false;
+                    question.classList.add('unanswered');
+                    question.classList.remove('answered');
+                    select.style.borderColor = 'var(--danger)';
+                } else {
+                    select.style.borderColor = 'var(--success)';
+                }
+            });
+
+            if (allSelected) {
+                question.classList.add('answered');
+                question.classList.remove('unanswered');
+            }
+        }
+        else if (format === 'find_error') {
+            const textarea = question.querySelector(`textarea[name="find_error_${questionId}"]`);
+            console.log(`🔎 Find error textarea:`, textarea);
+            console.log(`📝 Текст ответа: "${textarea ? textarea.value : 'НЕТ'}"`);
+
+            if (!textarea || !textarea.value.trim()) {
+                isValid = false;
+                questionAnswered = false;
+                question.classList.add('unanswered');
+                question.classList.remove('answered');
+                if (textarea) {
+                    textarea.style.borderColor = 'var(--danger)';
+                }
+            } else {
+                textarea.style.borderColor = 'var(--success)';
+                question.classList.add('answered');
+                question.classList.remove('unanswered');
+            }
+        }
+
+        if (!questionAnswered) {
+            unansweredQuestions.push(index + 1);
+            console.log(`❌ Вопрос ${index + 1} отмечен как неотвеченный`);
+        } else {
+            console.log(`✅ Вопрос ${index + 1} отмечен как отвеченный`);
+        }
+    });
+
+    console.log(`📊 Итог валидации: ${isValid ? 'УСПЕХ' : 'ОШИБКА'}, неотвеченные:`, unansweredQuestions);
+
+    if (!isValid) {
+        e.preventDefault();
+        const message = `Пожалуйста, ответьте на все вопросы! Не отвечены вопросы: ${unansweredQuestions.join(', ')}`;
+        alert(message);
+
+        if (unansweredQuestions.length > 0) {
+            const firstError = document.querySelectorAll('.question-card')[unansweredQuestions[0] - 1];
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    } else {
+        console.log('🎉 Все вопросы отвечены, форма отправляется!');
+    }
+});
+// Добавляем обработчики для всех типов полей
+document.addEventListener('DOMContentLoaded', function() {
+    // Для radio кнопок (text_answers и photo_answers)
+    document.querySelectorAll('.answer-option, .photo-answer-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const questionCard = this.closest('.question-card');
+            const questionId = questionCard.getAttribute('data-question-id');
+            const format = questionCard.getAttribute('data-format');
+
+            if (format === 'text_answers' || format === 'photo_answers') {
+                questionCard.classList.add('answered');
+                questionCard.classList.remove('unanswered');
+            }
+        });
+    });
+
+    // Для select (matching)
+    document.querySelectorAll('select[name^="matching_"]').forEach(select => {
+        select.addEventListener('change', function() {
+            if (this.value && this.value.trim()) {
+                this.style.borderColor = 'var(--success)';
+                const questionCard = this.closest('.question-card');
+                questionCard.classList.add('answered');
+                questionCard.classList.remove('unanswered');
+            } else {
+                this.style.borderColor = 'var(--danger)';
+            }
+        });
+    });
+
+    // Для textarea (find_error)
+    document.querySelectorAll('textarea[name^="find_error_"]').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            if (this.value && this.value.trim()) {
+                this.style.borderColor = 'var(--success)';
+                const questionCard = this.closest('.question-card');
+                questionCard.classList.add('answered');
+                questionCard.classList.remove('unanswered');
+            } else {
+                this.style.borderColor = 'var(--danger)';
+            }
+        });
+
+        textarea.addEventListener('change', function() {
+            if (this.value && this.value.trim()) {
+                this.style.borderColor = 'var(--success)';
+                const questionCard = this.closest('.question-card');
+                questionCard.classList.add('answered');
+                questionCard.classList.remove('unanswered');
+            }
+        });
+    });
+});
+
+        function initImageUploads() {
+    const imageUploads = document.querySelectorAll('.image-upload:not([data-initialized])');
+
+    imageUploads.forEach(upload => {
+        upload.setAttribute('data-initialized', 'true');
+
+        const input = upload.querySelector('input[type="file"]');
+        const preview = upload.querySelector('.image-preview');
+
+        input.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    upload.classList.add('has-image');
+
+                    // Добавляем возможность увеличения для загруженных фото
+                    preview.style.cursor = 'zoom-in';
+                    preview.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openImageModal(this.src);
+                    });
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+
+    // Также инициализируем photo-answer uploads
+    const photoUploads = document.querySelectorAll('.image-upload-photo-answer:not([data-initialized])');
+    photoUploads.forEach(upload => {
+        upload.setAttribute('data-initialized', 'true');
+
+        const input = upload.querySelector('input[type="file"]');
+        const preview = upload.querySelector('.image-preview-photo-answer');
+
+        input.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    upload.classList.add('has-image');
+
+                    // Добавляем возможность увеличения
+                    preview.style.cursor = 'zoom-in';
+                    preview.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        openImageModal(this.src);
+                    });
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+
+    // ДОБАВЬТЕ ЭТОТ КОД ДЛЯ MATCHING ИЗОБРАЖЕНИЙ
+    initMatchingImageZoom();
+}
+
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+
+            // Блокируем прокрутку body при открытом модальном окне
+            document.body.style.overflow = 'hidden';
+        }
+
+// Функция для закрытия модального окна
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+
+    // Восстанавливаем прокрутку body
+    document.body.style.overflow = '';
+}
+
+// ОСНОВНАЯ ФУНКЦИЯ ДЛЯ ИНИЦИАЛИЗАЦИИ УВЕЛИЧЕНИЯ ВСЕХ ИЗОБРАЖЕНИЙ
+function initAllImageZoom() {
+    // 1. Изображения в вопросах
+    document.querySelectorAll('.question-image img').forEach(img => {
+        if (!img.hasAttribute('data-zoom-initialized')) {
+            img.setAttribute('data-zoom-initialized', 'true');
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function() {
+                openImageModal(this.src);
+            });
+        }
+    });
+
+    // 2. Изображения в photo-ответах
+    document.querySelectorAll('.photo-answer-option .answer-image img').forEach(img => {
+        if (!img.hasAttribute('data-zoom-initialized')) {
+            img.setAttribute('data-zoom-initialized', 'true');
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openImageModal(this.src);
+            });
+        }
+    });
+
+    // 3. Изображения в matching вопросах - ВАЖНО!
+    document.querySelectorAll('.matching-image img').forEach(img => {
+        if (!img.hasAttribute('data-zoom-initialized')) {
+            img.setAttribute('data-zoom-initialized', 'true');
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openImageModal(this.src);
+            });
+        }
+    });
+
+    // 4. Добавляем индикаторы увеличения
+    document.querySelectorAll('.photo-answer-option .answer-image, .matching-image').forEach(container => {
+        if (!container.querySelector('.zoom-indicator')) {
+            const zoomIndicator = document.createElement('div');
+            zoomIndicator.className = 'zoom-indicator';
+            zoomIndicator.innerHTML = '🔍';
+            container.appendChild(zoomIndicator);
+        }
+    });
+
+    // 5. Закрытие модального окна
+        document.getElementById('closeModal').addEventListener('click', closeImageModal);
+
+        // 6. Закрытие при клике на фон
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // 7. Закрытие по клавише Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        initAllImageZoom();
+    });
+    </script>
+</body>
+</html>

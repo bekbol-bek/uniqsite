@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Профиль</title></head>
+<body>
+<h1>Мои тесты</h1>
+<p><a href="{% url 'quiz:create_test' %}">Создать новый тест</a></p>
+<ul>
+{% for t in tests %}
+  <li>{{ t.title }} — <a href="{% url 'quiz:test_detail' t.id %}">Просмотреть</a></li>
+{% empty %}
+  <li>У вас нет тестов</li>
+{% endfor %}
+</ul>
+<a href="{% url 'quiz:main' %}">На главную</a>
+</body>
+</html>

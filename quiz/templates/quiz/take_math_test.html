@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <title>Математический тест: {{ test.title }}</title>
+    <style>
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --success: #10b981;
+    --success-dark: #059669;
+    --success-light: #dcfce7;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--gray-800);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.test-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.test-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.test-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.3' fill='%23ffffff'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    background-size: 1200px 160px, cover;
+    background-position: 0% 100%, center;
+    background-repeat: repeat-x, no-repeat;
+    animation: waveMove 8s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position: 0% 100%, center; }
+    100% { background-position: 1200px 100%, center; }
+}
+
+.test-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.test-description {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.test-content {
+    padding: 40px;
+}
+
+.student-info {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.student-info input {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.student-info input:last-child {
+    margin-bottom: 0;
+}
+
+.question-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border-left: 4px solid #ef4444; /* 🔴 Красная рамка по умолчанию */
+    transition: all 0.3s ease;
+}
+
+.question-card.answered {
+    border-left-color: #10b981; /* 🟢 Зеленая рамка при ответе */
+    background-color: #f0fdf4; /* Светло-зеленый фон */
+}
+
+/* Убедитесь что unanswered класс есть в HTML */
+.question-card.unanswered {
+    border-left-color: #ef4444; /* 🔴 Красная рамка */
+    background-color: white;
+}
+
+
+.question-number {
+    display: inline-block;
+    background: #6366f1;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.math-question {
+    background: var(--gray-50);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 0;
+    border: 2px dashed var(--gray-200);
+}
+
+.question-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1em;
+    color: var(--gray-800);
+    margin-bottom: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.math-expression {
+    font-family: 'Times New Roman', 'Cambria Math', serif;
+    font-size: 1.2em;
+    text-align: center;
+    line-height: 1.6;
+    padding: 12px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--gray-200);
+    overflow-x: auto;
+}
+
+.answers-container {
+    margin-top: 20px;
+}
+
+.answer-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    margin: 10px 0;
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.answer-option:hover {
+    border-color: var(--primary);
+    transform: translateX(3px);
+}
+
+.answer-option.selected {
+    border-color: var(--success);
+    background: var(--success-light);
+}
+
+.answer-radio {
+    transform: scale(1.2);
+    accent-color: var(--primary);
+    min-width: 20px;
+}
+
+.answer-text {
+    flex: 1;
+    font-family: 'Times New Roman', 'Cambria Math', serif;
+    font-size: 1.1em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.submit-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.submit-btn {
+    width: 40%;
+    padding: 18px ;
+    background: linear-gradient(135deg, var(--success), var(--success-dark));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 767px) {
+    body {
+        padding: 12px;
+        background: var(--gray-100);
+    }
+
+    .test-container {
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .test-header {
+        padding: 30px 20px;
+    }
+
+    .test-content {
+        padding: 20px;
+    }
+}
+
+/* Планшеты и компьютеры */
+@media (min-width: 768px) {
+    body {
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .test-container {
+        max-width: 900px;
+        box-shadow: var(--shadow-lg);
+    }
+}
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        /* Стили для фото в вопросах и ответах */
+.question-image {
+    margin: 15px 0;
+    text-align: center;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: pointer;
+}
+
+.question-image img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.question-image:hover img {
+    transform: scale(1.02);
+}
+
+.answer-with-image {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.answer-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid var(--gray-200);
+    transition: border-color 0.3s ease;
+}
+
+.answer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.answer-image:hover img {
+    transform: scale(1.1);
+}
+
+.answer-option.selected .answer-image {
+    border-color: var(--success);
+}
+
+.zoom-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.question-image:hover .zoom-indicator,
+.answer-image:hover .zoom-indicator {
+    opacity: 1;
+}
+        /* Стили для контейнера ответа */
+.answer-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Контейнер для фото ответа */
+.answer-image-container {
+    flex-shrink: 0;
+}
+
+.answer-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid var(--gray-200);
+    transition: all 0.3s ease;
+}
+
+.answer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.answer-image:hover img {
+    transform: scale(1.1);
+}
+
+.answer-option.selected .answer-image {
+    border-color: var(--success);
+}
+
+/* Текст ответа */
+.answer-text {
+    flex: 1;
+    font-family: 'Times New Roman', 'Cambria Math', serif;
+    font-size: 1.1em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Если только фото без текста */
+.answer-content:has(.answer-image) .answer-text {
+    flex: none;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .answer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .answer-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .answer-text {
+        width: 100%;
+    }
+}
+        .image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: -10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+        /* Стили для математических формул в результатах */
+.math-formula-display {
+    font-family: 'Times New Roman', 'Cambria Math', serif;
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Стили для верхних индексов (квадратов, кубов) */
+.superscript {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+}
+
+/* Стили для дробей */
+.fraction {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+.numerator, .denominator {
+    display: block;
+    padding: 0 5px;
+}
+
+.numerator {
+    border-bottom: 1px solid currentColor;
+}
+
+/* Стили для корней */
+.sqrt {
+    position: relative;
+    padding-left: 15px;
+}
+
+.sqrt::before {
+    content: "√";
+    position: absolute;
+    left: 0;
+    top: -1px;
+    font-size: 1.1em;
+}
+
+/* Стили для интегралов */
+.integral-with-limits {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.integral-upper, .integral-lower {
+    font-size: 0.7em;
+    line-height: 1;
+}
+
+.integral-symbol {
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+
+        /* Исправления для iOS/Safari */
+input, select, textarea {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+input[type="text"], input[type="file"], select {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    background: white;
+}
+
+/* Улучшения для касаний на iOS */
+.answer-option {
+    min-height: 44px; /* Минимальная высота для касаний iOS */
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+}
+
+.answer-radio {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.submit-btn {
+    min-height: 44px;
+    -webkit-appearance: none;
+}
+
+        .completion-alert {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 1px solid #fcd34d;
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .completion-alert h3 {
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+
+        /* Стили для блока загрузки фото решения */
+.solution-section {
+    margin: 25px 0;
+    padding: 0;
+}
+
+.solution-title {
+    color: #2c5530;
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.solution-input-hidden {
+    display: none !important;
+}
+
+/* Карточка загрузки */
+.solution-upload-card {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+    border: 2px dashed #4f86f7;
+    border-radius: 12px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.solution-upload-card:hover {
+    background: linear-gradient(135deg, #e8edff 0%, #e0ebff 100%);
+    border-color: #3a75f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(79, 134, 247, 0.2);
+}
+
+.upload-card-content {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 15px;
+}
+
+.upload-icon-main {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #4f86f7, #3a75f5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.upload-text-content {
+    flex: 1;
+}
+
+.upload-text-content h5 {
+    margin: 0 0 5px 0;
+    color: #2d3748;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.upload-text-content p {
+    margin: 0 0 10px 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+.upload-features {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.feature-badge {
+    background: rgba(79, 134, 247, 0.1);
+    color: #4f86f7;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.upload-arrow {
+    color: #a0aec0;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.solution-upload-card:hover .upload-arrow {
+    transform: translateX(3px);
+    color: #4f86f7;
+}
+
+/* Карточка превью */
+.solution-preview-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.preview-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #38a169;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.preview-remove-btn {
+    background: #fed7d7;
+    color: #c53030;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.preview-remove-btn:hover {
+    background: #feb2b2;
+}
+
+.preview-image-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.preview-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.preview-image-container:hover .preview-overlay {
+    opacity: 1;
+}
+
+.preview-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #718096;
+    font-size: 12px;
+}
+
+/* Инструкция */
+.solution-instruction {
+    background: #fff9ed;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.instruction-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #dd6b20;
+    font-size: 14px;
+}
+
+.instruction-list {
+    margin: 0;
+    padding-left: 20px;
+    color: #718096;
+    font-size: 13px;
+}
+
+.instruction-list li {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .upload-card-content {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .upload-icon-main {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .upload-text-content h5 {
+        font-size: 15px;
+    }
+
+    .upload-text-content p {
+        font-size: 13px;
+    }
+
+    .feature-badge {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    .btn {
+                width: 100%;
+                justify-content: center;
+            }
+}
+        /* Стили для обязательных полей */
+.required-asterisk {
+    color: #e53e3e;
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+.required-badge {
+    background: #fed7d7;
+    color: #c53030;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.upload-required-message {
+    background: #fed7d7;
+    border: 1px solid #feb2b2;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 10px 15px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #c53030;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.upload-required-message i {
+    font-size: 14px;
+}
+
+/* Стили для ошибок валидации */
+.solution-upload-card.error {
+    border-color: #e53e3e;
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+}
+
+.solution-upload-card.error .upload-icon-main {
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+}
+
+/* Остальные стили остаются такими же, добавляем только это */
+.solution-section .error-message {
+    color: #e53e3e;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Мобильная адаптивность для блока загрузки фото */
+@media (max-width: 768px) {
+    .solution-upload-card {
+        margin-bottom: 12px;
+    }
+
+    .upload-card-content {
+        padding: 15px;
+        gap: 12px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .upload-icon-main {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .upload-text-content h5 {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .upload-text-content p {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .upload-features {
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .feature-badge {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+
+    .upload-arrow {
+        display: none; /* Скрываем стрелку на мобильных */
+    }
+
+    .solution-preview-card {
+        padding: 12px;
+    }
+
+    .preview-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .preview-remove-btn {
+        align-self: flex-end;
+    }
+
+    .preview-image {
+        max-height: 150px;
+    }
+
+    .solution-instruction {
+        padding: 12px;
+    }
+
+    .instruction-list {
+        padding-left: 15px;
+    }
+
+    .instruction-list li {
+        font-size: 12px;
+    }
+    .btn {
+                width: 100%;
+                justify-content: center;
+            }
+}
+
+/* Улучшения для касаний на мобильных */
+.solution-upload-card {
+    min-height: 44px; /* Минимальная высота для касаний iOS */
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+}
+
+.upload-card-content {
+    min-height: 44px;
+}
+
+/* Анимации для лучшего UX */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.solution-upload-card:active {
+    animation: pulse 0.3s ease;
+}
+
+/* Улучшения для превью изображения */
+.preview-image {
+    transition: transform 0.3s ease;
+}
+
+.preview-image:hover {
+    transform: scale(1.02);
+}
+
+/* Стили для состояния загрузки */
+.solution-upload-card.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.solution-upload-card.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4f86f7;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Улучшения для текста */
+.upload-text-content h5 {
+    line-height: 1.3;
+}
+
+.upload-text-content p {
+    line-height: 1.4;
+}
+
+/* Контрастность для доступности */
+@media (prefers-contrast: high) {
+    .solution-upload-card {
+        border-width: 3px;
+    }
+
+    .solution-preview-card {
+        border-width: 2px;
+    }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+    .solution-upload-card {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        border-color: #475569;
+    }
+
+    .solution-upload-card:hover {
+        background: linear-gradient(135deg, #334155 0%, #475569 100%);
+        border-color: #64748b;
+    }
+
+    .upload-text-content h5 {
+        color: #f1f5f9;
+    }
+
+    .upload-text-content p {
+        color: #cbd5e1;
+    }
+
+    .solution-preview-card {
+        background: #1e293b;
+        border-color: #334155;
+    }
+}
+
+/* Улучшения для очень маленьких экранов */
+@media (max-width: 480px) {
+    .solution-section {
+        margin: 20px 0;
+    }
+
+    .solution-title {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .upload-card-content {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .upload-icon-main {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .upload-text-content h5 {
+        font-size: 14px;
+    }
+
+    .upload-text-content p {
+        font-size: 12px;
+    }
+
+    .feature-badge {
+        font-size: 10px;
+        padding: 2px 5px;
+    }
+
+    .solution-instruction {
+        padding: 10px;
+    }
+
+    .instruction-header {
+        font-size: 13px;
+    }
+
+    .instruction-list li {
+        font-size: 11px;
+    }
+    .btn {
+                width: 100%;
+                justify-content: center;
+            }
+}
+
+/* Плавные переходы для всех интерактивных элементов */
+.solution-upload-card,
+.upload-card-content,
+.preview-remove-btn,
+.preview-image,
+.preview-overlay {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Улучшения фокуса для доступности */
+.solution-upload-card:focus-within {
+    outline: 2px solid #4f86f7;
+    outline-offset: 2px;
+}
+
+.preview-remove-btn:focus {
+    outline: 2px solid #c53030;
+    outline-offset: 1px;
+}
+
+/* Стили для состояния disabled */
+.solution-upload-card:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.solution-upload-card:disabled:hover {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+    border-color: #4f86f7;
+    box-shadow: none;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .submit-section {
+        margin-top: 25px;
+        padding: 0 15px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        max-width: none;
+        padding: 22px 20px;
+        font-size: 1.1em;
+        min-height: 65px;
+        border-radius: 14px;
+        margin-top: 15px;
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .submit-btn i {
+        font-size: 1.2em;
+    }
+}
+/* Особые стили для разных типов скобок */
+.big-brackets.parentheses .bracket-left,
+.big-brackets.parentheses .bracket-right {
+    font-size: 1.8em;
+}
+
+.big-brackets.square .bracket-left,
+.big-brackets.square .bracket-right {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.big-brackets.braces .bracket-left,
+.big-brackets.braces .bracket-right {
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+/* Автоподстройка размера скобок под содержимое */
+.big-brackets:has(.fraction) .bracket-left,
+.big-brackets:has(.fraction) .bracket-right {
+    font-size: 2em;
+}
+
+.big-brackets:has(.big-brackets) .bracket-left,
+.big-brackets:has(.big-brackets) .bracket-right {
+    font-size: 2.2em;
+}
+ .subscript {
+    font-size: 0.7em;
+    vertical-align: sub;
+    line-height: 1;
+    display: inline-block;
+}
+
+        .timer {
+            background: var(--danger);
+            color: white;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+        }
+    </style>
+</head>
+<body>
+<div class="test-container">
+    <div class="test-header">
+        <h1>{{ test.title }}</h1>
+        <p>Математический тест</p>
+    </div>
+
+    <div class="test-content">
+        {% if already_completed %}
+        <div class="completion-alert">
+            <h3><i class="fi fi-sr-shield-exclamation"></i> Вы уже проходили этот тест</h3>
+            <p>Каждый тест можно пройти только один раз</p>
+            <a href="{% url 'quiz:show_result' existing_result.id %}" class="btn btn-primary">
+                <i class="fi fi-sr-chart-histogram"></i> Посмотреть результат
+            </a>
+        </div>
+        {% else %}
+        <form method="post" enctype="multipart/form-data" id="mathTestForm">
+            {% csrf_token %}
+            <input type="hidden" name="test_id" value="{{ test.id }}">
+            <input type="hidden" name="student_session" value="{{ student_session }}">
+
+            <div class="student-info">
+                <h3 style="margin-bottom: 15px; color: white;"><i class="fi fi-sr-employee-man-alt"></i> Ваши имя</h3>
+                <input type="text" name="student_name" placeholder="Введите ваше имя" required>
+                <div class="form-group">
+                    <label class="form-label required"><i class="fi fi-ss-users-class"></i> Ваш класс (опционально)</label>
+                    <select name="class_group" class="form-input form-select" required>
+                            <option value="">-- Не выбрано --</option>
+                            <option value="1-А">1-А</option>
+                            <option value="1-Б">1-Б</option>
+                            <option value="1-В">1-В</option>
+                            <option value="1-Г">1-Г</option>
+                            <option value="1-Д">1-Д</option>
+                            <option value="1-Е">1-Е</option>
+                            <option value="1-Ж">1-Ж</option>
+                            <option value="1-З">1-З</option>
+                            <option value="1-И">1-И</option>
+                            <option value="1-К">1-К</option>
+
+                            <option value="2-А">2-А</option>
+                            <option value="2-Б">2-Б</option>
+                            <option value="2-В">2-В</option>
+                            <option value="2-Г">2-Г</option>
+                            <option value="2-Д">2-Д</option>
+                            <option value="2-Е">2-Е</option>
+                            <option value="2-Ж">2-Ж</option>
+                            <option value="2-З">2-З</option>
+                            <option value="2-И">2-И</option>
+                            <option value="2-К">2-К</option>
+
+                            <option value="3-А">3-А</option>
+                            <option value="3-Б">3-Б</option>
+                            <option value="3-В">3-В</option>
+                            <option value="3-Г">3-Г</option>
+                            <option value="3-Д">3-Д</option>
+                            <option value="3-Е">3-Е</option>
+                            <option value="3-Ж">3-Ж</option>
+                            <option value="3-З">3-З</option>
+                            <option value="3-И">3-И</option>
+                            <option value="3-К">3-К</option>
+
+                            <option value="4-А">4-А</option>
+                            <option value="4-Б">4-Б</option>
+                            <option value="4-В">4-В</option>
+                            <option value="4-Г">4-Г</option>
+                            <option value="4-Д">4-Д</option>
+                            <option value="4-Е">4-Е</option>
+                            <option value="4-Ж">4-Ж</option>
+                            <option value="4-З">4-З</option>
+                            <option value="4-И">4-И</option>
+                            <option value="4-К">4-К</option>
+
+                            <option value="5-А">5-А</option>
+                            <option value="5-Б">5-Б</option>
+                            <option value="5-В">5-В</option>
+                            <option value="5-Г">5-Г</option>
+                            <option value="5-Д">5-Д</option>
+                            <option value="5-Е">5-Е</option>
+                            <option value="5-Ж">5-Ж</option>
+                            <option value="5-З">5-З</option>
+                            <option value="5-И">5-И</option>
+                            <option value="5-К">5-К</option>
+
+                            <option value="6-А">6-А</option>
+                            <option value="6-Б">6-Б</option>
+                            <option value="6-В">6-В</option>
+                            <option value="6-Г">6-Г</option>
+                            <option value="6-Д">6-Д</option>
+                            <option value="6-Е">6-Е</option>
+                            <option value="6-Ж">6-Ж</option>
+                            <option value="6-З">6-З</option>
+                            <option value="6-И">6-И</option>
+                            <option value="6-К">6-К</option>
+
+                            <option value="7-А">7-А</option>
+                            <option value="7-Б">7-Б</option>
+                            <option value="7-В">7-В</option>
+                            <option value="7-Г">7-Г</option>
+                            <option value="7-Д">7-Д</option>
+                            <option value="7-Е">7-Е</option>
+                            <option value="7-Ж">7-Ж</option>
+                            <option value="7-З">7-З</option>
+                            <option value="7-И">7-И</option>
+                            <option value="7-К">7-К</option>
+
+                            <option value="8-А">8-А</option>
+                            <option value="8-Б">8-Б</option>
+                            <option value="8-В">8-В</option>
+                            <option value="8-Г">8-Г</option>
+                            <option value="8-Д">8-Д</option>
+                            <option value="8-Е">8-Е</option>
+                            <option value="8-Ж">8-Ж</option>
+                            <option value="8-З">8-З</option>
+                            <option value="8-и">8-И</option>
+                            <option value="8-К">8-К</option>
+
+                            <option value="9-А">9-А</option>
+                            <option value="9-Б">9-Б</option>
+                            <option value="9-В">9-В</option>
+                            <option value="9-Г">9-Г</option>
+                            <option value="9-Д">9-Д</option>
+                            <option value="9-Е">9-Е</option>
+                            <option value="9-Ж">9-Ж</option>
+                            <option value="9-З">9-З</option>
+                            <option value="9-И">9-И</option>
+                            <option value="9-К">9-К</option>
+
+                            <option value="10-А">10-А</option>
+                            <option value="10-Б">10-Б</option>
+                            <option value="10-В">10-В</option>
+                            <option value="10-Г">10-Г</option>
+                            <option value="10-Д">10-Д</option>
+                            <option value="10-Е">10-Е</option>
+                            <option value="10-Ж">10-Ж</option>
+                            <option value="10-З">10-З</option>
+                            <option value="10-И">10-И</option>
+                            <option value="10-К">10-К</option>
+
+                            <option value="11-А">11-А</option>
+                            <option value="11-Б">11-Б</option>
+                            <option value="11-В">11-В</option>
+                            <option value="11-Г">11-Г</option>
+                            <option value="11-Д">11-Д</option>
+                            <option value="11-Е">11-Е</option>
+                            <option value="11-Ж">11-Ж</option>
+                            <option value="11-З">11-З</option>
+                            <option value="11-И">11-И</option>
+                            <option value="11-К">11-К</option>
+                        </select>
+                </div>
+            </div>
+
+            <!-- Таймер -->
+                    {% if test.timer_seconds and test.timer_seconds > 0 %}
+                        <div id="global-timer" class="timer">
+                            <i class="fi fi-br-duration-alt"></i> Осталось времени: <span id="secs">{{ test.timer_seconds }}</span> сек
+                        </div>
+                    {% endif %}
+
+            {% for question in questions %}
+            <div class="question-card unanswered" data-question="{{ question.id }}">
+                <div class="question-number">Вопрос {{ forloop.counter }}</div>
+
+                <!-- Вопрос -->
+                <div class="math-question">
+                    <!-- Текст вопроса -->
+                    {% if question.text %}
+                        <p class="question-text">{{ question.text }}</p>
+                    {% endif %}
+
+                    <!-- Математическая формула вопроса -->
+                    {% if question.math_expression %}
+                        <div class="math-expression">
+                            {{ question.math_expression|safe }}
+                        </div>
+                    {% endif %}
+
+                    <!-- Изображение вопроса -->
+                    {% if question.image %}
+                    <div class="question-image">
+                        <img src="{{ question.image.url }}" alt="Изображение к вопросу"
+                             onclick="openImageModal('{{ question.image.url }}')">
+                        <div class="zoom-indicator">🔍 Увеличить</div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Варианты ответов -->
+                <div class="answers-container">
+                    <h4 style="color: #4a5568; margin-bottom: 15px;">🎯 Выберите правильный ответ:</h4>
+
+                    {% for answer in question.answers.all %}
+                    <label class="answer-option">
+                        <input type="radio" name="q_{{ question.id }}" value="{{ answer.id }}" required class="answer-radio">
+
+                        <div class="answer-content">
+                            <!-- Текст ответа -->
+                            {% if answer.text and answer.text != "Ответ с изображением" %}
+                                <span class="answer-text">{{ answer.text }}</span>
+                            {% endif %}
+
+                            <!-- Математическая формула ответа -->
+                            {% if answer.math_expression %}
+                                <div class="math-expression answer-math">
+                                    {{ answer.math_expression|safe }}
+                                </div>
+                            {% endif %}
+
+                            <!-- Изображение ответа -->
+                            {% if answer.image %}
+                            <div class="answer-image-container">
+                                <div class="answer-image">
+                                    <img src="{{ answer.image.url }}" alt="Изображение ответа"
+                                         onclick="openImageModal('{{ answer.image.url }}')">
+                                    <div class="zoom-indicator">🔍</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </label>
+                    {% empty %}
+                    <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px;">
+                        ❌ Нет вариантов ответов для этого вопроса
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="solution-section">
+                    <h4 class="solution-title">
+                        <i class="fi fi-sr-camera"></i> Загрузите фото вашего решения:
+                        <span class="required-asterisk">*</span>
+                    </h4>
+
+                    <div class="solution-upload-container" id="solutionUpload{{ question.id }}">
+                        <!-- Скрытый input с required -->
+                        <input type="file"
+                               name="solution_photo_{{ question.id }}"
+                               id="solutionPhoto{{ question.id }}"
+                               accept="image/*"
+                               capture="environment"
+                               class="solution-input-hidden"
+                               required
+                               onchange="previewSolutionImage(this, {{ question.id }})">
+
+                        <!-- Красивая кнопка загрузки -->
+                        <div class="solution-upload-card" id="uploadCard{{ question.id }}">
+                            <div class="upload-card-content" onclick="openSolutionCamera({{ question.id }})">
+                                <div class="upload-icon-main">
+                                    <i class="fi fi-sr-camera"></i>
+                                </div>
+                                <div class="upload-text-content">
+                                    <h5>Добавить фото решения <span class="required-badge">Обязательно</span></h5>
+                                    <p>Сфотографируйте ваше решение на бумаге или выберите файл</p>
+
+                                </div>
+                                <div class="upload-arrow">
+                                    <i class="fi fi-sr-arrow-right"></i>
+                                </div>
+                            </div>
+                            <div class="upload-required-message" id="requiredMessage{{ question.id }}" style="display: none;">
+                                <i class="fi fi-sr-exclamation"></i>
+                                <span>Пожалуйста, загрузите фото решения</span>
+                            </div>
+                        </div>
+
+                        <!-- Превью фото -->
+                        <div class="solution-preview-card" id="solutionPreview{{ question.id }}" style="display: none;">
+                            <div class="preview-header">
+                                <div class="preview-title">
+                                    <i class="fi fi-sr-check-circle"></i>
+                                    <span>Фото загружено</span>
+                                </div>
+                                <button type="button" class="preview-remove-btn" onclick="removeSolutionImage({{ question.id }})">
+                                    <i class="fi fi-sr-trash"></i>
+                                    Удалить
+                                </button>
+                            </div>
+                            <div class="preview-image-container">
+                                <img id="previewImage{{ question.id }}" src="" alt="Предпросмотр решения" class="preview-image">
+                                <div class="preview-overlay" onclick="openImageModal(document.getElementById('previewImage{{ question.id }}').src)">
+                                    <i class="fi fi-sr-search"></i>
+                                    Увеличить
+                                </div>
+                            </div>
+                            <div class="preview-info">
+                                <i class="fi fi-sr-info"></i>
+                                <span>Фото будет отправлено вместе с ответом</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-instruction">
+                        <div class="instruction-header">
+                            <i class="fi fi-sr-lightbulb"></i>
+                            <strong>Советы для хорошего фото:</strong>
+                        </div>
+                        <ul class="instruction-list">
+                            <li><i class="fi fi-sr-sun"></i> Хорошее освещение</li>
+                            <li><i class="fi fi-sr-square"></i> Прямой угол съемки</li>
+                            <li><i class="fi fi-sr-text"></i> Читаемый текст</li>
+                            <li><i class="fi fi-sr-crop"></i> Весь лист в кадре</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div style="background: #f8d7da; color: #721c24; padding: 20px; border-radius: 8px; text-align: center;">
+                <h3>❌ В тесте нет вопросов</h3>
+                <p>Администратор еще не добавил вопросы в этот тест</p>
+            </div>
+            {% endfor %}
+
+            {% if questions %}
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">
+                    <i class="fi fi-sr-check-circle"></i> Отправить ответы
+                </button>
+            </div>
+            {% endif %}
+        </form>
+        {% endif %}
+    </div>
+
+
+
+</div>
+<!-- Модальное окно для увеличения фото -->
+    <div id="imageModal" class="image-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeImageModal()">×</button>
+            <img id="modalImage" class="modal-image" src="" alt="Увеличенное изображение">
+        </div>
+    </div>
+    <script>
+
+        // Таймер
+{% if test.timer_seconds and test.timer_seconds > 0 %}
+(function(){
+    let seconds = {{ test.timer_seconds }};
+    const timerElement = document.getElementById('secs');
+    const form = document.getElementById('quiz-form');
+
+    const timerInterval = setInterval(() => {
+        seconds--;
+        timerElement.textContent = seconds;
+
+        // Меняем цвет при малом времени
+        if (seconds <= 30) {
+            document.getElementById('global-timer').style.background = '#dc2626';
+        }
+
+        if (seconds <= 0) {
+            clearInterval(timerInterval);
+
+            // ДОБАВИЛ: показываем уведомление об окончании времени
+            alert('⏰ Время вышло! Тест будет автоматически отправлен.');
+
+            // ДОБАВИЛ: принудительная отправка формы
+            if (form) {
+                form.submit();
+            } else {
+                // Если форма не найдена по ID, ищем другую форму
+                const anyForm = document.querySelector('form');
+                if (anyForm) anyForm.submit();
+            }
+        }
+    }, 1000);
+})();
+{% endif %}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Находим все радио-кнопки
+    const radioButtons = document.querySelectorAll('.answer-radio');
+
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Находим родительский question-card
+            const questionCard = this.closest('.question-card');
+            const answerOption = this.closest('.answer-option');
+
+            // Убираем выделение со всех ответов этого вопроса
+            questionCard.querySelectorAll('.answer-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Добавляем выделение выбранному ответу
+            answerOption.classList.add('selected');
+
+            // Отмечаем вопрос как отвеченный
+            questionCard.classList.remove('unanswered');
+            questionCard.classList.add('answered');
+        });
+    });
+
+    // Проверяем изначально выбранные ответы (если страница перезагружалась)
+    radioButtons.forEach(radio => {
+        if (radio.checked) {
+            const questionCard = radio.closest('.question-card');
+            const answerOption = radio.closest('.answer-option');
+
+            questionCard.classList.remove('unanswered');
+            questionCard.classList.add('answered');
+            answerOption.classList.add('selected');
+        }
+    });
+});
+
+function openImageModal(imageUrl) {
+    document.getElementById('modalImage').src = imageUrl;
+    document.getElementById('imageModal').classList.add('active');
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку
+}
+
+function closeImageModal() {
+    document.getElementById('imageModal').classList.remove('active');
+    document.body.style.overflow = ''; // Восстанавливаем прокрутку
+}
+
+// Закрытие по клику вне изображения
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeImageModal();
+    }
+});
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+
+// Функции для работы с фото решения
+function openSolutionCamera(questionId) {
+    const input = document.getElementById(`solutionPhoto${questionId}`);
+
+    // Пытаемся использовать камеру если доступно
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // На мобильных устройствах capture="environment" откроет камеру
+        input.click();
+    } else {
+        // На компьютере откроется стандартный диалог выбора файла
+        input.click();
+    }
+}
+
+function previewSolutionImage(input, questionId) {
+    const preview = document.getElementById(`previewImage${questionId}`);
+    const previewContainer = document.getElementById(`solutionPreview${questionId}`);
+    const uploadArea = document.getElementById(`solutionUpload${questionId}`);
+
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+
+        // Проверяем размер файла (максимум 5MB)
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+            alert('Файл слишком большой! Максимальный размер: 5MB');
+            input.value = '';
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+            uploadArea.classList.add('has-image');
+
+            // Скрываем плейсхолдер
+            const placeholder = uploadArea.querySelector('.upload-placeholder');
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+        }
+
+        reader.readAsDataURL(file);
+    }
+}
+
+function removeSolutionImage(questionId) {
+    const input = document.getElementById(`solutionPhoto${questionId}`);
+    const previewContainer = document.getElementById(`solutionPreview${questionId}`);
+    const uploadArea = document.getElementById(`solutionUpload${questionId}`);
+    const placeholder = uploadArea.querySelector('.upload-placeholder');
+
+    input.value = '';
+    previewContainer.style.display = 'none';
+    uploadArea.classList.remove('has-image');
+
+    // Показываем плейсхолдер обратно
+    if (placeholder) {
+        placeholder.style.display = 'flex';
+    }
+}
+
+// Обновите валидацию формы чтобы проверять фото
+document.getElementById('mathTestForm').addEventListener('submit', function(e) {
+    console.log('📱 Устройство:', navigator.userAgent);
+
+    let isValid = true;
+    const unansweredQuestions = [];
+    const missingSolutions = [];
+
+    // Проверяем имя
+    const studentName = document.querySelector('input[name="student_name"]');
+    if (!studentName.value.trim()) {
+        isValid = false;
+        studentName.style.borderColor = '#dc3545';
+    } else {
+        studentName.style.borderColor = '';
+    }
+
+    // Проверяем что выбран правильный ответ для каждого вопроса
+    const questions = document.querySelectorAll('.question-card');
+
+    questions.forEach((question, index) => {
+        const questionId = question.getAttribute('data-question');
+        const radioName = `q_${questionId}`;
+        const selectedAnswer = document.querySelector(`input[name="${radioName}"]:checked`);
+
+        // Проверяем загружено ли фото решения
+        const solutionInput = document.getElementById(`solutionPhoto${questionId}`);
+        const hasSolution = solutionInput && solutionInput.files.length > 0;
+
+        if (!selectedAnswer) {
+            isValid = false;
+            unansweredQuestions.push(index + 1);
+            question.classList.add('unanswered');
+            question.classList.remove('answered');
+        } else {
+            question.classList.remove('unanswered');
+            question.classList.add('answered');
+        }
+
+        // Проверяем фото решения (опционально, можно сделать обязательным)
+        if (!hasSolution) {
+            missingSolutions.push(index + 1);
+        }
+    });
+
+
+    if (!isValid) {
+        e.preventDefault();
+        let errorMessage = 'Пожалуйста, заполните все обязательные поля:\n';
+
+        if (!studentName.value.trim()) {
+            errorMessage += '• Введите ваше имя\n';
+        }
+
+        if (unansweredQuestions.length > 0) {
+            errorMessage += `• Ответьте на вопросы: ${unansweredQuestions.join(', ')}\n`;
+        }
+
+        // Опционально: можно сделать фото обязательным
+        if (missingSolutions.length > 0) {
+            errorMessage += `• Загрузите фото решений для вопросов: ${missingSolutions.join(', ')}\n`;
+        }
+
+        alert(errorMessage);
+
+        // Прокрутка к первому ошибке
+        if (!studentName.value.trim()) {
+            studentName.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            studentName.focus();
+        } else if (unansweredQuestions.length > 0) {
+            const firstErrorQuestion = document.querySelectorAll('.question-card')[unansweredQuestions[0] - 1];
+            firstErrorQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
+</script>
+
+
+</body>
+</html>

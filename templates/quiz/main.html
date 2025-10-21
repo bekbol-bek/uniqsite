@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Tests</title></head>
+<body>
+<h1>Все тесты</h1>
+{% if user.is_authenticated %}
+<p>Привет, {{ user.username }} — <a href="{% url 'quiz:profile' %}">Мой профиль</a></p>
+{% else %}
+<p><a href="/admin/login/">Войти</a> чтобы создавать тесты</p>
+{% endif %}
+<ul>
+{% for t in tests %}
+  <li><a href="{% url 'quiz:test_detail' t.id %}">{{ t.title }}</a> — {{ t.test_type }} — <a href="{% url 'quiz:take_test' t.public_id %}">Пройти</a></li>
+{% empty %}
+  <li>Тестов пока нет</li>
+{% endfor %}
+</ul>
+<a href="{% url 'quiz:create_test' %}">Создать тест</a>
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать текстовый тест: {{ test.title }}</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        :root {
+            --primary: #6366f1; /* или другой цвет */
+
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --accent: #28a745;
+
+        }
+
+        .create_text_test {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h2 {
+        color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        /* Стили для вопросов */
+        .question-block {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 5px solid #4facfe;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .question-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        /* Поля ввода */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-group input[type="text"]:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .input-group input[type="text"]::placeholder {
+            color: #6c757d;
+        }
+
+        /* Стили для ответов */
+        .answers-title {
+            color: #2c3e50;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+
+        .answer-block {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .answer-block:hover {
+            border-color: #4facfe;
+            transform: translateX(5px);
+        }
+
+        .answer-block.correct {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+        }
+
+        .answer-input {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .answer-input input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .answer-input input[type="text"]:focus {
+            border-color: #4facfe;
+            outline: none;
+        }
+
+        .correct-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border);
+        }
+
+        .correct-option:hover {
+            background: white;
+            border-color: var(--accent);
+
+        }
+
+        .correct-option input[type="radio"] {
+            transform: scale(1.2);
+            margin: 0;
+        }
+
+
+
+        .remove-answer-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .answer-block:hover .remove-answer-btn {
+            opacity: 1;
+        }
+
+        .remove-answer-btn:hover {
+            background: #5a6268;
+            transform: scale(1.1);
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            width: 100%;
+            justify-content: center;
+            margin-top: 0px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .add-answer-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 10px 20px;
+            font-size: 13px;
+        }
+
+        .add-answer-btn:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Контейнеры кнопок */
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            margin: 30px  0 ;
+            flex-wrap: wrap;
+
+        }
+
+        .buttons-container .btn {
+            flex: 1;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-block {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Валидация */
+        input:required:invalid {
+            border-color: #dc3545 !important;
+        }
+
+        input:required:valid {
+            border-color: #28a745 !important;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .content {
+                padding: 25px;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .answer-input {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            .buttons-container .btn {
+                width: 100%;
+            }
+
+            .remove-answer-btn {
+                opacity: 1;
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 5px;
+                margin-top: 10px;
+            }
+        }
+
+        /* Информационная панель */
+        .info-panel {
+            background: #e7f3ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .info-panel h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-panel ul {
+            color: #495057;
+            padding-left: 20px;
+        }
+
+        .info-panel li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="create_text_test">
+        <div class="header">
+            <h2> Создать текстовый тест</h2>
+            <p>Добавьте вопросы и ответы для вашего теста</p>
+        </div>
+
+        <div class="content">
+            <div class="info-panel">
+                <h3><i class="fi fi-sr-guide-alt"></i> Инструкция</h3>
+                <ul>
+                    <li>Добавьте минимум 1 вопрос и 2 ответа</li>
+                    <li>Отметьте правильный ответ для каждого вопроса</li>
+                    <li>Вы можете добавлять неограниченное количество вопросов и ответов</li>
+                </ul>
+            </div>
+
+            <form method="post" id="test-form">
+                {% csrf_token %}
+
+                <div id="questions-container">
+                    <!-- Первый вопрос -->
+                    <div class="question-block" data-question-index="0">
+                        <div class="question-header">
+                            <h3 class="question-title"> <i class="fi fi-sr-seal-question"></i> Вопрос 1</h3>
+                            <button type="button" class="remove-btn" onclick="removeQuestion(0)" style="display: none;">
+                                <i class="fi fi-br-x"></i>
+                            </button>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="text" name="question_text" placeholder="Введите текст вопроса" required>
+                        </div>
+
+                        <h4 class="answers-title"> <i class="fi fi-br-answer-alt"></i> Ответы</h4>
+                        <div id="answers-0">
+                            <!-- Ответ 1 -->
+                            <div class="answer-block">
+                                <button type="button" class="remove-answer-btn" onclick="removeAnswer(0, 0)">×</button>
+                                <div class="answer-input">
+                                    <input type="text" name="answers_0" placeholder="Введите вариант ответа" required>
+                                    <label class="correct-option">
+                                        <input type="radio" name="correct_answer_0" value="0" required>
+                                        <span class="correct-badge">Правильный</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Ответ 2 -->
+                            <div class="answer-block">
+                                <button type="button" class="remove-answer-btn" onclick="removeAnswer(0, 1)">×</button>
+                                <div class="answer-input">
+                                    <input type="text" name="answers_0" placeholder="Введите вариант ответа" required>
+                                    <label class="correct-option">
+                                        <input type="radio" name="correct_answer_0" value="1">
+                                        <span class="correct-badge">Правильный</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn add-answer-btn" onclick="addAnswer(0)">
+                            <i class="fi fi-br-plus"></i> Добавить ответ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="buttons-container">
+                    <button type="button" class="btn add-btn" onclick="addQuestion()">
+                        <i class="fi fi-sr-seal-question"></i> Добавить вопрос
+                    </button>
+
+                    <button type="submit" class="btn submit-btn">
+                        <i class="fi fi-sr-check-circle"></i> Завершить создание теста
+                    </button>
+                 </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let questionCount = 1;
+        let answerCounts = [2]; // Начальное количество ответов для первого вопроса
+
+        function addQuestion() {
+            const questionsContainer = document.getElementById('questions-container');
+            const newQuestionIndex = questionCount;
+
+            const newQuestion = `
+                <div class="question-block" data-question-index="${newQuestionIndex}">
+                    <div class="question-header">
+                        <h3 class="question-title"><i class="fi fi-sr-seal-question"></i> Вопрос ${newQuestionIndex + 1}</h3>
+                        <button type="button" class="remove-btn" onclick="removeQuestion(${newQuestionIndex})">
+                            <i class="fi fi-br-x"></i>
+                        </button>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" name="question_text" placeholder="Введите текст вопроса" required>
+                    </div>
+
+                    <h4 class="answers-title"><i class="fi fi-br-answer-alt"></i> Ответы</h4>
+                    <div id="answers-${newQuestionIndex}">
+                        <div class="answer-block">
+                            <button type="button" class="remove-answer-btn" onclick="removeAnswer(${newQuestionIndex}, 0)">×</button>
+                            <div class="answer-input">
+                                <input type="text" name="answers_${newQuestionIndex}" placeholder="Введите вариант ответа" required>
+                                <label class="correct-option">
+                                    <input type="radio" name="correct_answer_${newQuestionIndex}" value="0" required>
+                                    <span class="correct-badge">Правильный</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="answer-block">
+                            <button type="button" class="remove-answer-btn" onclick="removeAnswer(${newQuestionIndex}, 1)">×</button>
+                            <div class="answer-input">
+                                <input type="text" name="answers_${newQuestionIndex}" placeholder="Введите вариант ответа" required>
+                                <label class="correct-option">
+                                    <input type="radio" name="correct_answer_${newQuestionIndex}" value="1">
+                                    <span class="correct-badge">Правильный</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn add-answer-btn" onclick="addAnswer(${newQuestionIndex})">
+                        <i class="fi fi-br-plus"></i> Добавить ответ
+                    </button>
+                </div>
+            `;
+
+            questionsContainer.insertAdjacentHTML('beforeend', newQuestion);
+            answerCounts[newQuestionIndex] = 2;
+            questionCount++;
+
+            // Показываем кнопки удаления для всех вопросов кроме первого
+            updateRemoveButtons();
+        }
+
+        function addAnswer(questionIndex) {
+            const answersContainer = document.getElementById(`answers-${questionIndex}`);
+            const answerCount = answerCounts[questionIndex];
+            const newAnswerIndex = answerCount;
+
+            const newAnswer = `
+                <div class="answer-block">
+                    <button type="button" class="remove-answer-btn" onclick="removeAnswer(${questionIndex}, ${newAnswerIndex})">×</button>
+                    <div class="answer-input">
+                        <input type="text" name="answers_${questionIndex}" placeholder="Введите вариант ответа" required>
+                        <label class="correct-option">
+                            <input type="radio" name="correct_answer_${questionIndex}" value="${newAnswerIndex}">
+                            <span class="correct-badge">Правильный</span>
+                        </label>
+                    </div>
+                </div>
+            `;
+
+            answersContainer.insertAdjacentHTML('beforeend', newAnswer);
+            answerCounts[questionIndex]++;
+        }
+
+        function removeQuestion(questionIndex) {
+            if (questionCount > 1) {
+                const questionBlock = document.querySelector(`[data-question-index="${questionIndex}"]`);
+                if (questionBlock) {
+                    questionBlock.remove();
+                    questionCount--;
+                    renumberQuestions();
+                }
+            }
+        }
+
+        function removeAnswer(questionIndex, answerIndex) {
+            const answersContainer = document.getElementById(`answers-${questionIndex}`);
+            const answerBlocks = answersContainer.querySelectorAll('.answer-block');
+
+            if (answerBlocks.length > 2) {
+                answerBlocks[answerIndex].remove();
+                answerCounts[questionIndex]--;
+                renumberAnswers(questionIndex);
+            } else {
+                alert('Должно быть минимум 2 ответа!');
+            }
+        }
+
+        function renumberQuestions() {
+            const questions = document.querySelectorAll('.question-block');
+            questionCount = questions.length;
+
+            questions.forEach((questionBlock, index) => {
+                const questionIndex = index;
+                questionBlock.setAttribute('data-question-index', questionIndex);
+
+                // Обновляем заголовок
+                const title = questionBlock.querySelector('.question-title');
+                title.textContent = `Вопрос ${questionIndex + 1}`;
+
+                // Обновляем имена полей
+                const questionInput = questionBlock.querySelector('input[name="question_text"]');
+                questionInput.name = 'question_text';
+
+                // Обновляем ответы
+                renumberAnswers(questionIndex);
+            });
+        }
+
+        function renumberAnswers(questionIndex) {
+            const answersContainer = document.getElementById(`answers-${questionIndex}`);
+            const answerBlocks = answersContainer.querySelectorAll('.answer-block');
+
+            answerBlocks.forEach((block, index) => {
+                const answerInput = block.querySelector('input[type="text"]');
+                const radioInput = block.querySelector('input[type="radio"]');
+
+                answerInput.name = `answers_${questionIndex}`;
+                radioInput.name = `correct_answer_${questionIndex}`;
+                radioInput.value = index;
+
+                // Обновляем обработчик удаления
+                const removeBtn = block.querySelector('.remove-answer-btn');
+                removeBtn.setAttribute('onclick', `removeAnswer(${questionIndex}, ${index})`);
+            });
+
+            answerCounts[questionIndex] = answerBlocks.length;
+        }
+
+        function updateRemoveButtons() {
+            const removeButtons = document.querySelectorAll('.remove-btn');
+            removeButtons.forEach(btn => {
+                btn.style.display = 'flex';
+            });
+        }
+
+        // Подсветка правильного ответа
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'radio') {
+                // Снимаем подсветку со всех ответов этого вопроса
+                const questionBlock = e.target.closest('.question-block');
+                questionBlock.querySelectorAll('.answer-block').forEach(block => {
+                    block.classList.remove('correct');
+                });
+
+                // Подсвечиваем выбранный ответ
+                e.target.closest('.answer-block').classList.add('correct');
+            }
+        });
+
+        // Валидация формы
+        document.getElementById('test-form').addEventListener('submit', function(e) {
+            let isValid = true;
+            const questions = document.querySelectorAll('.question-block');
+
+            questions.forEach((question, qIndex) => {
+                const questionText = question.querySelector('input[name="question_text"]');
+                const answers = question.querySelectorAll('input[type="text"]');
+                const correctAnswer = question.querySelector('input[type="radio"]:checked');
+
+                if (!questionText.value.trim()) {
+                    questionText.style.borderColor = '#dc3545';
+                    isValid = false;
+                }
+
+                if (!correctAnswer) {
+                    alert(`Выберите правильный ответ для вопроса ${qIndex + 1}`);
+                    isValid = false;
+                }
+
+                answers.forEach((answer, aIndex) => {
+                    if (!answer.value.trim()) {
+                        answer.style.borderColor = '#dc3545';
+                        isValid = false;
+                    }
+                });
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('Пожалуйста, заполните все поля и выберите правильные ответы!');
+            }
+        });
+    </script>
+</body>
+</html>

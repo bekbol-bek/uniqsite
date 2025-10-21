@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Прохождение: {{ test.title }}</title></head>
+<body>
+<h1>{{ test.title }}</h1>
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="student_name" value="{{ user.username }}">
+  {% if test.timer_seconds and test.timer_seconds > 0 %}
+    <p>Осталось: <span id="timer">{{ test.timer_seconds }}</span> сек</p>
+  {% endif %}
+  {% for item in qa %}
+    <div style="border:1px solid #ccc; padding:8px; margin:8px 0;">
+      <p><strong>Вопрос {{ forloop.counter }}:</strong> {{ item.question.text }}</p>
+      {% if item.question.image %}
+        <img src="{{ item.question.image.url }}" alt="image" style="max-width:300px;">
+      {% endif %}
+      {% if item.question.audio %}
+        <p><audio controls src="{{ item.question.audio.url }}"></audio></p>
+      {% endif %}
+      <ul>
+        {% for a in item.answers %}
+          <li>
+            <label><input type="radio" name="answer_{{ item.question.id }}" value="{{ a.id }}"> {{ a.text }}</label>
+          </li>
+        {% empty %}
+          <li>Вариантов нет</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+  <button type="submit">Отправить ответы</button>
+</form>
+
+<script>
+(function(){
+  var secs = {{ test.timer_seconds|default:0 }};
+  if(secs > 0){
+    var el = document.getElementById('timer');
+    var t = secs;
+    var interval = setInterval(function(){
+      t -= 1;
+      el.textContent = t;
+      if(t <= 0){
+        clearInterval(interval);
+        // auto submit when time is up
+        document.forms[0].submit();
+      }
+    }, 1000);
+  }
+})();
+</script>
+
+</body>
+</html>

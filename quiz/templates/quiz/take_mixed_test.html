@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <title>Смешанный тест: {{ test.title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .test-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    padding: 40px 30px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.test-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3C/svg%3E");
+    background-size: 1200px 120px;
+    background-position: 0% 0%;
+    background-repeat: repeat-x;
+    animation: waveMove 10s linear infinite;
+    z-index: 1;
+}
+
+@keyframes waveMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 1200px 0%;
+    }
+}
+
+.test-header h1,
+.test-header p {
+    position: relative;
+    z-index: 2;
+}
+        .test-content {
+            padding: 40px;
+        }
+
+        .student-info {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            color: white;
+
+        }
+
+        .student-info input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-left: 6px solid #4facfe;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #6366f1;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .question-media {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .question-image {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .question-audio {
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .math-expression {
+            font-family: 'Times New Roman', 'Cambria Math', serif;
+            font-size: 1.4em;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 15px 0;
+            border: 2px dashed #e2e8f0;
+        }
+
+
+
+
+       .answers-container {
+    margin-top: 25px;
+}
+
+.answer-label {
+    display: flex;
+    align-items: flex-start; /* ДОБАВИЛ: выравнивание по верху для контента */
+    gap: 15px;
+    padding: 20px;
+    margin: 12px 0;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative; /* ДОБАВИЛ: для позиционирования псевдоэлементов */
+}
+
+.answer-label:hover {
+    border-color: #4facfe;
+    background: white;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.15);
+}
+
+.answer-label:has(.answer-radio:checked) {
+    border-color: #10b981;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.answer-radio {
+    transform: scale(1.3);
+    accent-color: #4facfe;
+    /* ДОБАВИЛ: скрываем нативный radio и создаем кастомный */
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* ДОБАВИЛ: кастомный индикатор выбора */
+.answer-label::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-top: 0; /* ДОБАВИЛ: для выравнивания с контентом */
+}
+
+.answer-label:has(.answer-radio:checked)::before {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.answer-label:has(.answer-radio:checked)::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    left: 29px; /* ДОБАВИЛ: позиция галочки (15px gap + 2px border + padding) */
+    top: 30px; /* ДОБАВИЛ: вертикальное выравнивание */
+    transform: translateY(-50%);
+
+}
+
+.answer-content {
+    flex: 1; /* ДОБАВИЛ: растягиваем контент на всю ширину */
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* ДОБАВИЛ: отступы между элементами контента */
+}
+
+.answer-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #2d3748;
+}
+
+.answer-image-container {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+}
+
+.answer-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: zoom-in;
+}
+
+.answer-audio-container {
+    margin-top: 8px;
+}
+
+.answer-audio {
+    border-radius: 8px;
+}
+
+.zoom-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.answer-image-container:hover .zoom-indicator {
+    opacity: 1;
+}
+
+        .matching-container {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .matching-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .matching-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .matching-select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .error-answer {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            min-height: 120px;
+            font-size: 1em;
+            resize: vertical;
+            margin: 15px 0;
+        }
+
+        .submit-btn {
+    width: 50%;
+    padding: 20px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 10px auto; /* Автоматические отступы по бокам */
+    display: block; /* Блочный элемент для margin: auto */
+    transition: all 0.3s ease;
+}
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Стили для математических выражений */
+        .integral-with-limits {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+
+        .integral-upper {
+            font-size: 0.8em;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+
+        .integral-lower {
+            font-size: 0.8em;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .integral-symbol {
+            font-size: 1.8em;
+            line-height: 1;
+        }
+
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 3px;
+        }
+
+        .numerator {
+            display: block;
+            border-bottom: 1px solid #000;
+            padding: 0 5px;
+        }
+
+        .denominator {
+            display: block;
+            padding: 0 5px;
+        }
+
+        .sqrt {
+            position: relative;
+            padding-left: 15px;
+            margin: 0 2px;
+        }
+
+        .sqrt::before {
+            content: "√";
+            position: absolute;
+            left: 0;
+            top: -1px;
+            font-size: 1.2em;
+        }
+
+        .superscript {
+            font-size: 0.8em;
+            vertical-align: super;
+        }
+
+        .subscript {
+            font-size: 0.8em;
+            vertical-align: sub;
+        }
+
+        /* Мобильные стили для body и всего контейнера */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        background: #f8fafc;
+    }
+
+    .test-container {
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .test-header {
+        padding: 25px 15px;
+        margin: 0;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .test-header::after {
+        height: 80px;
+        background-size: 800px 80px;
+    }
+
+    .test-header h1 {
+        font-size: 1.4em;
+        margin-bottom: 8px;
+    }
+
+    .test-header p {
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    .test-content {
+        padding: 20px 15px;
+    }
+
+    .student-info {
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .student-info input {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .question-card {
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        border-left: 4px solid #4facfe;
+    }
+
+    .question-number {
+        padding: 6px 12px;
+        font-size: 0.9em;
+        margin-bottom: 12px;
+    }
+
+    .question-text {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .question-image {
+        max-height: 250px;
+    }
+
+    .math-expression {
+        font-size: 1.2em;
+        padding: 15px;
+        margin: 10px 0;
+    }
+
+    .answers-container {
+        margin-top: 20px;
+    }
+
+    .answer-option {
+        padding: 15px;
+        margin: 8px 0;
+        border-radius: 12px;
+        gap: 12px;
+    }
+
+    .answer-option:hover {
+        transform: translateX(3px);
+    }
+
+    .answer-radio {
+        transform: scale(1.2);
+    }
+
+    .answer-content {
+        gap: 8px;
+    }
+
+    .answer-text {
+        font-size: 1em;
+    }
+
+    .answer-image {
+        max-width: 150px;
+        max-height: 120px;
+    }
+
+    .matching-container {
+        gap: 12px;
+    }
+
+    .matching-item {
+        padding: 12px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .matching-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .matching-select {
+        width: 100%;
+    }
+
+    .error-answer {
+        padding: 12px;
+        min-height: 100px;
+        font-size: 0.9em;
+    }
+
+    .submit-btn {
+        width: 90%;
+        padding: 18px;
+        font-size: 1.1em;
+        margin: 20px auto;
+    }
+}
+
+/* Стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .test-container {
+        border-radius: 12px;
+    }
+
+    .test-header {
+        padding: 20px 12px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .test-header h1 {
+        font-size: 1.2em;
+    }
+
+    .test-content {
+        padding: 15px 12px;
+    }
+
+    .question-card {
+        padding: 15px;
+    }
+
+    .answer-option {
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .answer-content {
+        width: 100%;
+    }
+
+    .submit-btn {
+        width: 95%;
+        padding: 16px;
+        font-size: 1em;
+    }
+
+    .math-expression {
+        font-size: 1.1em;
+        padding: 12px;
+    }
+}
+
+/* Горизонтальная ориентация на мобильных */
+@media (max-width: 768px) and (orientation: landscape) {
+    .test-header {
+        padding: 20px 15px;
+    }
+
+    .test-header h1 {
+        font-size: 1.3em;
+    }
+
+    .question-card {
+        padding: 15px;
+    }
+
+    .answer-option {
+        padding: 12px;
+    }
+}
+
+/* Планшеты */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .test-container {
+        width: 90%;
+        max-width: 700px;
+    }
+
+    .test-content {
+        padding: 30px;
+    }
+
+    .question-card {
+        padding: 25px;
+    }
+
+    .submit-btn {
+        width: 60%;
+    }
+}
+        .form-group {
+            margin-bottom: 10px;
+
+
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 15px;
+            margin-top: 14px;
+            color: white;
+            font-size:1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+
+        /* Стили для модального окна */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Индикатор зума для изображений */
+.zoomable-image {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.zoomable-image:hover {
+    transform: scale(1.02);
+}
+
+        /* Стили для аудио контейнеров */
+.audio-container {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9ff;
+    border-radius: 10px;
+    border-left: 4px solid #6f42c1;
+}
+
+.audio-container h4 {
+    margin-bottom: 10px;
+    color: #6f42c1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.audio-info {
+    margin-top: 8px;
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.answer-audio-container {
+    margin-top: 10px;
+}
+
+/* Стили для аудио плееров */
+.question-audio, .answer-audio {
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Улучшенные стили для выбранных ответов с аудио */
+.answer-option.selected .answer-audio-container {
+    background: #e8f4fd;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #2196F3;
+}
+
+/* Адаптивность для аудио */
+@media (max-width: 768px) {
+    .question-audio, .answer-audio {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .audio-container {
+        padding: 10px;
+    }
+}
+
+        .timer {
+            background: var(--danger);
+            color: white;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="fi fi-br-bullseye-arrow"></i> Смешанный тест: {{ test.title }}</h1>
+            {% if test.description %}
+                <p>{{ test.description }}</p>
+            {% endif %}
+        </div>
+
+        <div class="test-content">
+            {% if already_completed %}
+            <div style="background: #fff3cd; color: #856404; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+                <h3>⚠️ Вы уже проходили этот тест</h3>
+                <p>Каждый тест можно пройти только один раз</p>
+                <a href="{% url 'quiz:show_result' existing_result.id %}"
+                   style="background: #007bff; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none;">
+                    📊 Посмотреть результат
+                </a>
+            </div>
+            {% else %}
+            <form method="post" action="{% url 'quiz:process_test_results' test.public_id %}">
+                {% csrf_token %}
+
+                <div class="student-info">
+                    <h3 style="margin-bottom: 15px; color: white;"><i class="fi fi-sr-employee-man-alt"></i> Ваши данные</h3>
+                    <input type="text" name="student_name" placeholder="Введите ваше имя">
+                    <div class="form-group">
+                    <label class="form-label required"><i class="fi fi-ss-users-class"></i> Ваш класс (опционально)</label>
+                    <select name="class_group" class="form-input form-select" required>
+                            <option value="">-- Не выбрано --</option>
+                            <option value="1-А">1-А</option>
+                            <option value="1-Б">1-Б</option>
+                            <option value="1-В">1-В</option>
+                            <option value="1-Г">1-Г</option>
+                            <option value="1-Д">1-Д</option>
+                            <option value="1-Е">1-Е</option>
+                            <option value="1-Ж">1-Ж</option>
+                            <option value="1-З">1-З</option>
+                            <option value="1-И">1-И</option>
+                            <option value="1-К">1-К</option>
+
+                            <option value="2-А">2-А</option>
+                            <option value="2-Б">2-Б</option>
+                            <option value="2-В">2-В</option>
+                            <option value="2-Г">2-Г</option>
+                            <option value="2-Д">2-Д</option>
+                            <option value="2-Е">2-Е</option>
+                            <option value="2-Ж">2-Ж</option>
+                            <option value="2-З">2-З</option>
+                            <option value="2-И">2-И</option>
+                            <option value="2-К">2-К</option>
+
+                            <option value="3-А">3-А</option>
+                            <option value="3-Б">3-Б</option>
+                            <option value="3-В">3-В</option>
+                            <option value="3-Г">3-Г</option>
+                            <option value="3-Д">3-Д</option>
+                            <option value="3-Е">3-Е</option>
+                            <option value="3-Ж">3-Ж</option>
+                            <option value="3-З">3-З</option>
+                            <option value="3-И">3-И</option>
+                            <option value="3-К">3-К</option>
+
+                            <option value="4-А">4-А</option>
+                            <option value="4-Б">4-Б</option>
+                            <option value="4-В">4-В</option>
+                            <option value="4-Г">4-Г</option>
+                            <option value="4-Д">4-Д</option>
+                            <option value="4-Е">4-Е</option>
+                            <option value="4-Ж">4-Ж</option>
+                            <option value="4-З">4-З</option>
+                            <option value="4-И">4-И</option>
+                            <option value="4-К">4-К</option>
+
+                            <option value="5-А">5-А</option>
+                            <option value="5-Б">5-Б</option>
+                            <option value="5-В">5-В</option>
+                            <option value="5-Г">5-Г</option>
+                            <option value="5-Д">5-Д</option>
+                            <option value="5-Е">5-Е</option>
+                            <option value="5-Ж">5-Ж</option>
+                            <option value="5-З">5-З</option>
+                            <option value="5-И">5-И</option>
+                            <option value="5-К">5-К</option>
+
+                            <option value="6-А">6-А</option>
+                            <option value="6-Б">6-Б</option>
+                            <option value="6-В">6-В</option>
+                            <option value="6-Г">6-Г</option>
+                            <option value="6-Д">6-Д</option>
+                            <option value="6-Е">6-Е</option>
+                            <option value="6-Ж">6-Ж</option>
+                            <option value="6-З">6-З</option>
+                            <option value="6-И">6-И</option>
+                            <option value="6-К">6-К</option>
+
+                            <option value="7-А">7-А</option>
+                            <option value="7-Б">7-Б</option>
+                            <option value="7-В">7-В</option>
+                            <option value="7-Г">7-Г</option>
+                            <option value="7-Д">7-Д</option>
+                            <option value="7-Е">7-Е</option>
+                            <option value="7-Ж">7-Ж</option>
+                            <option value="7-З">7-З</option>
+                            <option value="7-И">7-И</option>
+                            <option value="7-К">7-К</option>
+
+                            <option value="8-А">8-А</option>
+                            <option value="8-Б">8-Б</option>
+                            <option value="8-В">8-В</option>
+                            <option value="8-Г">8-Г</option>
+                            <option value="8-Д">8-Д</option>
+                            <option value="8-Е">8-Е</option>
+                            <option value="8-Ж">8-Ж</option>
+                            <option value="8-З">8-З</option>
+                            <option value="8-и">8-И</option>
+                            <option value="8-К">8-К</option>
+
+                            <option value="9-А">9-А</option>
+                            <option value="9-Б">9-Б</option>
+                            <option value="9-В">9-В</option>
+                            <option value="9-Г">9-Г</option>
+                            <option value="9-Д">9-Д</option>
+                            <option value="9-Е">9-Е</option>
+                            <option value="9-Ж">9-Ж</option>
+                            <option value="9-З">9-З</option>
+                            <option value="9-И">9-И</option>
+                            <option value="9-К">9-К</option>
+
+                            <option value="10-А">10-А</option>
+                            <option value="10-Б">10-Б</option>
+                            <option value="10-В">10-В</option>
+                            <option value="10-Г">10-Г</option>
+                            <option value="10-Д">10-Д</option>
+                            <option value="10-Е">10-Е</option>
+                            <option value="10-Ж">10-Ж</option>
+                            <option value="10-З">10-З</option>
+                            <option value="10-И">10-И</option>
+                            <option value="10-К">10-К</option>
+
+                            <option value="11-А">11-А</option>
+                            <option value="11-Б">11-Б</option>
+                            <option value="11-В">11-В</option>
+                            <option value="11-Г">11-Г</option>
+                            <option value="11-Д">11-Д</option>
+                            <option value="11-Е">11-Е</option>
+                            <option value="11-Ж">11-Ж</option>
+                            <option value="11-З">11-З</option>
+                            <option value="11-И">11-И</option>
+                            <option value="11-К">11-К</option>
+                        </select>
+                </div>
+
+                </div>
+                <!-- Таймер -->
+                    {% if test.timer_seconds and test.timer_seconds > 0 %}
+                        <div id="global-timer" class="timer">
+                            <i class="fi fi-br-duration-alt"></i> Осталось времени: <span id="secs">{{ test.timer_seconds }}</span> сек
+                        </div>
+                    {% endif %}
+
+                {% for question in questions %}
+
+                <div class="question-card">
+                    <div class="question-number">Вопрос {{ forloop.counter }}</div>
+
+                    <!-- Текст вопроса -->
+                    {% if question.text %}
+                    <div class="question-text">{{ question.text }}</div>
+                    {% endif %}
+
+                    <!-- Медиа контент вопроса -->
+                    <div class="question-media">
+                        {% if question.image %}
+                        <div class="question-image-container">
+                            <img src="{{ question.image.url }}"
+                                 class="question-image zoomable-image"
+                                 alt="Изображение вопроса"
+                                 onclick="openImageModal('{{ question.image.url }}')">
+                            <div class="zoom-indicator">🔍 Нажмите для увеличения</div>
+                        </div>
+                        {% endif %}
+
+                        {% if question.audio %}
+                        <div class="audio-container">
+                            <h4><i class="fi fi-sr-music-alt"></i> Аудио вопроса:</h4>
+                            <audio controls class="question-audio" style="width: 100%; max-width: 400px;">
+                                <source src="{{ question.audio.url }}" type="audio/mpeg">
+                                <source src="{{ question.audio.url }}" type="audio/wav">
+                                <source src="{{ question.audio.url }}" type="audio/ogg">
+                                Ваш браузер не поддерживает аудио элементы.
+                            </audio>
+                            <div class="audio-info">
+                                <small>Прослушайте аудио и выберите правильный ответ</small>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if question.math_expression %}
+                        <div class="math-expression">{{ question.math_expression|safe }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Варианты ответов в зависимости от типа вопроса -->
+                   <!-- Варианты ответов в зависимости от типа вопроса -->
+                    <!-- Варианты ответов -->
+                    <div class="answers-container">
+                        <h4 style="color: #4a5568; margin-bottom: 15px;"><i class="fi fi-sr-choose"></i> Выберите правильный ответ:</h4>
+                        {% for answer in question.answers.all %}
+                        <label class="answer-label">
+
+                            <input type="radio" name="q_{{ question.id }}" value="{{ answer.id }}" required class="answer-radio">
+                            <div class="custom-radio-indicator"></div>
+                            <div class="answer-content">
+                                {% if answer.text %}
+                                <div class="answer-text">{{ answer.text }}</div>
+                                {% endif %}
+
+                                {% if answer.image %}
+                                <div class="answer-image-container">
+                                    <img src="{{ answer.image.url }}"
+                                         class="answer-image zoomable-image"
+                                         alt="Изображение ответа"
+                                         onclick="openImageModal('{{ answer.image.url }}')">
+                                    <div class="zoom-indicator"></div>
+                                </div>
+                                {% endif %}
+
+                                {% if answer.audio_file %}  <!-- ИЗМЕНЕНО: audio_file вместо audio -->
+                                <!-- ДОБАВЬТЕ ЭТУ ОТЛАДКУ ДЛЯ АУДИО -->
+
+                                <div class="answer-audio-container">
+                                    <audio controls class="answer-audio" style="width: 100%; max-width: 300px;">
+                                        <source src="{{ answer.audio_file.url }}" type="audio/mpeg">  <!-- ИЗМЕНЕНО: audio_file.url -->
+                                        <source src="{{ answer.audio_file.url }}" type="audio/wav">   <!-- ИЗМЕНЕНО: audio_file.url -->
+                                        <source src="{{ answer.audio_file.url }}" type="audio/ogg">   <!-- ИЗМЕНЕНО: audio_file.url -->
+                                        Ваш браузер не поддерживает аудио элементы.
+                                    </audio>
+                                </div>
+                                {% else %}
+                                <!-- ЕСЛИ АУДИО НЕТ - ПОКАЖЕМ ЭТО -->
+
+                                {% endif %}
+                            </div>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="submit-btn">
+                    <i class="fi fi-sr-check-circle"></i> Отправить ответы
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+<!-- Модальное окно (добавьте в конец body) -->
+<div id="imageModal" class="image-modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeImageModal()">×</button>
+        <img id="modalImage" class="modal-image" src="" alt="Увеличенное изображение">
+    </div>
+</div>
+    <script>
+
+        // Таймер
+        {% if test.timer_seconds and test.timer_seconds > 0 %}
+        (function(){
+            let seconds = {{ test.timer_seconds }};
+            const timerElement = document.getElementById('secs');
+            const form = document.getElementById('quiz-form');
+
+            const timerInterval = setInterval(() => {
+                seconds--;
+                timerElement.textContent = seconds;
+
+                // Меняем цвет при малом времени
+                if (seconds <= 30) {
+                    document.getElementById('global-timer').style.background = '#dc2626';
+                }
+
+                if (seconds <= 0) {
+                    clearInterval(timerInterval);
+
+                    // ДОБАВИЛ: показываем уведомление об окончании времени
+                    alert('⏰ Время вышло! Тест будет автоматически отправлен.');
+
+                    // ДОБАВИЛ: принудительная отправка формы
+                    if (form) {
+                        form.submit();
+                    } else {
+                        // Если форма не найдена по ID, ищем другую форму
+                        const anyForm = document.querySelector('form');
+                        if (anyForm) anyForm.submit();
+                    }
+                }
+            }, 1000);
+        })();
+        {% endif %}
+
+        // Подсветка выбранных ответов
+        document.querySelectorAll('.answer-radio').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const questionCard = this.closest('.question-card');
+                questionCard.querySelectorAll('.answer-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+
+                if (this.checked) {
+                    this.closest('.answer-option').classList.add('selected');
+                }
+            });
+        });
+
+        // Автоподсветка при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.answer-radio:checked').forEach(radio => {
+                radio.closest('.answer-option').classList.add('selected');
+            });
+        });
+
+        // Открытие модального окна
+function openImageModal(imageUrl) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+
+    modalImage.src = imageUrl;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
+}
+
+// Закрытие модального окна
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Восстанавливаем прокрутку
+}
+
+// Закрытие по клику вне изображения
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeImageModal();
+    }
+});
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+        // Улучшенная обработка аудио элементов
+document.addEventListener('DOMContentLoaded', function() {
+    // Автовоспроизведение для вопросов с аудио (по желанию пользователя)
+    const audioQuestions = document.querySelectorAll('.question-audio');
+
+    audioQuestions.forEach(audio => {
+        // Добавляем кнопку повторного прослушивания
+        const container = audio.parentElement;
+        const replayBtn = document.createElement('button');
+        replayBtn.innerHTML = '<i class="fi fi-sr-refresh"></i> Прослушать еще раз';
+        replayBtn.className = 'replay-audio-btn';
+        replayBtn.style.cssText = `
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #6f42c1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        `;
+
+        replayBtn.addEventListener('click', function() {
+            audio.currentTime = 0;
+            audio.play();
+        });
+
+        container.appendChild(replayBtn);
+    });
+
+    // Подсветка выбранных ответов с аудио
+    document.querySelectorAll('.answer-radio').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const questionCard = this.closest('.question-card');
+            questionCard.querySelectorAll('.answer-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            if (this.checked) {
+                this.closest('.answer-option').classList.add('selected');
+            }
+        });
+    });
+
+    // Автоподсветка при загрузке страницы
+    document.querySelectorAll('.answer-radio:checked').forEach(radio => {
+        radio.closest('.answer-option').classList.add('selected');
+    });
+});
+
+// Функция для приостановки всех аудио кроме текущего
+function pauseOtherAudios(currentAudio) {
+    document.querySelectorAll('audio').forEach(audio => {
+        if (audio !== currentAudio && !audio.paused) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    });
+}
+
+// Добавляем обработчики для всех аудио элементов
+document.querySelectorAll('audio').forEach(audio => {
+    audio.addEventListener('play', function() {
+        pauseOtherAudios(this);
+    });
+});
+    </script>
+</body>
+</html>

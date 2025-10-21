@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <title>Результаты учеников</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            composes: glass-card;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+       .stat-card h3 {
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+        .stat-card p {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card:nth-child(2) p {
+            background: linear-gradient(135deg, var(--success), #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .test-results {
+            composes: glass-card;
+            padding: 40px;
+        }
+
+        .test-results h2 {
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .test-results h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .test-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 20px 20px 0 0;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .test-header h3 {
+            color: var(--dark);
+            font-size: 1.4em;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .btn-details {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        .classes-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 16px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .classes-container strong {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .class-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 4px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .class-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-item:nth-child(1) {
+    text-align: center;
+    padding: 20px;
+    background: rgba(254, 243, 199, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item:nth-child(2) {
+    text-align: center;
+    padding: 20px;
+    background: rgba(224, 242, 254, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item:nth-child(3) {
+    text-align: center;
+    padding: 20px;
+    background: rgba(220, 252, 231, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item:nth-child(4) {
+    text-align: center;
+    padding: 20px;
+    background: rgba(243, 232, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item strong {
+            display: block;
+            color: var(--gray);
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .stat-item span {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .recent-attempts {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .recent-attempts h4 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .results-table th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .results-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            color: var(--dark);
+        }
+
+        .results-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .results-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .score-excellent {
+            color: var(--success);
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .score-good {
+            color: var(--warning);
+            font-weight: 700;
+            background: rgba(245, 158, 11, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .score-poor {
+            color: var(--danger);
+            font-weight: 700;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .more-attempts {
+            text-align: center;
+            margin-top: 15px;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 80px 40px;
+            color: var(--gray);
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-results h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .no-results p {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .test-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .test-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-details {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .results-table {
+                font-size: 0.9em;
+            }
+
+            .results-table th,
+            .results-table td {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 25px;
+            }
+
+            .test-card {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fi fi-bs-chart-simple-horizontal"></i> Результаты учеников</h1>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3><i class="fi fi-ss-users"></i> Всего учеников</h3>
+                <p>{{ total_students }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3><i class="fi fi-br-chart-histogram"></i> Всего попыток</h3>
+                <p>{{ total_attempts }}</p>
+            </div>
+        </div>
+
+        <div class="test-results">
+            <h2>Результаты по тестам</h2>
+
+            {% for test, results in test_results.items %}
+            <div class="test-card">
+                <div class="test-header">
+                    <h3>{{ test.title }}</h3>
+                    <a href="{% url 'quiz:test_student_results' test.public_id %}" class="btn-details">
+                        <i class="fi fi-sr-mobile"></i> Детальные результаты
+                    </a>
+                </div>
+
+               <!-- Отображение классов -->
+                <!-- Отображение классов -->
+
+<!-- Отображение классов -->
+<div class="classes-container">
+    <strong><i class="fi fi-sr-users-class"></i>  Классы:</strong>
+    {% for result in results|dictsort:"class_name" %}
+        {% if result.class_name %}
+            {% ifchanged result.class_name %}
+                <span class="class-badge">{{ result.class_name }}</span>
+            {% endifchanged %}
+        {% endif %}
+    {% empty %}
+        <span style="color: #6c757d;">Классы не указаны</span>
+    {% endfor %}
+</div>
+                <!-- Статистика -->
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <strong><i class="fi fi-ss-users"></i> Учеников</strong>
+                        <span>{{ results|length }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong><i class="fi fi-br-chart-histogram"></i> Попыток</strong>
+                        <span>{{ results.count }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong><i class="fi fi-sr-chart-simple-horizontal"></i> Средний балл</strong>
+                        <span>
+                            {% if results %}
+                                {% with total=0 %}
+                                    {% for result in results %}
+                                        {% if forloop.first %}
+                                            {{ result.percentage|default:0|floatformat:1 }}%
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                            {% else %}
+                                0%
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <strong><i class="fi fi-sr-ranking-star"></i> Лучший</strong>
+                        <span>
+                            {% if results %}
+                                {% with best=results|first %}
+                                    {{ best.percentage|default:0|floatformat:1 }}%
+                                {% endwith %}
+                            {% else %}
+                                0%
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Последние попытки -->
+                {% if results %}
+                <div class="recent-attempts">
+                    <h4><i class="fi fi-br-bullseye-arrow"></i>  Последние попытки</h4>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Ученик</th>
+                                <th>Класс</th>
+                                <th>Дата</th>
+                                <th>Баллы</th>
+                                <th>Процент</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results|slice:":5" %}
+                            <tr>
+                                <td>
+                                    <strong>
+                                        {% if result.student_name %}
+                                            {{ result.student_name }}
+                                        {% else %}
+                                            Аноним
+                                        {% endif %}
+                                    </strong>
+                                </td>
+                                <td>
+                                    {% if result.class_name %}
+                                        <span class="class-badge" style="font-size: 0.75em; padding: 4px 10px;">{{ result.class_name }}</span>
+                                    {% else %}
+                                        <span style="color: #6c757d;">—</span>
+                                    {% endif %}
+                                </td>
+                                <td style="text-align: center;">{{ result.completed_at|date:"d.m.Y" }}</td>
+                                <td style="text-align: center;">{{ result.score }}/{{ result.total_questions }}</td>
+                                <td style="text-align: center;">
+                                    <span class="{% if result.percentage >= 80 %}score-excellent{% elif result.percentage >= 60 %}score-good{% else %}score-poor{% endif %}">
+                                        {{ result.percentage }}%
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if results.count > 5 %}
+                    <p class="more-attempts">... и еще {{ results.count|add:"-5" }} попыток</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div class="no-results">
+                <h3>📭 Пока нет результатов</h3>
+                <p>Ученики еще не проходили ваши тесты</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

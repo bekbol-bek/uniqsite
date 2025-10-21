@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>{{ test.title }}</title></head>
+<body>
+<h1>{{ test.title }}</h1>
+<p>{{ test.description }}</p>
+<p>Тип: {{ test.test_type }} | Таймер: {{ test.timer_seconds }} сек | Перемешать вопросы: {{ test.shuffle_questions }} | Перемешать ответы: {{ test.shuffle_answers }}</p>
+<p><a href="{% url 'quiz:take_test' test.public_id %}">Пройти тест</a></p>
+<p><a href="{% url 'quiz:profile' %}">Назад</a></p>
+</body>
+</html>

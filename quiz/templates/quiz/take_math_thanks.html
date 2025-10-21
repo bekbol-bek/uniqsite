@@ -1,0 +1,81 @@
+<!-- quiz/templates/quiz/take_math_thanks.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест завершен - {{ test.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .score {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+        .percentage {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>Математический тест завершен!</h1>
+        <h2>{{ test.title }}</h2>
+
+        <div class="score">
+            Правильных ответов: <strong>{{ correct }} из {{ total }}</strong>
+        </div>
+
+        <div class="percentage">
+            {{ percentage|floatformat:1 }}%
+        </div>
+
+        <p>Спасибо за прохождение теста!</p>
+
+        <div>
+            <a href="/" class="btn">🏠 На главную</a>
+            <a href="{% url 'quiz:take_math_test' test.public_id %}" class="btn">🔄 Пройти еще раз</a>
+        </div>
+    </div>
+</body>
+</html>

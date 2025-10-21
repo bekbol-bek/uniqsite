@@ -1,0 +1,1160 @@
+<!-- create_voice_test.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать голосовой тест</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-chubby/css/uicons-regular-chubby.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    {% load static %}
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #f59e0b;
+        --success: #10b981;
+        --danger: #ef4444;
+        --dark: #1f2937;
+        --light: #f8fafc;
+        --gray: #6b7280;
+        --border: #e5e7eb;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: var(--dark);
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    .voice-test-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 30px;
+        align-items: start;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content {
+        composes: glass-card;
+        overflow: hidden;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        padding: 30px;
+        text-align: center;
+        color: white;
+        border-radius: 24px 24px 0 0;
+    }
+
+    .header h2 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .header p {
+        font-size: 1.1em;
+        opacity: 0.9;
+    }
+
+    .content {
+        padding: 40px;
+        background: white;
+    }
+
+    .help-sidebar {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+    }
+
+    .help-sidebar h2 {
+        color: var(--dark);
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .help-item {
+        padding: 20px;
+        border-radius: 16px;
+        margin-bottom: 15px;
+    }
+
+    .help-item:nth-child(2) {
+        background: rgba(99, 102, 241, 0.1);
+        border-left: 4px solid #6366f1;
+    }
+
+    .help-item:nth-child(3) {
+        background: rgba(245, 158, 11, 0.1);
+        border-left: 4px solid #f59e0b;
+    }
+
+    .help-item:nth-child(4) {
+        background: rgba(16, 185, 129, 0.1);
+        border-left: 4px solid #10b981;
+    }
+
+    .help-item:nth-child(5) {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 4px solid #ef4444;
+    }
+
+    .help-item:nth-child(6) {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid #3b82f6;
+    }
+
+    .help-item h4 {
+        color: var(--dark);
+        margin-bottom: 8px;
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    .help-item p {
+        color: var(--dark);
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    .format-badge {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8em;
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+    .question-section {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 16px;
+        margin: 20px 0;
+        border-left: 4px solid #4facfe;
+    }
+
+    .answer-section {
+        border: 2px dashed var(--primary);
+        background: rgba(99, 102, 241, 0.05);
+        padding: 20px;
+        border-radius: 12px;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+
+    .answer-section:hover {
+        background: rgba(99, 102, 241, 0.08);
+        border-color: var(--primary-dark);
+    }
+
+    .audio-controls {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin: 15px 0;
+        flex-wrap: wrap;
+    }
+
+    .record-btn {
+        padding: 12px 20px;
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .record-btn.recording {
+        background: #28a745;
+        animation: pulse 1s infinite;
+    }
+
+    .record-btn:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: none !important;
+    }
+
+    .record-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .audio-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 15px 0;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+    }
+
+    .div-correct-option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border);
+    }
+
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .delete-btn:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 15px;
+        margin: 8px 0;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 1em;
+        transition: all 0.3s ease;
+    }
+    .textareaa {
+        width: 100%;
+        padding: 15px;
+        margin: 8px 0;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 1.3em;
+        transition: all 0.3s ease;
+
+    }
+
+    textarea:focus, input[type="text"]:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        outline: none;
+    }
+
+    .info-panel {
+        background: #e7f3ff;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 30px;
+        border-left: 4px solid #4facfe;
+    }
+
+    .info-panel h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.3em;
+    }
+
+    .info-panel ul {
+        color: #495057;
+        padding-left: 20px;
+    }
+
+    .info-panel li {
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 25px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .add-question {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+    }
+
+    .add-question:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 16px 25px;
+        font-size: 16px;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    }
+
+    .button-container {
+        display: flex;
+        gap: 15px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+    }
+
+    .button-container .btn {
+        flex: 1;
+        min-width: 200px;
+        justify-content: center;
+    }
+
+    .add-answer {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 12px 20px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .add-answer:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .audio-upload {
+        border: 2px dashed var(--primary);
+        background: rgba(99, 102, 241, 0.05);
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 10px 0;
+    }
+
+    .audio-upload:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: var(--primary-dark);
+        transform: translateY(-1px);
+    }
+
+    .audio-upload-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .audio-upload input[type="file"] {
+        display: none;
+    }
+
+    .audio-preview audio {
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .audio-file-name {
+        margin-top: 10px;
+        font-size: 0.9em;
+        color: var(--gray);
+        word-break: break-all;
+    }
+
+    .correct-option {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        padding: 12px 20px;
+        background: white;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        border: 2px solid var(--border);
+        flex: 1;
+    }
+
+    .correct-option:hover {
+        border-color: var(--success);
+        background: rgba(40, 167, 69, 0.05);
+    }
+
+    .correct-option input[type="radio"]:checked + .correct-badge {
+        color: var(--success);
+        font-weight: 600;
+    }
+
+    .correct-option:has(input[type="radio"]:checked) {
+        border-color: var(--success);
+        background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+        box-shadow: 0 2px 12px rgba(40, 167, 69, 0.2);
+    }
+
+    .correct-badge {
+        font-weight: 500;
+        color: var(--dark);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 1024px) {
+        .voice-test-container {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .help-sidebar {
+            position: static;
+        }
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 15px;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .header h2 {
+            font-size: 2em;
+        }
+
+        .button-container {
+            flex-direction: column;
+        }
+
+        .button-container .btn {
+            min-width: auto;
+        }
+
+        .audio-controls {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .div-correct-option {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .correct-option {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="voice-test-container">
+        <!-- Основной контент -->
+        <div class="main-content">
+            <header class="header">
+                <h2>
+                    <span>
+                        <i class="fi fi-rc-microphone"></i>
+                    </span>
+                    Создать голосовой тест
+                </h2>
+                <p>Добавьте вопросы и ответы для вашего теста</p>
+            </header>
+
+            <div class="content">
+                <div class="info-panel">
+                    <h3>💡 Инструкция</h3>
+                    <ul>
+                        <li>Добавьте минимум 1 вопрос и 2 ответа</li>
+                        <li>Отметьте правильный ответ для каждого вопроса</li>
+                        <li>Вы можете добавлять неограниченное количество вопросов и ответов</li>
+                    </ul>
+                </div>
+
+                <form method="post" enctype="multipart/form-data" id="voiceTestForm">
+                    {% csrf_token %}
+
+                    <!-- Контейнер для всех вопросов -->
+                    <div id="questionsContainer">
+                        <!-- Первый вопрос -->
+                        <div class="question-section" data-question-index="0">
+                            <h3>Голосовой вопрос 1</h3>
+
+                            <label>Текст вопроса (опционально):</label>
+                            <textarea name="question_text_0" placeholder="Опишите вопрос текстом..." class="textareaa"></textarea>
+
+                            <div class="audio-controls">
+                                <strong>Запись вопроса:</strong>
+                                <button type="button" class="record-btn record-question-btn" data-question="0">
+                                    <i class="fi fi-rc-microphone"></i> Записать вопрос
+                                </button>
+                                <button type="button" class="record-btn stop-question-btn" data-question="0" disabled>
+                                    <i class="fi fi-br-stop-circle"></i> Стоп
+                                </button>
+                                <span>или</span>
+
+                                <div class="audio-upload">
+                                    <label class="audio-upload-label">
+                                        <span><i class="fi fi-ss-music-alt"></i> Загрузить аудио файл</span>
+                                        <input type="file" name="question_audio_0" accept="audio/*" class="audio-file-input">
+                                    </label>
+                                    <div class="audio-preview" style="display: none;">
+                                        <audio controls class="audio-preview-player"></audio>
+                                        <div class="audio-file-name"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="audio-preview" id="questionAudioPreview0"></div>
+
+                            <!-- Секция ответов для первого вопроса -->
+                            <div style="margin-top: 20px;">
+                                <h4>Голосовые ответы для вопроса 1</h4>
+                                <p>Запишите или загрузите варианты ответов. Отметьте правильный ответ.</p>
+
+                                <div id="answersContainer0">
+                                    <!-- Ответ 1 -->
+                                    <div class="answer-section" data-answer-index="0" data-question="0">
+                                        <h5>Ответ 1</h5>
+                                        <input type="text" name="answer_text_0[]" placeholder="Текст ответа (опционально)">
+
+                                        <div class="audio-controls">
+                                            <strong>Запись ответа:</strong>
+                                            <button type="button" class="record-btn record-answer-btn" data-index="0" data-question="0">
+                                                <i class="fi fi-rc-microphone"></i> Записать ответ 1
+                                            </button>
+                                            <button type="button" class="record-btn stop-answer-btn" data-index="0" data-question="0" disabled>
+                                                <i class="fi fi-br-stop-circle"></i> Стоп
+                                            </button>
+                                            <span>или</span>
+                                            <div class="audio-upload">
+                                                <label class="audio-upload-label">
+                                                    <span><i class="fi fi-ss-music-alt"></i> Загрузить аудио файл</span>
+                                                    <input type="file" name="answer_audio_0[]" accept="audio/*" class="audio-file-input">
+                                                </label>
+                                                <div class="audio-preview" style="display: none;">
+                                                    <audio controls class="audio-preview-player"></audio>
+                                                    <div class="audio-file-name"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="audio-preview" id="answerAudioPreview0_0"></div>
+
+                                        <div class="div-correct-option">
+                                            <label class="correct-option">
+                                                <input type="radio" name="correct_answer_0" value="0" required>
+                                                <span class="correct-badge">Это правильный ответ</span>
+                                            </label>
+
+                                            <button type="button" class="delete-btn" onclick="removeAnswer(this, 0)">
+                                                <i class="fi fi-sr-trash"></i> Удалить
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Ответ 2 -->
+                                    <div class="answer-section" data-answer-index="1" data-question="0">
+                                        <h5>Ответ 2</h5>
+                                        <input type="text" name="answer_text_0[]" placeholder="Текст ответа (опционально)">
+
+                                        <div class="audio-controls">
+                                            <strong>Запись ответа:</strong>
+                                            <button type="button" class="record-btn record-answer-btn" data-index="1" data-question="0">
+                                                <i class="fi fi-rc-microphone"></i> Записать ответ 2
+                                            </button>
+                                            <button type="button" class="record-btn stop-answer-btn" data-index="1" data-question="0" disabled>
+                                                <i class="fi fi-br-stop-circle"></i> Стоп
+                                            </button>
+                                            <span>или</span>
+                                            <div class="audio-upload">
+                                                <label class="audio-upload-label">
+                                                    <span><i class="fi fi-ss-music-alt"></i> Загрузить аудио файл</span>
+                                                    <input type="file" name="answer_audio_0[]" accept="audio/*" class="audio-file-input">
+                                                </label>
+                                                <div class="audio-preview" style="display: none;">
+                                                    <audio controls class="audio-preview-player"></audio>
+                                                    <div class="audio-file-name"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="audio-preview" id="answerAudioPreview0_1"></div>
+
+                                        <div class="div-correct-option">
+                                            <label class="correct-option">
+                                                <input type="radio" name="correct_answer_0" value="1" required>
+                                                <span class="correct-badge">Это правильный ответ</span>
+                                            </label>
+
+                                            <button type="button" class="delete-btn" onclick="removeAnswer(this, 0)">
+                                                <i class="fi fi-sr-trash"></i> Удалить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn add-answer" onclick="addAnswerToQuestion(0)">
+                                    <i class="fi fi-br-plus"></i> Добавить еще ответ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button type="button" id="addQuestionBtn" class="btn add-question">
+                            <i class="fi fi-br-plus"></i> Добавить новый вопрос
+                        </button>
+
+                        <button type="submit" class="btn submit-btn">
+                            <i class="fi fi-ss-check-circle"></i> Завершить создание теста
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="help-sidebar">
+            <h2>💡 Подсказки</h2>
+
+            <div class="help-item">
+                <h4><span class="format-badge"><i class="fi fi-sr-microphone"></i></span>Запись голоса</h4>
+                <p>Используйте кнопку записи для создания голосовых вопросов и ответов. Убедитесь, что микрофон работает.</p>
+            </div>
+
+            <div class="help-item">
+                <h4><span class="format-badge"><i class="fi fi-sr-music"></i></span>Загрузка аудио</h4>
+                <p>Можно загрузить готовые аудиофайлы в форматах MP3, WAV, OGG.</p>
+            </div>
+
+            <div class="help-item">
+                <h4><span class="format-badge"><i class="fi fi-br-check"></i></span>Правильные ответы</h4>
+                <p>Не забудьте отметить правильный ответ для каждого вопроса радио-кнопкой.</p>
+            </div>
+
+            <div class="help-item">
+                <h4><span class="format-badge"><i class="fi fi-sr-add"></i></span>Добавление вопросов</h4>
+                <p>Используйте кнопку "Добавить новый вопрос" для создания нескольких вопросов в одном тесте.</p>
+            </div>
+
+            <div class="help-item">
+                <h4>💡 Советы по записи</h4>
+                <p>• Говорите четко и разборчиво</p>
+                <p>• Записывайте в тихом помещении</p>
+                <p>• Проверяйте запись перед сохранением</p>
+                <p>• Длительность записи 10-30 секунд</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        let questionCount = 1;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let currentRecordingType = null;
+
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initEventListeners();
+            initAudioUploads();
+        });
+
+        function initEventListeners() {
+            document.getElementById('addQuestionBtn').addEventListener('click', addNewQuestion);
+
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('record-answer-btn') || e.target.closest('.record-answer-btn')) {
+                    const btn = e.target.classList.contains('record-answer-btn') ? e.target : e.target.closest('.record-answer-btn');
+                    const index = btn.getAttribute('data-index');
+                    const questionIndex = btn.getAttribute('data-question');
+                    startRecording(`answer-${questionIndex}-${index}`);
+                }
+
+                if (e.target.classList.contains('stop-answer-btn') || e.target.closest('.stop-answer-btn')) {
+                    stopRecording();
+                }
+
+                if (e.target.classList.contains('record-question-btn') || e.target.closest('.record-question-btn')) {
+                    const btn = e.target.classList.contains('record-question-btn') ? e.target : e.target.closest('.record-question-btn');
+                    const questionIndex = btn.getAttribute('data-question');
+                    startRecording(`question-${questionIndex}`);
+                }
+
+                if (e.target.classList.contains('stop-question-btn') || e.target.closest('.stop-question-btn')) {
+                    stopRecording();
+                }
+            });
+        }
+
+        function initAudioUploads() {
+            const audioUploads = document.querySelectorAll('.audio-upload:not([data-initialized])');
+
+            audioUploads.forEach(upload => {
+                upload.setAttribute('data-initialized', 'true');
+
+                const input = upload.querySelector('input[type="file"]');
+                const preview = upload.querySelector('.audio-preview');
+                const audio = upload.querySelector('audio');
+                const fileName = upload.querySelector('.audio-file-name');
+                const label = upload.querySelector('.audio-upload-label');
+
+                label.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    input.click();
+                });
+
+                input.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const file = this.files[0];
+                        preview.style.display = 'block';
+
+                        if (audio.src) {
+                            URL.revokeObjectURL(audio.src);
+                        }
+
+                        audio.src = URL.createObjectURL(file);
+                        fileName.textContent = file.name;
+                        audio.load();
+                    } else {
+                        preview.style.display = 'none';
+                    }
+                });
+
+                input.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+
+        function addNewQuestion() {
+    const questionsContainer = document.getElementById('questionsContainer');
+    const newQuestionIndex = questionCount++;
+
+    const newQuestionHTML = `
+        <div class="question-section" data-question-index="${newQuestionIndex}">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h1>Голосовой вопрос ${newQuestionIndex + 1}</h1>
+                <button type="button" class="delete-btn" onclick="removeQuestion(this)">
+                    <i class="fi fi-sr-trash"></i> Удалить вопрос
+                </button>
+            </div>
+
+            <label>Текст вопроса (опционально):</label>
+            <textarea name="question_text_${newQuestionIndex}" placeholder="Опишите вопрос текстом..." class="textareaa"></textarea>
+
+            <div class="audio-controls">
+                <strong>Запись вопроса:</strong>
+                <button type="button" class="record-btn record-question-btn" data-question="${newQuestionIndex}">
+                    <i class="fi fi-rc-microphone"></i> Записать вопрос
+                </button>
+                <button type="button" class="record-btn stop-question-btn" data-question="${newQuestionIndex}" disabled>
+                    <i class="fi fi-br-stop-circle"></i> Стоп
+                </button>
+                <span>или</span>
+
+                <div class="audio-upload">
+                    <label class="audio-upload-label">
+                        <span><i class="fi fi-ss-music-alt"></i> Загрузить аудио файл</span>
+                        <input type="file" name="question_audio_${newQuestionIndex}" accept="audio/*">
+                    </label>
+                    <div class="audio-preview" style="display: none;">
+                        <audio controls></audio>
+                        <div class="audio-file-name"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-preview" id="questionAudioPreview${newQuestionIndex}"></div>
+
+            <!-- Секция ответов -->
+            <div style="margin-top: 20px;">
+                <h3>Голосовые ответы для вопроса ${newQuestionIndex + 1}</h3>
+                <p>Запишите или загрузите варианты ответов. Отметьте правильный ответ.</p>
+
+                <div id="answersContainer${newQuestionIndex}">
+                </div>
+
+                <button type="button" class="btn add-answer" onclick="addAnswerToQuestion(${newQuestionIndex})">
+                    <i class="fi fi-br-plus"></i> Добавить еще ответ
+                </button>
+            </div>
+        </div>
+    `;
+
+    questionsContainer.insertAdjacentHTML('beforeend', newQuestionHTML);
+    addAnswerToQuestion(newQuestionIndex);
+    addAnswerToQuestion(newQuestionIndex);
+    initAudioUploads();
+}
+
+       function addAnswerToQuestion(questionIndex) {
+    const answersContainer = document.getElementById(`answersContainer${questionIndex}`);
+    if (!answersContainer) return;
+
+    const answerCount = answersContainer.children.length;
+    const newIndex = answerCount;
+
+    const newAnswerHTML = `
+        <div class="answer-section" data-answer-index="${newIndex}" data-question="${questionIndex}">
+            <h4>Ответ ${newIndex + 1}</h4>
+            <input type="text" name="answer_text_${questionIndex}[]" placeholder="Текст ответа (опционально)">
+
+            <div class="audio-controls">
+                <strong>Запись ответа:</strong>
+                <button type="button" class="record-btn record-answer-btn" data-index="${newIndex}" data-question="${questionIndex}">
+                    <i class="fi fi-rc-microphone"></i> Записать ответ ${newIndex + 1}
+                </button>
+                <button type="button" class="record-btn stop-answer-btn" data-index="${newIndex}" data-question="${questionIndex}" disabled>
+                    <i class="fi fi-br-stop-circle"></i> Стоп
+                </button>
+                <span>или</span>
+                <div class="audio-upload">
+                    <label class="audio-upload-label">
+                        <span><i class="fi fi-ss-music-alt"></i> Загрузить аудио файл</span>
+                        <input type="file" name="answer_audio_${questionIndex}[]" accept="audio/*">
+                    </label>
+                    <div class="audio-preview" style="display: none;">
+                        <audio controls></audio>
+                        <div class="audio-file-name"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="audio-preview" id="answerAudioPreview${questionIndex}_${newIndex}"></div>
+
+            <div class="div-correct-option">
+                <label class="correct-option">
+                    <input type="radio" name="correct_answer_${questionIndex}" value="${newIndex}" required>
+                    <span class="correct-badge">Это правильный ответ</span>
+                </label>
+
+                <button type="button" class="delete-btn" onclick="removeAnswer(this, ${questionIndex})">
+                    <i class="fi fi-sr-trash"></i> Удалить
+                </button>
+            </div>
+        </div>
+    `;
+
+    answersContainer.insertAdjacentHTML('beforeend', newAnswerHTML);
+    initAudioUploads();
+}
+        // ===== УДАЛЕНИЕ ВОПРОСА =====
+        function removeQuestion(button) {
+            if (confirm('Вы уверены, что хотите удалить этот вопрос?')) {
+                const questionSection = button.closest('.question-section');
+                questionSection.remove();
+                updateQuestionNumbers();
+            }
+        }
+
+        // ===== УДАЛЕНИЕ ОТВЕТА =====
+        function removeAnswer(button, questionIndex) {
+            const answerSection = button.closest('.answer-section');
+            const answersContainer = document.getElementById(`answersContainer${questionIndex}`);
+
+            if (answersContainer && answersContainer.children.length > 2) {
+                if (confirm('Вы уверены, что хотите удалить этот ответ?')) {
+                    answerSection.remove();
+                    updateAnswerNumbers(questionIndex);
+                }
+            } else {
+                alert('Должно быть минимум 2 ответа!');
+            }
+        }
+
+        // ===== ОБНОВЛЕНИЕ НОМЕРОВ ВОПРОСОВ =====
+        function updateQuestionNumbers() {
+            const questionSections = document.querySelectorAll('.question-section');
+            questionSections.forEach((section, index) => {
+                section.setAttribute('data-question-index', index);
+                const header = section.querySelector('h1');
+                if (header) {
+                    header.textContent = `Голосовой вопрос ${index + 1}`;
+                }
+
+                const answersHeader = section.querySelector('div > h3');
+                if (answersHeader) {
+                    answersHeader.textContent = `Голосовые ответы для вопроса ${index + 1}`;
+                }
+            });
+            questionCount = questionSections.length;
+        }
+
+        // ===== ОБНОВЛЕНИЕ НОМЕРОВ ОТВЕТОВ =====
+        function updateAnswerNumbers(questionIndex) {
+            const answersContainer = document.getElementById(`answersContainer${questionIndex}`);
+            if (!answersContainer) return;
+
+            const answerSections = answersContainer.querySelectorAll('.answer-section');
+
+            answerSections.forEach((section, index) => {
+                section.setAttribute('data-answer-index', index);
+                const title = section.querySelector('h4');
+                title.textContent = `Ответ ${index + 1}`;
+
+                const recordBtn = section.querySelector('.record-answer-btn');
+                const stopBtn = section.querySelector('.stop-answer-btn');
+                if (recordBtn && stopBtn) {
+                    recordBtn.setAttribute('data-index', index);
+                    recordBtn.innerHTML = `<i class="fi fi-rc-microphone"></i> Записать ответ ${index + 1}`;
+                    stopBtn.setAttribute('data-index', index);
+                }
+
+                const radio = section.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.value = index;
+                }
+            });
+        }
+
+        // ===== ОСНОВНЫЕ ФУНКЦИИ ЗАПИСИ =====
+        async function startRecording(type) {
+            try {
+                console.log('Начало записи:', type);
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                currentRecordingType = type;
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+
+                    const audioElement = document.createElement('audio');
+                    audioElement.controls = true;
+                    audioElement.src = audioUrl;
+                    audioElement.style.width = '100%';
+                    audioElement.style.marginTop = '10px';
+
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.name = getFileNameByType(type);
+                    fileInput.style.display = 'none';
+
+                    const file = new File([audioBlob], getFileNameByType(type) + '.webm', { type: 'audio/webm' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+
+                    updateUIAfterRecording(type, audioElement, fileInput);
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                updateUIDuringRecording(type, true);
+
+            } catch (error) {
+                console.error('Ошибка записи:', error);
+                alert('Ошибка доступа к микрофону: ' + error.message);
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                updateUIDuringRecording(currentRecordingType, false);
+            }
+        }
+
+        function getFileNameByType(type) {
+            if (type.startsWith('question-')) {
+                const questionIndex = type.split('-')[1];
+                return `question_audio_${questionIndex}`;
+            }
+            if (type.startsWith('answer-')) {
+                const parts = type.split('-');
+                const questionIndex = parts[1];
+                return `answer_audio_${questionIndex}[]`;
+            }
+            return 'audio';
+        }
+
+        function updateUIDuringRecording(type, isRecording) {
+            let recordBtn, stopBtn;
+
+            if (type.startsWith('question-')) {
+                const questionIndex = type.split('-')[1];
+                recordBtn = document.querySelector(`.record-question-btn[data-question="${questionIndex}"]`);
+                stopBtn = document.querySelector(`.stop-question-btn[data-question="${questionIndex}"]`);
+            } else if (type.startsWith('answer-')) {
+                const parts = type.split('-');
+                const questionIndex = parts[1];
+                const answerIndex = parts[2];
+
+                recordBtn = document.querySelector(`.record-answer-btn[data-question="${questionIndex}"][data-index="${answerIndex}"]`);
+                stopBtn = document.querySelector(`.stop-answer-btn[data-question="${questionIndex}"][data-index="${answerIndex}"]`);
+            }
+
+            if (recordBtn && stopBtn) {
+                if (isRecording) {
+                    recordBtn.disabled = true;
+                    recordBtn.classList.add('recording');
+                    recordBtn.innerHTML = '<i class="fi fi-rc-microphone"></i> Записывается...';
+                    stopBtn.disabled = false;
+                } else {
+                    recordBtn.disabled = false;
+                    recordBtn.classList.remove('recording');
+
+                    if (type.startsWith('question-')) {
+                        recordBtn.innerHTML = '<i class="fi fi-rc-microphone"></i> Записать вопрос';
+                    } else if (type.startsWith('answer-')) {
+                        const parts = type.split('-');
+                        const answerIndex = parts[2];
+                        recordBtn.innerHTML = `<i class="fi fi-rc-microphone"></i> Записать ответ ${parseInt(answerIndex) + 1}`;
+                    }
+
+                    stopBtn.disabled = true;
+                }
+            }
+        }
+
+        function updateUIAfterRecording(type, audioElement, fileInput) {
+            let preview;
+
+            if (type.startsWith('question-')) {
+                const questionIndex = type.split('-')[1];
+                preview = document.getElementById(`questionAudioPreview${questionIndex}`);
+            } else if (type.startsWith('answer-')) {
+                const parts = type.split('-');
+                const questionIndex = parts[1];
+                const answerIndex = parts[2];
+                preview = document.getElementById(`answerAudioPreview${questionIndex}_${answerIndex}`);
+            }
+
+            if (preview) {
+                preview.innerHTML = '';
+
+                const title = document.createElement('strong');
+                if (type.startsWith('question')) {
+                    title.textContent = 'Ваша запись вопроса:';
+                } else {
+                    const parts = type.split('-');
+                    const answerIndex = parts[2];
+                    title.textContent = `Запись ответа ${parseInt(answerIndex) + 1}:`;
+                }
+
+                preview.appendChild(title);
+                preview.appendChild(document.createElement('br'));
+                preview.appendChild(audioElement);
+                preview.appendChild(fileInput);
+
+                preview.style.display = 'block';
+                preview.style.padding = '10px';
+                preview.style.marginTop = '10px';
+                preview.style.background = '#f8f9fa';
+                preview.style.borderRadius = '5px';
+            }
+        }
+
+        // ===== УПРОЩЕННАЯ ПРОВЕРКА =====
+// ===== ДИАГНОСТИКА ПЕРЕД ОТПРАВКОЙ =====
+document.getElementById('voiceTestForm').addEventListener('submit', function(e) {
+    // Отладочная информация
+    console.log('=== ДАННЫЕ ФОРМЫ ===');
+
+    const formData = new FormData(this);
+    console.log('📋 Все поля формы:');
+    for (let [key, value] of formData.entries()) {
+        if (value instanceof File) {
+            console.log(`   ${key}: FILE - ${value.name}`);
+        } else {
+            console.log(`   ${key}: ${value}`);
+        }
+    }
+
+    // Считаем вопросы
+    const questionSections = document.querySelectorAll('.question-section');
+    console.log(`📊 Всего вопросов: ${questionSections.length}`);
+
+    questionSections.forEach((section, index) => {
+        const questionIndex = section.getAttribute('data-question-index');
+        const answers = section.querySelectorAll('.answer-section');
+        const correctAnswer = section.querySelector(`input[name="correct_answer_${questionIndex}"]:checked`);
+
+        console.log(`   Вопрос ${questionIndex}:`);
+        console.log(`     - Ответов: ${answers.length}`);
+        console.log(`     - Правильный ответ: ${correctAnswer ? correctAnswer.value : 'НЕ ВЫБРАН'}`);
+    });
+
+    console.log('===================');
+});
+    </script>
+</body>
+</html>

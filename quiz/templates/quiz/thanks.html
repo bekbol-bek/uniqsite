@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Спасибо</title></head>
+<body>
+  <h1>Спасибо за прохождение: {{ test.title }}</h1>
+
+  {% if score %}
+    <p>Результат: {{ score.correct }} / {{ score.total }}</p>
+  {% else %}
+    <p>Ответы приняты.</p>
+  {% endif %}
+
+
+</body>
+</html>

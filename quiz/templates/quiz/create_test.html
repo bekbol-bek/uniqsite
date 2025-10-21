@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать тест</title>
+    <style>
+        .question-block { border: 1px solid #ccc; padding: 15px; margin: 10px 0; }
+        .answer-block { margin-left: 20px; padding: 10px; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+<h2>Создать тест</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Основная форма теста -->
+    <h3>Информация о тесте</h3>
+    {{ form.as_p }}
+
+    <!-- Management form для вопросов -->
+    {{ q_formset.management_form }}
+
+    <h3>Вопросы</h3>
+    {% for q_form in q_formset %}
+        <div class="question-block">
+            <h4>Вопрос {{ forloop.counter }}</h4>
+            {{ q_form.as_p }}
+
+            <!-- Formsets для ответов -->
+            {% with index=forloop.counter0 %}
+                {% for a_formset in a_formsets %}
+                    {% if forloop.counter0 == index %}
+                        {{ a_formset.management_form }}
+                        <h5>Ответы для вопроса {{ forloop.counter }}</h5>
+                        {% for a_form in a_formset %}
+                            <div class="answer-block">
+                                {{ a_form.as_p }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+        </div>
+    {% endfor %}
+
+    <button type="submit">Создать тест</button>
+</form>
+
+<a href="{% url 'quiz:profile' %}">Назад в профиль</a>
+</body>
+</html>

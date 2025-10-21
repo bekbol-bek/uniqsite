@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <title>Голосовой тест: {{ test.title }}</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --success: #4CAF50;
+            --success-dark: #059669;
+            --danger: #ef4444;
+            --danger-dark: #dc2626;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+             --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .test-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+       .test-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.3' fill='%23ffffff'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    background-size: 1200px 120px, cover;
+    background-position: 0% 100%, center;
+    background-repeat: repeat-x, no-repeat;
+    animation: waveMove 8s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position: 0% 100%, center; }
+    100% { background-position: 1200px 100%, center; }
+}
+
+        .test-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .test-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .test-content {
+            padding: 30px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .question-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .question-card.unanswered {
+            border-left: 4px solid var(--danger);
+        }
+
+        .question-card.answered {
+            border-left: 4px solid var(--success);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gray-800);
+        }
+
+        .audio-section {
+            margin: 20px 0;
+        }
+
+        .audio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--gray-700);
+        }
+
+        .audio-player {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .no-audio {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray-500);
+            background: var(--gray-50);
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--gray-300);
+        }
+
+        .answers-grid {
+            display: grid;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .answer-option {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .answer-option:hover {
+            border-color: var(--primary);
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .answer-option.selected {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+        }
+
+        .selection-indicator {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .answer-option.selected .selection-indicator {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+            font-size: 12px;
+        }
+
+        .answer-content {
+            margin-right: 30px;
+        }
+
+        .answer-type {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        .answer-text {
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        .voice-response {
+            background: var(--gray-50);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin: 16px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background: var(--danger-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: var(--success-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn.recording {
+            animation: pulse 2s infinite;
+            background: var(--danger);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .audio-visualizer {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .visualizer-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #8b5cf6);
+            width: 0%;
+            transition: width 0.1s ease;
+            border-radius: 4px;
+        }
+
+        .audio-preview {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--success), var(--success-dark));
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                background: var(--gray-100);
+            }
+
+            .test-container {
+                border-radius: var(--radius);
+            }
+
+            .test-header {
+                padding: 24px 20px;
+            }
+
+            .test-title {
+                font-size: 1.5rem;
+            }
+
+            .test-content {
+                padding: 20px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .audio-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .form-input, .form-select {
+                padding: 14px 16px;
+            }
+
+            .answers-grid {
+                gap: 8px;
+            }
+
+            .answer-option {
+                padding: 14px;
+            }
+
+            .selection-indicator {
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .test-header {
+                padding: 20px 16px;
+            }
+
+            .test-title {
+                font-size: 1.3rem;
+            }
+
+            .test-content {
+                padding: 16px;
+            }
+
+            .question-card {
+                padding: 16px;
+            }
+
+            .question-text {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 14px 16px;
+                font-size: 0.9rem;
+            }
+
+            .submit-btn {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        /* Улучшения для accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Плавные переходы */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+
+        .timer {
+            background: var(--danger);
+            color: white;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+        }
+
+
+        .completion-alert {  /* ← ОДНА "m"! */
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border: 1px solid #fcd34d;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.completion-alert h3 {  /* ← ОДНА "m"! */
+    color: #92400e;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1 class="test-title"> {{ test.title }}</h1>
+            {% if test.description %}
+                <p class="test-description">{{ test.description }}</p>
+            {% endif %}
+        </div>
+
+        <div class="test-content">
+            {% if already_completed %}
+                <div class="completion-alert">  <!-- ← ОДНА "m"! -->
+                    <h3><i class="fi fi-sr-shield-exclamation"></i> Вы уже проходили этот тест</h3>
+                    <p>Каждый тест можно пройти только один раз</p>
+                    <a href="{% url 'quiz:show_result' existing_result.id %}" class="btn btn-primary">
+                        <i class="fi fi-sr-chart-histogram"></i> Посмотреть результат
+                    </a>
+                </div>
+            {% else %}
+                <form method="post" enctype="multipart/form-data" id="voiceTestForm" action="{% url 'quiz:process_test_results' test.public_id %}">
+                    {% csrf_token %}
+
+                    <!-- Информация о студенте -->
+                    <div class="info-card">
+                        <h3 style="margin-bottom: 16px; color: white;"><i class="fi fi-ss-employee-man-alt"></i> Информация о себе</h3>
+
+                        <div class="form-group">
+                            <label class="form-label required" for="student_name">Ваше имя</label>
+                            <input type="text" id="student_name" name="student_name"
+                                   class="form-input" placeholder="Введите ваше имя (обязательно)" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required"><i class="fi fi-ss-users-class"></i> Ваш класс</label>
+                           <select name="class_group" class="form-input form-select" required>
+                            <option value="">-- Не выбрано --</option>
+                            <option value="1-А">1-А</option>
+                            <option value="1-Б">1-Б</option>
+                            <option value="1-В">1-В</option>
+                            <option value="1-Г">1-Г</option>
+                            <option value="1-Д">1-Д</option>
+                            <option value="1-Е">1-Е</option>
+                            <option value="1-Ж">1-Ж</option>
+                            <option value="1-З">1-З</option>
+                            <option value="1-И">1-И</option>
+                            <option value="1-К">1-К</option>
+
+                            <option value="2-А">2-А</option>
+                            <option value="2-Б">2-Б</option>
+                            <option value="2-В">2-В</option>
+                            <option value="2-Г">2-Г</option>
+                            <option value="2-Д">2-Д</option>
+                            <option value="2-Е">2-Е</option>
+                            <option value="2-Ж">2-Ж</option>
+                            <option value="2-З">2-З</option>
+                            <option value="2-И">2-И</option>
+                            <option value="2-К">2-К</option>
+
+                            <option value="3-А">3-А</option>
+                            <option value="3-Б">3-Б</option>
+                            <option value="3-В">3-В</option>
+                            <option value="3-Г">3-Г</option>
+                            <option value="3-Д">3-Д</option>
+                            <option value="3-Е">3-Е</option>
+                            <option value="3-Ж">3-Ж</option>
+                            <option value="3-З">3-З</option>
+                            <option value="3-И">3-И</option>
+                            <option value="3-К">3-К</option>
+
+                            <option value="4-А">4-А</option>
+                            <option value="4-Б">4-Б</option>
+                            <option value="4-В">4-В</option>
+                            <option value="4-Г">4-Г</option>
+                            <option value="4-Д">4-Д</option>
+                            <option value="4-Е">4-Е</option>
+                            <option value="4-Ж">4-Ж</option>
+                            <option value="4-З">4-З</option>
+                            <option value="4-И">4-И</option>
+                            <option value="4-К">4-К</option>
+
+                            <option value="5-А">5-А</option>
+                            <option value="5-Б">5-Б</option>
+                            <option value="5-В">5-В</option>
+                            <option value="5-Г">5-Г</option>
+                            <option value="5-Д">5-Д</option>
+                            <option value="5-Е">5-Е</option>
+                            <option value="5-Ж">5-Ж</option>
+                            <option value="5-З">5-З</option>
+                            <option value="5-И">5-И</option>
+                            <option value="5-К">5-К</option>
+
+                            <option value="6-А">6-А</option>
+                            <option value="6-Б">6-Б</option>
+                            <option value="6-В">6-В</option>
+                            <option value="6-Г">6-Г</option>
+                            <option value="6-Д">6-Д</option>
+                            <option value="6-Е">6-Е</option>
+                            <option value="6-Ж">6-Ж</option>
+                            <option value="6-З">6-З</option>
+                            <option value="6-И">6-И</option>
+                            <option value="6-К">6-К</option>
+
+                            <option value="7-А">7-А</option>
+                            <option value="7-Б">7-Б</option>
+                            <option value="7-В">7-В</option>
+                            <option value="7-Г">7-Г</option>
+                            <option value="7-Д">7-Д</option>
+                            <option value="7-Е">7-Е</option>
+                            <option value="7-Ж">7-Ж</option>
+                            <option value="7-З">7-З</option>
+                            <option value="7-И">7-И</option>
+                            <option value="7-К">7-К</option>
+
+                            <option value="8-А">8-А</option>
+                            <option value="8-Б">8-Б</option>
+                            <option value="8-В">8-В</option>
+                            <option value="8-Г">8-Г</option>
+                            <option value="8-Д">8-Д</option>
+                            <option value="8-Е">8-Е</option>
+                            <option value="8-Ж">8-Ж</option>
+                            <option value="8-З">8-З</option>
+                            <option value="8-и">8-И</option>
+                            <option value="8-К">8-К</option>
+
+                            <option value="9-А">9-А</option>
+                            <option value="9-Б">9-Б</option>
+                            <option value="9-В">9-В</option>
+                            <option value="9-Г">9-Г</option>
+                            <option value="9-Д">9-Д</option>
+                            <option value="9-Е">9-Е</option>
+                            <option value="9-Ж">9-Ж</option>
+                            <option value="9-З">9-З</option>
+                            <option value="9-И">9-И</option>
+                            <option value="9-К">9-К</option>
+
+                            <option value="10-А">10-А</option>
+                            <option value="10-Б">10-Б</option>
+                            <option value="10-В">10-В</option>
+                            <option value="10-Г">10-Г</option>
+                            <option value="10-Д">10-Д</option>
+                            <option value="10-Е">10-Е</option>
+                            <option value="10-Ж">10-Ж</option>
+                            <option value="10-З">10-З</option>
+                            <option value="10-И">10-И</option>
+                            <option value="10-К">10-К</option>
+
+                            <option value="11-А">11-А</option>
+                            <option value="11-Б">11-Б</option>
+                            <option value="11-В">11-В</option>
+                            <option value="11-Г">11-Г</option>
+                            <option value="11-Д">11-Д</option>
+                            <option value="11-Е">11-Е</option>
+                            <option value="11-Ж">11-Ж</option>
+                            <option value="11-З">11-З</option>
+                            <option value="11-И">11-И</option>
+                            <option value="11-К">11-К</option>
+                        </select>
+                            <p style="color: white; font-size: 0.9rem; margin-top: 8px;">
+                                Указание класса поможет учителю лучше организовать результаты
+                            </p>
+                        </div>
+                    </div>
+                    {% if test.timer_seconds and test.timer_seconds > 0 %}
+                        <div id="global-timer" class="timer">
+                            <i class="fi fi-sr-hourglass-end"></i> Осталось времени: <span id="secs">{{ test.timer_seconds }}</span> сек
+                        </div>
+                    {% endif %}
+
+                    <!-- Вопросы -->
+                    {% for question in questions %}
+                        <div class="question-card unanswered" id="question-{{ question.id }}" data-question-id="{{ question.id }}">
+                            <div class="question-number">Вопрос {{ forloop.counter }}</div>
+
+                            {% if question.text %}
+                                <div class="question-text">{{ question.text }}</div>
+                            {% endif %}
+
+                            <!-- Аудио вопроса -->
+                            <div class="audio-section">
+                                <div class="audio-label">
+                                    <span><i class="fi fi-br-waveform-path"></i> Прослушайте вопрос</span>
+                                </div>
+                                {% if question.audio_file and question.audio_file.url %}
+                                    <div class="audio-player">
+                                        <audio controls onerror="handleAudioError(this, 'question', {{ question.id }})">
+                                            <source src="{{ question.audio_file.url }}" type="audio/mpeg">
+                                            <source src="{{ question.audio_file.url }}" type="audio/wav">
+                                            <source src="{{ question.audio_file.url }}" type="audio/ogg">
+                                            Ваш браузер не поддерживает аудио элемент.
+                                        </audio>
+                                    </div>
+                                {% else %}
+                                    <div class="no-audio">
+                                        <p>🔇 Аудио вопрос не загружен</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Варианты ответов -->
+                            <div class="answers-section">
+                                <div class="audio-label">
+                                    <span><i class="fi fi-br-answer-alt"></i> Выберите ответ</span>
+                                </div>
+                                <div class="answers-grid">
+                                    {% for answer in question.answers.all %}
+                                        <div class="answer-option" onclick="selectAnswer(this, {{ question.id }}, {{ answer.id }})">
+                                            <div class="answer-content">
+                                                {% if answer.text %}
+                                                    <div class="answer-type">
+                                                        <span><i class="fi fi-sr-memo"></i></span>
+                                                        <span>Текст ответа</span>
+                                                    </div>
+                                                    <div class="answer-text">{{ answer.text }}</div>
+                                                {% endif %}
+
+                                                {% if answer.audio_file and answer.audio_file.url %}
+                                                    <div class="answer-type" style="margin-top: 12px;">
+                                                        <span><i class="fi fi-br-waveform-path"></i></span>
+                                                        <span>Аудио ответ</span>
+                                                    </div>
+                                                    <div class="audio-player" style="margin-top: 8px;">
+                                                        <audio controls onerror="handleAudioError(this, 'answer', {{ answer.id }})">
+                                                            <source src="{{ answer.audio_file.url }}" type="audio/mpeg">
+                                                            <source src="{{ answer.audio_file.url }}" type="audio/wav">
+                                                            <source src="{{ answer.audio_file.url }}" type="audio/ogg">
+                                                            Ваш браузер не поддерживает аудио элемент.
+                                                        </audio>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <input type="radio" name="q_{{ question.id }}" value="{{ answer.id }}" class="sr-only">
+                                            <div class="selection-indicator">✓</div>
+                                        </div>
+                                    {% empty %}
+                                        <div class="no-audio">
+                                            <p>❌ Нет доступных ответов для этого вопроса</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% empty %}
+                        <div class="info-card">
+                            <p style="text-align: center; color: var(--gray-500);">
+                                ❌ В этом тесте пока нет вопросов
+                            </p>
+                        </div>
+                    {% endfor %}
+
+                    {% if questions %}
+                        <div class="submit-section">
+                            <button type="submit" class="btn btn-success submit-btn">
+                                <i class="fi fi-sr-check-circle"></i> Отправить ответы
+                            </button>
+                        </div>
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+       // JavaScript код остается таким же, как в вашем оригинале
+// Текущая запись
+let mediaRecorders = {};
+let audioChunks = {};
+let audioContexts = {};
+let analysers = {};
+let animationFrames = {};
+
+{% if test.timer_seconds and test.timer_seconds > 0 %}
+(function(){
+    let seconds = {{ test.timer_seconds }};
+    const timerElement = document.getElementById('secs');
+    const form = document.getElementById('voiceTestForm');
+    const timerContainer = document.getElementById('global-timer');
+
+    const timerInterval = setInterval(() => {
+        seconds--;
+        if (timerElement) timerElement.textContent = seconds;
+
+        // Меняем цвет при малом времени
+        if (seconds <= 30 && timerContainer) {
+            timerContainer.style.background = '#dc2626';
+        }
+
+        if (seconds <= 0) {
+            clearInterval(timerInterval);
+            // Автоматически заполняем незавершенные ответы и отправляем форму
+            autoCompleteAndSubmit();
+        }
+    }, 1000);
+})();
+{% endif %}
+
+// Функция автоматического завершения и отправки теста
+function autoCompleteAndSubmit() {
+    const questions = document.querySelectorAll('.question-card');
+    let hasUnanswered = false;
+
+    questions.forEach((question) => {
+        const questionId = question.getAttribute('data-question-id');
+        const isAnswered = document.querySelector(`input[name="q_${questionId}"]:checked`);
+
+        if (!isAnswered) {
+            hasUnanswered = true;
+            // Автоматически выбираем первый вариант для неотвеченных вопросов
+            const firstOption = document.querySelector(`input[name="q_${questionId}"]`);
+            if (firstOption) {
+                firstOption.checked = true;
+                // Обновляем визуальное состояние
+                question.classList.remove('unanswered');
+                question.classList.add('answered');
+            }
+        }
+    });
+
+    // Показываем уведомление о завершении времени
+    alert('Время вышло! Тест будет автоматически отправлен.' + (hasUnanswered ? ' Неотвеченные вопросы заполнены автоматически.' : ''));
+
+    // ВРЕМЕННО УДАЛЯЕМ обработчик submit чтобы он не блокировал отправку
+    const form = document.getElementById('voiceTestForm');
+    const originalSubmitHandler = form.onsubmit;
+    form.onsubmit = null;
+
+    // Отправляем форму
+    form.submit();
+
+    // Восстанавливаем обработчик (на всякий случай)
+    setTimeout(() => {
+        form.onsubmit = originalSubmitHandler;
+    }, 1000);
+}
+
+// Обработка ошибок аудио
+function handleAudioError(audioElement, type, id) {
+    console.error(`Ошибка загрузки аудио ${type} с ID: ${id}`);
+    const container = audioElement.closest('.audio-player');
+    if (container) {
+        container.innerHTML = `
+            <div style="color: var(--danger); text-align: center; padding: 10px;">
+                <p>❌ Ошибка загрузки аудио файла</p>
+                <p style="font-size: 0.9em; color: var(--gray-500);">
+                    Файл недоступен или поврежден
+                </p>
+            </div>
+        `;
+    }
+}
+
+// Выбор ответа
+function selectAnswer(element, questionId, answerId) {
+    // Снимаем выделение со всех ответов этого вопроса
+    const allOptions = document.querySelectorAll(`.answer-option input[name="q_${questionId}"]`);
+    allOptions.forEach(radio => {
+        radio.closest('.answer-option').classList.remove('selected');
+    });
+
+    // Выделяем выбранный ответ
+    element.classList.add('selected');
+    element.querySelector('input[type="radio"]').checked = true;
+
+    // Обновляем статус вопроса
+    const questionCard = document.getElementById(`question-${questionId}`);
+    questionCard.classList.remove('unanswered');
+    questionCard.classList.add('answered');
+
+    console.log(`Выбран ответ ${answerId} для вопроса ${questionId}`);
+}
+
+// Запись аудио
+async function startRecording(questionId) {
+    try {
+        console.log(`Начало записи для вопроса ${questionId}`);
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true,
+                sampleRate: 44100
+            }
+        });
+
+        // Настройка визуализатора
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaStreamSource(stream);
+        source.connect(analyser);
+
+        audioContexts[questionId] = audioContext;
+        analysers[questionId] = analyser;
+
+        // Показываем визуализатор
+        document.getElementById(`visualizer-${questionId}`).style.display = 'block';
+
+        // Визуализация
+        visualizeAudio(questionId);
+
+        // Запись
+        const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+            ? 'audio/webm;codecs=opus'
+            : 'audio/webm';
+
+        mediaRecorders[questionId] = new MediaRecorder(stream, { mimeType });
+        audioChunks[questionId] = [];
+
+        mediaRecorders[questionId].ondataavailable = (event) => {
+            if (event.data.size > 0) {
+                audioChunks[questionId].push(event.data);
+            }
+        };
+
+        mediaRecorders[questionId].onstop = () => {
+            const audioBlob = new Blob(audioChunks[questionId], { type: mimeType });
+            const audioUrl = URL.createObjectURL(audioBlob);
+
+            // Показываем превью
+            const preview = document.getElementById(`audio-preview-${questionId}`);
+            preview.innerHTML = `
+                <p style="color: var(--success); margin-bottom: 10px; font-weight: 600;">✅ Запись завершена</p>
+                <audio controls src="${audioUrl}" style="width: 100%; border-radius: 8px;"></audio>
+                <p style="color: var(--gray-500); font-size: 0.9rem; margin-top: 8px;">
+                    Вы можете прослушать запись перед отправкой
+                </p>
+            `;
+
+            // Создаем файл для отправки
+            const file = new File([audioBlob], `answer_${questionId}_${Date.now()}.webm`, {
+                type: mimeType
+            });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            document.getElementById(`audio-file-${questionId}`).files = dataTransfer.files;
+
+            // Останавливаем визуализацию
+            cancelAnimationFrame(animationFrames[questionId]);
+            document.getElementById(`visualizer-${questionId}`).style.display = 'none';
+
+            console.log(`Запись завершена для вопроса ${questionId}`);
+        };
+
+        mediaRecorders[questionId].start(100);
+
+        // Обновляем UI
+        document.getElementById(`record-btn-${questionId}`).disabled = true;
+        document.getElementById(`record-btn-${questionId}`).classList.add('recording');
+        document.getElementById(`stop-btn-${questionId}`).disabled = false;
+
+    } catch (error) {
+        console.error('Ошибка записи:', error);
+        alert('Не удалось получить доступ к микрофону. Разрешите доступ к микрофону в настройках браузера.');
+    }
+}
+
+function stopRecording(questionId) {
+    if (mediaRecorders[questionId] && mediaRecorders[questionId].state === 'recording') {
+        mediaRecorders[questionId].stop();
+        mediaRecorders[questionId].stream.getTracks().forEach(track => track.stop());
+
+        document.getElementById(`record-btn-${questionId}`).disabled = false;
+        document.getElementById(`record-btn-${questionId}`).classList.remove('recording');
+        document.getElementById(`stop-btn-${questionId}`).disabled = true;
+    }
+}
+
+// Визуализация аудио
+function visualizeAudio(questionId) {
+    const analyser = analysers[questionId];
+    const visualizer = document.getElementById(`visualizer-bar-${questionId}`);
+
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function draw() {
+        if (!analysers[questionId]) return;
+
+        animationFrames[questionId] = requestAnimationFrame(draw);
+        analyser.getByteFrequencyData(dataArray);
+
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+            sum += dataArray[i];
+        }
+        let average = sum / bufferLength;
+        const width = Math.min(average * 2, 100);
+        visualizer.style.width = `${width}%`;
+    }
+
+    draw();
+}
+
+// ПЕРЕПИСАННЫЙ обработчик отправки формы
+document.getElementById('voiceTestForm').addEventListener('submit', function(e) {
+    // Проверяем, не является ли это автоматической отправкой по таймеру
+    if (this.getAttribute('data-auto-submit') === 'true') {
+        console.log('Автоматическая отправка по таймеру - пропускаем валидацию');
+        return true; // Разрешаем отправку
+    }
+
+    const questions = document.querySelectorAll('.question-card');
+    let allAnswered = true;
+    let unansweredQuestions = [];
+
+    questions.forEach((question, index) => {
+        const questionId = question.getAttribute('data-question-id');
+        const isAnswered = document.querySelector(`input[name="q_${questionId}"]:checked`);
+
+        if (!isAnswered) {
+            allAnswered = false;
+            question.classList.add('unanswered');
+            question.classList.remove('answered');
+            unansweredQuestions.push(index + 1);
+        } else {
+            question.classList.remove('unanswered');
+            question.classList.add('answered');
+        }
+    });
+
+    if (!allAnswered) {
+        e.preventDefault();
+        const message = `Пожалуйста, ответьте на все вопросы! Не отвечены вопросы: ${unansweredQuestions.join(', ')}`;
+
+        // Показать красивое уведомление
+        alert(message);
+
+        // Прокрутить к первому неотвеченному вопросу
+        if (unansweredQuestions.length > 0) {
+            const firstUnanswered = document.querySelectorAll('.question-card')[unansweredQuestions[0] - 1];
+            firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Добавить анимацию привлечения внимания
+            firstUnanswered.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                firstUnanswered.style.animation = '';
+            }, 500);
+        }
+    }
+});
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Тест загружен, количество вопросов:', {{ questions|length }});
+
+    // Проверяем доступность аудио файлов
+    document.querySelectorAll('audio').forEach(audio => {
+        audio.addEventListener('error', function() {
+            console.error('Ошибка загрузки аудио:', this.src);
+        });
+
+        audio.addEventListener('loadeddata', function() {
+            console.log('Аудио файл загружен:', this.src);
+        });
+    });
+
+    // Добавляем CSS для анимации встряски
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    `;
+    document.head.appendChild(style);
+});
+    </script>
+</body>
+</html>

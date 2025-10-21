@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <title>Создать Смешанный Тест</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .create-mixed-test {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            background: white;
+
+
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .question-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .question-section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-header h3 {
+            margin: 0;
+            color: var(--text);
+            font-size: 1.25rem;
+        }
+
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .format-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .format-option {
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .format-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .format-option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+
+        }
+
+        .format-option input {
+            display: none;
+        }
+
+        .format-option div {
+            pointer-events: none;
+        }
+
+        .format-option .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .format-option .label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .media-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: var(--secondary);
+            border-radius: var(--radius);
+        }
+
+        .media-section h4 {
+            margin-bottom: 1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .media-upload {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .media-upload:hover {
+            border-color: var(--primary);
+            background: #f8faff;
+        }
+
+        .answers-container {
+            margin: 1.5rem 0;
+        }
+
+        .answer-item {
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .answer-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .answer-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .answer-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .correct-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 50px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .correct-label:hover {
+            border-color: var(--accent);
+        }
+
+        .correct-label input[type="radio"]:checked + span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .answer-media {
+            grid-column: 1 / -1;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background: var(--accent);
+            color: white;
+            font-size: 1.1rem;
+            padding: 1.25rem 2.5rem;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .btn-success:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-add {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .btn-add:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-addd {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .btn-addd:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            border: 2px solid var(--border);
+        }
+
+        .math-keyboard-btn {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .math-keyboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .file-info {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Стили для аудио загрузки */
+.voice-upload {
+    border: 2px dashed #6f42c1;
+    background: #f8f9ff;
+}
+
+.audio-info {
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    border-left: 3px solid #6f42c1;
+}
+
+.audio-file-info {
+    font-size: 14px;
+    color: #333;
+}
+
+.audio-file-info strong {
+    color: #6f42c1;
+}
+
+/* Адаптивный аудио плеер */
+audio {
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+audio::-webkit-media-controls-panel {
+    background: #f8f9fa;
+}
+    </style>
+</head>
+<body>
+<div class="create-mixed-test">
+    <div class="container">
+        <div class="header">
+            <h1><i class="fi fi-br-bullseye-arrow"></i> Создать Смешанный Тест</h1>
+            <p>Создайте тест с разными типами вопросов: текст, фото, аудио, математика - всё в одном тесте!</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+
+            <!-- Вопросы -->
+            <div id="questions-container">
+                <!-- Вопросы будут добавляться здесь -->
+            </div>
+
+            <div class="button-group">
+                <button type="button" onclick="addQuestion()" class="btn btn-add">
+                    <i class="fas fa-plus"></i> Добавить вопрос
+                </button>
+
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check-circle"></i> Создать смешанный тест
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+    <script>
+        let questionCount = 0;
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            addQuestion(); // Добавляем первый вопрос
+        });
+
+        function addQuestion() {
+            const container = document.getElementById('questions-container');
+            const questionIndex = questionCount++;
+
+            const questionHTML = `
+                <div class="question-section">
+                    <div class="question-header">
+                        <h3><i class="fas fa-question-circle"></i> Вопрос ${questionIndex + 1}</h3>
+                        <button type="button" class="delete-btn" onclick="this.parentElement.parentElement.remove(); updateQuestionNumbers()">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
+                    </div>
+
+                   <!-- В блоке выбора формата вопроса -->
+                    <div class="format-selector">
+                        <label class="format-option">
+                            <input type="radio" name="question_format_${questionIndex}" value="text" checked
+                                   onchange="updateQuestionFormat(${questionIndex}, 'text')">
+                            <div>
+                                <div class="icon"><i class="fi fi-sr-document"></i></div>
+                                <div class="label">Текст</div>
+                            </div>
+                        </label>
+
+                        <label class="format-option">
+                            <input type="radio" name="question_format_${questionIndex}" value="image"
+                                   onchange="updateQuestionFormat(${questionIndex}, 'image')">
+                            <div>
+                                <div class="icon"><i class="fi fi-sr-camera"></i></div>
+                                <div class="label">Фото</div>
+                            </div>
+                        </label>
+
+                        <label class="format-option">
+                            <input type="radio" name="question_format_${questionIndex}" value="voice"
+                                   onchange="updateQuestionFormat(${questionIndex}, 'voice')">
+                            <div>
+                                <div class="icon"><i class="fi fi-sr-music-alt"></i></div>
+                                <div class="label">Аудио</div>
+                            </div>
+                        </label>
+
+                        <label class="format-option">
+                            <input type="radio" name="question_format_${questionIndex}" value="mixed"
+                                   onchange="updateQuestionFormat(${questionIndex}, 'mixed')">
+                            <div>
+                                <div class="icon"><i class="fi fi-br-bullseye-arrow"></i></div>
+                                <div class="label">Смешанный</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div>
+                        <textarea name="question_text[${questionIndex}]" placeholder="Текст вопроса..." rows="3" required></textarea>
+                    </div>
+
+                    <!-- Медиа секции -->
+                    <div id="media-section-${questionIndex}">
+                        <!-- Будут добавляться динамически -->
+                    </div>
+
+                    <!-- Ответы -->
+                    <div">
+                            <h4><i class="fas fa-list-ul"></i> Варианты ответов:</h4>
+                            <div id="answers-${questionIndex}" class="answers-container">
+                                <!-- Ответы будут добавляться здесь -->
+                            </div>
+                            <button type="button" onclick="addAnswer(${questionIndex})" class="btn btn-addd">
+                                <i class="fas fa-plus"></i> Добавить ответ
+                            </button>
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', questionHTML);
+
+            // Инициализируем первый вопрос
+            updateQuestionFormat(questionIndex, 'text');
+
+            // Добавляем первые 2 ответа
+            addAnswer(questionIndex);
+            addAnswer(questionIndex);
+
+            // Обновляем выбранный стиль
+            updateSelectedFormat(questionIndex);
+        }
+
+        function updateQuestionNumbers() {
+            const questions = document.querySelectorAll('.question-section');
+            questions.forEach((question, index) => {
+                const header = question.querySelector('.question-header h3');
+                header.innerHTML = `<i class="fas fa-question-circle"></i> Вопрос ${index + 1}`;
+            });
+        }
+
+function updateQuestionFormat(questionIndex, format) {
+    const mediaSection = document.getElementById(`media-section-${questionIndex}`);
+    console.log(`🔄 Обновление формата вопроса ${questionIndex} на: ${format}`);
+
+    let mediaHTML = '';
+
+    switch(format) {
+        case 'image':
+            mediaHTML = `
+                <div class="media-section">
+                    <h4><i class="fas fa-image"></i> Изображение вопроса:</h4>
+                    <div class="media-upload" onclick="document.getElementById('question-image-${questionIndex}').click()">
+                        <i class="fas fa-cloud-upload-alt"></i> Нажмите чтобы загрузить изображение
+                        <input type="file" name="question_image_${questionIndex}" id="question-image-${questionIndex}"
+                               accept="image/*" style="display: none;"
+                               onchange="previewImage(this, 'question-preview-${questionIndex}')">
+                        <img id="question-preview-${questionIndex}" class="preview-image">
+                        <div class="file-info">Поддерживаемые форматы: JPG, PNG, GIF</div>
+                    </div>
+                </div>
+            `;
+            break;
+
+        case 'voice':
+            mediaHTML = `
+                <div class="media-section">
+                    <h4><i class="fas fa-music"></i> Аудио вопроса:</h4>
+                    <div class="media-upload voice-upload" onclick="document.getElementById('question-audio-${questionIndex}').click()">
+                        <i class="fas fa-file-audio"></i> Нажмите чтобы загрузить аудио
+                        <input type="file" name="question_audio_${questionIndex}" id="question-audio-${questionIndex}"
+                               accept="audio/*" style="display: none;"
+                               onchange="previewAudio(this, 'audio-info-${questionIndex}')">
+                        <div id="audio-info-${questionIndex}" class="audio-info"></div>
+                        <div class="file-info">Поддерживаемые форматы: MP3, WAV, OGG (макс. 10MB)</div>
+                    </div>
+                </div>
+            `;
+            break;
+
+        case 'mixed':
+            mediaHTML = `
+                <div class="media-section">
+                    <h4><i class="fas fa-layer-group"></i> Медиа контент:</h4>
+                    <div style="display: grid; gap: 1rem;">
+                        <div class="media-upload" onclick="document.getElementById('question-image-${questionIndex}').click()">
+                            <i class="fas fa-image"></i> Добавить изображение
+                            <input type="file" name="question_image_${questionIndex}" id="question-image-${questionIndex}"
+                                   accept="image/*" style="display: none;"
+                                   onchange="previewImage(this, 'question-preview-${questionIndex}')">
+                            <img id="question-preview-${questionIndex}" class="preview-image">
+                        </div>
+                        <div class="media-upload voice-upload" onclick="document.getElementById('question-audio-${questionIndex}').click()">
+                            <i class="fas fa-file-audio"></i> Добавить аудио
+                            <input type="file" name="question_audio_${questionIndex}" id="question-audio-${questionIndex}"
+                                   accept="audio/*" style="display: none;"
+                                   onchange="previewAudio(this, 'audio-info-mixed-${questionIndex}')">
+                            <div id="audio-info-mixed-${questionIndex}" class="audio-info"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            break;
+
+        default:
+            mediaHTML = ''; // Для текстового вопроса медиа не нужно
+    }
+
+    mediaSection.innerHTML = mediaHTML;
+    updateSelectedFormat(questionIndex);
+}
+
+function updateAnswerType(questionIndex, answerIndex, answerType) {
+    const mediaContainer = document.getElementById(`answer-media-${questionIndex}-${answerIndex}`);
+    console.log(`🔄 Обновление типа ответа ${questionIndex}-${answerIndex} на: ${answerType}`);
+
+    let mediaHTML = '';
+
+    switch(answerType) {
+        case 'image':
+            mediaHTML = `
+                <div class="media-upload"
+                     onclick="document.getElementById('answer-image-${questionIndex}-${answerIndex}').click()">
+                    <i class="fas fa-cloud-upload-alt"></i> Нажмите чтобы загрузить изображение для ответа
+                    <input type="file" name="answer_image_${questionIndex}_${answerIndex}"
+                           id="answer-image-${questionIndex}-${answerIndex}"
+                           accept="image/*" style="display: none;"
+                           onchange="previewImage(this, 'answer-preview-${questionIndex}-${answerIndex}')">
+                    <img id="answer-preview-${questionIndex}-${answerIndex}" class="preview-image">
+                    <div class="file-info">Поддерживаемые форматы: JPG, PNG, GIF</div>
+                </div>
+            `;
+            break;
+
+        case 'voice':
+            mediaHTML = `
+                <div class="media-upload voice-upload"
+                     onclick="document.getElementById('answer-audio-${questionIndex}-${answerIndex}').click()">
+                    <i class="fas fa-file-audio"></i> Нажмите чтобы загрузить аудио для ответа
+                    <input type="file" name="answer_audio_${questionIndex}_${answerIndex}"
+                           id="answer-audio-${questionIndex}-${answerIndex}"
+                           accept="audio/*" style="display: none;"
+                           onchange="previewAudio(this, 'answer-audio-info-${questionIndex}-${answerIndex}')">
+                    <div id="answer-audio-info-${questionIndex}-${answerIndex}" class="audio-info"></div>
+                    <div class="file-info">Поддерживаемые форматы: MP3, WAV, OGG (макс. 10MB)</div>
+                </div>
+            `;
+            break;
+
+        case 'text':
+        default:
+            mediaHTML = '';
+    }
+
+    mediaContainer.innerHTML = mediaHTML;
+}
+
+// Добавьте отладку при отправке формы
+document.querySelector('form').addEventListener('submit', function(e) {
+    console.log('📤 ОТПРАВКА ФОРМЫ');
+
+    // Проверим все файловые инпуты
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+        if (input.files.length > 0) {
+            console.log(`📄 Файл ${input.name}: ${input.files[0].name}, размер: ${input.files[0].size}`);
+        } else {
+            console.log(`❌ Файл ${input.name}: не выбран`);
+        }
+    });
+});
+
+        function updateSelectedFormat(questionIndex) {
+            const questionSection = document.querySelector(`#questions-container > div:nth-child(${questionIndex + 1})`);
+            questionSection.querySelectorAll('.format-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            const selectedRadio = questionSection.querySelector('input[type="radio"]:checked');
+            if (selectedRadio) {
+                selectedRadio.parentElement.classList.add('selected');
+            }
+        }
+
+        function addAnswer(questionIndex) {
+            const container = document.getElementById(`answers-${questionIndex}`);
+            const answerCount = container.children.length;
+
+            const answerHTML = `
+                <div class="answer-item">
+                    <div class="answer-grid">
+                        <input type="text" name="answer_text_${questionIndex}[${answerCount}]"
+                               placeholder="Текст ответа ${answerCount + 1}" required>
+
+                        <select name="answer_type_${questionIndex}[${answerCount}]"
+                                onchange="updateAnswerType(${questionIndex}, ${answerCount}, this.value)">
+                            <option value="text"><i class="fi fi-sr-document"></i> Текст</option>
+                            <option value="image"><i class="fi fi-sr-camera"></i> Фото</option>
+                            <option value="voice"><i class="fi fi-sr-music-alt"></i> Аудио</option>
+                        </select>
+
+                        <div class="answer-controls">
+                            <label class="correct-label">
+                                <input type="radio" name="correct_answer_${questionIndex}" value="${answerCount}" ${answerCount === 0 ? 'required' : ''}>
+                                <span> Правильный</span>
+                            </label>
+                            <button type="button" class="delete-btn"
+                                    onclick="this.parentElement.parentElement.parentElement.remove()">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="answer-media-${questionIndex}-${answerCount}" class="answer-media">
+                        <!-- Появится когда выбран тип фото или аудио -->
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', answerHTML);
+            updateAnswerType(questionIndex, answerCount, 'text');
+        }
+
+
+
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function openMathKeyboard(elementId) {
+            // Заглушка для математической клавиатуры
+            alert('Математическая клавиатура будет реализована здесь');
+        }
+
+
+        function previewAudio(input, infoId) {
+    const infoContainer = document.getElementById(infoId);
+    const file = input.files[0];
+
+    if (file) {
+        // Проверяем размер файла (максимум 10MB)
+        const maxSize = 10 * 1024 * 1024; // 10MB в байтах
+        if (file.size > maxSize) {
+            alert('Файл слишком большой! Максимальный размер: 10MB');
+            input.value = ''; // Очищаем input
+            infoContainer.innerHTML = '';
+            return;
+        }
+
+        // Показываем информацию о файле
+        const fileSize = (file.size / (1024 * 1024)).toFixed(2); // MB
+        infoContainer.innerHTML = `
+            <div class="audio-file-info">
+                <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                <strong>Файл выбран:</strong> ${file.name}<br>
+                <small>Размер: ${fileSize} MB</small><br>
+                <small>Тип: ${file.type}</small>
+            </div>
+        `;
+
+        // Добавляем аудио плеер для предпросмотра
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            infoContainer.innerHTML += `
+                <audio controls style="width: 100%; margin-top: 10px;">
+                    <source src="${e.target.result}" type="${file.type}">
+                    Ваш браузер не поддерживает аудио элементы.
+                </audio>
+            `;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        infoContainer.innerHTML = '';
+    }
+}
+    </script>
+</body>
+</html>

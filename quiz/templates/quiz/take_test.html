@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <title>Тест: {{ test.title }}</title>
+    <style>
+        :root {
+            --primary: #4facfe;
+            --primary-dark: #00f2fe;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+              --success: #10b981;
+            --success-dark: #059669;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
+        }
+
+        /* Разрешаем только для полей ввода и кнопок */
+        input, textarea, button, a, select {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+            cursor: pointer;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .test-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+       .test-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.3' fill='%23ffffff'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    background-size: 1200px 120px, cover;
+    background-position: 0% 100%, center;
+    background-repeat: repeat-x, no-repeat;
+    animation: waveMove 8s linear infinite;
+}
+
+@keyframes waveMove {
+    0% { background-position: 0% 100%, center; }
+    100% { background-position: 1200px 100%, center; }
+}
+
+        .test-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .test-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .test-content {
+            padding: 30px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .info-card.warning {
+            background: #fffbeb;
+            border-color: #fcd34d;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: var(--danger);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .timer {
+            background: var(--danger);
+            color: white;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .question {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.question:hover {
+    box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.question.unanswered {
+    border-left: 4px solid var(--danger); /* Красная полоса — неотвечен */
+}
+
+.question.answered {
+    border-left: 4px solid var(--success); /* Зелёная полоса — отвечен */
+}
+
+
+        .question-number {
+            display: inline-block;
+            background: #6366f1;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gray-800);
+        }
+
+
+
+
+
+
+
+
+        .answer-text {
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        .answers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.answer-label {
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.answer-label:hover {
+    border-color: var(--primary);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.answer-label:has(input:checked) {
+    border-color: var(--success);
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.answer-label input[type="radio"] {
+    display: none;
+}
+
+.answer-label::before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--gray-300);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.answer-label:has(input:checked)::before {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.answer-label:has(input:checked)::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    left: 30px; /* 20px padding + 2px border + 2px gap */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.no-answers {
+    text-align: center;
+    padding: 20px;
+    color: var(--gray-500);
+    font-style: italic;
+}
+
+        .submit-section {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                background: var(--gray-100);
+            }
+
+            .test-container {
+                border-radius: var(--radius-sm);
+            }
+
+            .test-header {
+                padding: 30px 20px;
+            }
+
+            .test-title {
+                font-size: 1.8rem;
+            }
+
+            .test-content {
+                padding: 20px;
+            }
+
+            .question {
+                padding: 20px;
+            }
+
+            .form-input, .form-select {
+                padding: 14px 16px;
+            }
+
+            .answer-label {
+                padding: 12px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .test-header {
+                padding: 24px 16px;
+            }
+
+            .test-title {
+                font-size: 1.5rem;
+            }
+
+            .test-content {
+                padding: 16px;
+            }
+
+            .question {
+                padding: 16px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1 class="test-title">{{ test.title }}</h1>
+            {% if test.description %}
+                <p class="test-description">{{ test.description }}</p>
+            {% endif %}
+        </div>
+
+        <div class="test-content">
+            <!-- ПРОВЕРКА ПОВТОРНОГО ПРОХОЖДЕНИЯ -->
+            {% if already_completed %}
+                <div class="info-card warning">
+                    <h3>⚠️ Вы уже проходили этот тест</h3>
+                    <p>Каждый тест можно пройти только один раз</p>
+                    <div style="margin-top: 16px;">
+                        <a href="{% url 'quiz:show_result' existing_result.id %}" class="btn btn-primary">
+                            📊 Посмотреть результат
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <!-- обычная форма теста -->
+                <form method="post" enctype="multipart/form-data" id="quiz-form" action="{% url 'quiz:process_test_results' test.public_id %}">
+                    {% csrf_token %}
+
+                    <!-- Информация о студенте -->
+                    <div class="info-card">
+                        <h3 style="margin-bottom: 20px; color: white;"><i class="fi fi-ss-employee-man-alt"></i> Информация о себе</h3>
+
+                        <div class="form-group">
+                            <label class="form-label required" for="student_name">Ваше имя</label>
+                            <input type="text" id="student_name" name="student_name"
+                                   class="form-input" placeholder="Введите ваше имя" required>
+                            <div class="error-message" id="name-error">Пожалуйста, введите ваше имя</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required" for="class_group"><i class="fi fi-ss-users-class"></i> Ваш класс</label>
+                            <select name="class_group" class="form-input form-select" required>
+                            <option value="">-- Не выбрано --</option>
+                            <option value="1-А">1-А</option>
+                            <option value="1-Б">1-Б</option>
+                            <option value="1-В">1-В</option>
+                            <option value="1-Г">1-Г</option>
+                            <option value="1-Д">1-Д</option>
+                            <option value="1-Е">1-Е</option>
+                            <option value="1-Ж">1-Ж</option>
+                            <option value="1-З">1-З</option>
+                            <option value="1-И">1-И</option>
+                            <option value="1-К">1-К</option>
+
+                            <option value="2-А">2-А</option>
+                            <option value="2-Б">2-Б</option>
+                            <option value="2-В">2-В</option>
+                            <option value="2-Г">2-Г</option>
+                            <option value="2-Д">2-Д</option>
+                            <option value="2-Е">2-Е</option>
+                            <option value="2-Ж">2-Ж</option>
+                            <option value="2-З">2-З</option>
+                            <option value="2-И">2-И</option>
+                            <option value="2-К">2-К</option>
+
+                            <option value="3-А">3-А</option>
+                            <option value="3-Б">3-Б</option>
+                            <option value="3-В">3-В</option>
+                            <option value="3-Г">3-Г</option>
+                            <option value="3-Д">3-Д</option>
+                            <option value="3-Е">3-Е</option>
+                            <option value="3-Ж">3-Ж</option>
+                            <option value="3-З">3-З</option>
+                            <option value="3-И">3-И</option>
+                            <option value="3-К">3-К</option>
+
+                            <option value="4-А">4-А</option>
+                            <option value="4-Б">4-Б</option>
+                            <option value="4-В">4-В</option>
+                            <option value="4-Г">4-Г</option>
+                            <option value="4-Д">4-Д</option>
+                            <option value="4-Е">4-Е</option>
+                            <option value="4-Ж">4-Ж</option>
+                            <option value="4-З">4-З</option>
+                            <option value="4-И">4-И</option>
+                            <option value="4-К">4-К</option>
+
+                            <option value="5-А">5-А</option>
+                            <option value="5-Б">5-Б</option>
+                            <option value="5-В">5-В</option>
+                            <option value="5-Г">5-Г</option>
+                            <option value="5-Д">5-Д</option>
+                            <option value="5-Е">5-Е</option>
+                            <option value="5-Ж">5-Ж</option>
+                            <option value="5-З">5-З</option>
+                            <option value="5-И">5-И</option>
+                            <option value="5-К">5-К</option>
+
+                            <option value="6-А">6-А</option>
+                            <option value="6-Б">6-Б</option>
+                            <option value="6-В">6-В</option>
+                            <option value="6-Г">6-Г</option>
+                            <option value="6-Д">6-Д</option>
+                            <option value="6-Е">6-Е</option>
+                            <option value="6-Ж">6-Ж</option>
+                            <option value="6-З">6-З</option>
+                            <option value="6-И">6-И</option>
+                            <option value="6-К">6-К</option>
+
+                            <option value="7-А">7-А</option>
+                            <option value="7-Б">7-Б</option>
+                            <option value="7-В">7-В</option>
+                            <option value="7-Г">7-Г</option>
+                            <option value="7-Д">7-Д</option>
+                            <option value="7-Е">7-Е</option>
+                            <option value="7-Ж">7-Ж</option>
+                            <option value="7-З">7-З</option>
+                            <option value="7-И">7-И</option>
+                            <option value="7-К">7-К</option>
+
+                            <option value="8-А">8-А</option>
+                            <option value="8-Б">8-Б</option>
+                            <option value="8-В">8-В</option>
+                            <option value="8-Г">8-Г</option>
+                            <option value="8-Д">8-Д</option>
+                            <option value="8-Е">8-Е</option>
+                            <option value="8-Ж">8-Ж</option>
+                            <option value="8-З">8-З</option>
+                            <option value="8-и">8-И</option>
+                            <option value="8-К">8-К</option>
+
+                            <option value="9-А">9-А</option>
+                            <option value="9-Б">9-Б</option>
+                            <option value="9-В">9-В</option>
+                            <option value="9-Г">9-Г</option>
+                            <option value="9-Д">9-Д</option>
+                            <option value="9-Е">9-Е</option>
+                            <option value="9-Ж">9-Ж</option>
+                            <option value="9-З">9-З</option>
+                            <option value="9-И">9-И</option>
+                            <option value="9-К">9-К</option>
+
+                            <option value="10-А">10-А</option>
+                            <option value="10-Б">10-Б</option>
+                            <option value="10-В">10-В</option>
+                            <option value="10-Г">10-Г</option>
+                            <option value="10-Д">10-Д</option>
+                            <option value="10-Е">10-Е</option>
+                            <option value="10-Ж">10-Ж</option>
+                            <option value="10-З">10-З</option>
+                            <option value="10-И">10-И</option>
+                            <option value="10-К">10-К</option>
+
+                            <option value="11-А">11-А</option>
+                            <option value="11-Б">11-Б</option>
+                            <option value="11-В">11-В</option>
+                            <option value="11-Г">11-Г</option>
+                            <option value="11-Д">11-Д</option>
+                            <option value="11-Е">11-Е</option>
+                            <option value="11-Ж">11-Ж</option>
+                            <option value="11-З">11-З</option>
+                            <option value="11-И">11-И</option>
+                            <option value="11-К">11-К</option>
+                        </select>
+                            <div class="error-message" id="class-error">Пожалуйста, выберите ваш класс</div>
+                            <p style="color: white; font-size: 0.9rem; margin-top: 8px;">
+                                Указание класса поможет учителю лучше организовать результаты
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Таймер -->
+                    {% if test.timer_seconds and test.timer_seconds > 0 %}
+                        <div id="global-timer" class="timer">
+                            <i class="fi fi-br-duration-alt"></i> Осталось времени: <span id="secs">{{ test.timer_seconds }}</span> сек
+                        </div>
+                    {% endif %}
+
+                    <!-- Вопросы -->
+                    <div id="quiz-questions">
+                        {% for item in display_questions %}
+                            {% with q=item.question answers=item.answers %}
+                                <div class="question unanswered" data-question-id="{{ q.id }}">
+                                    <div class="question-number">Вопрос {{ forloop.counter }}</div>
+
+                                            {% if q.text %}
+                                                <div class="question-text">{{ q.text }}</div>
+                                            {% endif %}
+
+
+                                    <div class="answers-container">
+                                        {% for a in answers %}
+                                            <label class="answer-label">
+                                                <input type="radio" name="q_{{ q.id }}" value="{{ a.id }}" required>
+                                                <span class="answer-text">{{ a.text }}</span>
+                                            </label>
+                                        {% empty %}
+                                            <div class="no-answers">
+                                                ❌ Нет вариантов ответа
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="submit-section">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fi fi-sr-check-circle"></i> Отправить ответы
+                        </button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Таймер
+        {% if test.timer_seconds and test.timer_seconds > 0 %}
+        (function(){
+            let seconds = {{ test.timer_seconds }};
+            const timerElement = document.getElementById('secs');
+            const form = document.getElementById('quiz-form');
+
+            const timerInterval = setInterval(() => {
+                seconds--;
+                timerElement.textContent = seconds;
+
+                // Меняем цвет при малом времени
+                if (seconds <= 30) {
+                    document.getElementById('global-timer').style.background = '#dc2626';
+                }
+
+                if (seconds <= 0) {
+                    clearInterval(timerInterval);
+                    form.submit();
+                }
+            }, 1000);
+        })();
+        {% endif %}
+
+        // Валидация формы
+        document.getElementById('quiz-form').addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // Проверка имени
+            const nameInput = document.getElementById('student_name');
+            const nameError = document.getElementById('name-error');
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('error');
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameInput.classList.remove('error');
+                nameError.style.display = 'none';
+            }
+
+            // Проверка класса
+            const classInput = document.getElementById('class_group');
+            const classError = document.getElementById('class-error');
+            if (!classInput.value) {
+                classInput.classList.add('error');
+                classError.style.display = 'block';
+                isValid = false;
+            } else {
+                classInput.classList.remove('error');
+                classError.style.display = 'none';
+            }
+
+            // Проверка ответов на вопросы
+            const questions = document.querySelectorAll('.question');
+            let unansweredQuestions = [];
+
+            questions.forEach((question, index) => {
+                const questionId = question.getAttribute('data-question-id');
+                const isAnswered = document.querySelector(`input[name="q_${questionId}"]:checked`);
+
+                if (!isAnswered) {
+                    unansweredQuestions.push(index + 1);
+                    question.style.borderColor = '#ef4444';
+                    question.style.background = '#fef2f2';
+                } else {
+                    question.style.borderColor = '';
+                    question.style.background = '';
+                }
+            });
+
+            if (unansweredQuestions.length > 0) {
+                alert(`Пожалуйста, ответьте на все вопросы! Не отвечены вопросы: ${unansweredQuestions.join(', ')}`);
+                isValid = false;
+
+                // Прокрутка к первому неотвеченному вопросу
+                if (unansweredQuestions.length > 0) {
+                    const firstUnanswered = document.querySelectorAll('.question')[unansweredQuestions[0] - 1];
+                    firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        // Выделение выбранных ответов
+        document.querySelectorAll('.answer-label input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Снимаем выделение со всех вариантов этого вопроса
+                const question = this.closest('.question');
+                question.querySelectorAll('.answer-label').forEach(label => {
+                    label.classList.remove('selected');
+                });
+
+                // Выделяем выбранный вариант
+                this.closest('.answer-label').classList.add('selected');
+            });
+        });
+
+        // Убираем ошибки при вводе
+        document.getElementById('student_name').addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.classList.remove('error');
+                document.getElementById('name-error').style.display = 'none';
+            }
+        });
+
+        document.getElementById('class_group').addEventListener('change', function() {
+            if (this.value) {
+                this.classList.remove('error');
+                document.getElementById('class-error').style.display = 'none';
+            }
+        });
+
+       document.addEventListener('DOMContentLoaded', () => {
+  const questions = document.querySelectorAll('.question');
+
+  questions.forEach(question => {
+    const inputs = question.querySelectorAll('input[type="radio"]');
+
+    inputs.forEach(input => {
+      input.addEventListener('change', () => {
+        // Убираем старый класс
+        question.classList.remove('unanswered');
+        // Добавляем новый
+        question.classList.add('answered');
+      });
+    });
+  });
+});
+
+
+        document.querySelectorAll('.answer-label input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        // Убираем класс selected у всех вариантов
+        document.querySelectorAll('.answer-label').forEach(label => {
+            label.classList.remove('selected');
+        });
+
+        // Добавляем класс selected к выбранному варианту
+        if (this.checked) {
+            this.closest('.answer-label').classList.add('selected');
+        }
+    });
+});
+    </script>
+</body>
+</html>

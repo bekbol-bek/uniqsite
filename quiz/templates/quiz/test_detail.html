@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ test.title }}</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    .question { margin-bottom: 25px; padding: 15px; border: 1px solid #ccc; border-radius: 10px; }
+    .timer { color: red; font-weight: bold; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>{{ test.title }}</h1>
+  <p>{{ test.description }}</p>
+
+  {% for q in questions %}
+    <div class="question">
+      <h3>Вопрос {{ forloop.counter }}:</h3>
+      <p>{{ q.text }}</p>
+
+      {% if q.type == "image" and q.image %}
+        <img src="{{ q.image.url }}" width="300">
+      {% endif %}
+
+      {% if q.type == "audio" and q.audio %}
+        <audio controls>
+          <source src="{{ q.audio.url }}" type="audio/mpeg">
+        </audio>
+      {% endif %}
+
+      {% if q.timer_seconds > 0 %}
+        <div id="timer-{{ q.id }}" class="timer"></div>
+        <script>
+          (function(){
+            let sec = {{ q.timer_seconds }};
+            let el = document.getElementById("timer-{{ q.id }}");
+            let interval = setInterval(()=>{
+              el.textContent = "⏳ Осталось: " + sec + " сек.";
+              sec--;
+              if(sec < 0){
+                clearInterval(interval);
+                el.textContent = "⏳ Время вышло!";
+              }
+            }, 1000);
+          })();
+        </script>
+      {% endif %}
+
+      <form>
+        {% for a in q.answer_set.all %}
+          <label>
+            <input type="radio" name="q{{ q.id }}" value="{{ a.id }}">
+            {{ a.text }}
+          </label><br>
+        {% endfor %}
+      </form>
+    </div>
+  {% endfor %}
+</body>
+</html>

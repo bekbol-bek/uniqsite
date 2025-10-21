@@ -1,0 +1,873 @@
+<!-- templates/quiz/show_result.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат теста</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <style>
+
+    /* Запрет выделения текста */
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+        margin: 0;
+        padding: 0;
+    }
+
+    .result-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 15px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Мобильные стили */
+    @media (max-width: 768px) {
+        .result-container {
+            padding: 10px;
+        }
+
+        .score-card {
+            padding: 20px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            font-size: 1.7em;
+            margin-bottom: 15px;
+        }
+
+        .questions-review {
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+        }
+
+        .question-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-left-width: 3px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .result-container {
+            padding: 8px;
+        }
+
+        .score-card {
+            padding: 15px 10px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            font-size: 1.5em;
+            margin-bottom: 12px;
+        }
+
+        .questions-review {
+            padding: 12px 10px;
+            margin: 6px 0;
+            border-radius: 6px;
+        }
+
+        .question-item {
+            padding: 10px 8px;
+            margin: 6px 0;
+            border-left-width: 3px;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+    }
+
+    /* Оригинальные стили для десктопа */
+    .score-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .score-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: white;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        font-weight: bold;
+        color: #667eea;
+    }
+
+    .questions-review {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.question-item {
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border-left: 6px solid #e0e0e0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.question-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.question-item.correct {
+    border-left-color: #10b981;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 1px solid #bbf7d0;
+}
+
+.question-item.incorrect {
+    border-left-color: #ef4444;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fecaca;
+}
+
+    .badge {
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .badge-success {
+        background: #28a745;
+        color: white;
+    }
+
+    .badge-danger {
+        background: #dc3545;
+        color: white;
+    }
+
+    /* Скрытие текста от копирования */
+    .no-copy {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Дополнительные мобильные улучшения */
+    @media (max-width: 768px) {
+        /* Улучшаем читаемость текста */
+        body {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        h1, h2, h3 {
+            font-size: 1.3em;
+            margin: 10px 0;
+        }
+
+        /* Улучшаем тач-таргеты */
+        button, .btn {
+            min-height: 44px;
+            padding: 12px 16px;
+            font-size: 16px; /* Предотвращает масштабирование в iOS */
+        }
+
+        /* Улучшаем отступы для мобильных */
+        .mobile-padding {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body {
+            font-size: 13px;
+        }
+
+        h1, h2, h3 {
+            font-size: 1.2em;
+        }
+
+        /* Компактные элементы для очень маленьких экранов */
+        .compact-item {
+            padding: 8px 6px;
+            margin: 4px 0;
+        }
+    }
+
+    /* Горизонтальная ориентация на мобильных */
+    @media (max-width: 768px) and (orientation: landscape) {
+        .result-container {
+            padding: 8px;
+        }
+
+        .score-card {
+            padding: 15px;
+        }
+
+        .score-circle {
+            width: 70px;
+            height: 70px;
+            font-size: 1.3em;
+        }
+    }
+
+
+
+
+    /* Анимации для лучшего UX */
+    .score-circle {
+        transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .score-circle:active {
+            transform: scale(0.95);
+        }
+    }
+
+    /* Предотвращение горизонтального скролла */
+    .result-container {
+        overflow-x: hidden;
+        word-wrap: break-word;
+    }
+
+    /* Улучшение для длинного текста */
+    .question-text {
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+
+        <style>
+/* Стили для математических формул */
+.math-formula-display {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.2em;
+    line-height: 1.6;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+    margin: 8px 0;
+}
+
+.math-formula {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.1em;
+}
+
+.math-formula .fraction {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.math-formula .numerator {
+    display: block;
+    padding: 0 8px;
+    border-bottom: 2px solid #333;
+    font-size: 0.9em;
+}
+
+.math-formula .denominator {
+    display: block;
+    padding: 0 8px;
+    font-size: 0.9em;
+}
+
+.math-formula .superscript {
+    vertical-align: super;
+    font-size: 0.75em;
+    margin: 0 1px;
+}
+
+.math-formula .subscript {
+    vertical-align: sub;
+    font-size: 0.75em;
+    margin: 0 1px;
+}
+
+.math-formula .placeholder {
+    background: #4caf50;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin: 0 3px;
+    display: inline-block;
+    font-weight: bold;
+    border: 1px solid #388e3c;
+}
+
+.math-formula .integral-container {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 8px;
+    font-family: 'Times New Roman', serif;
+}
+
+.correct-answer .math-formula-display {
+    border-left-color: #28a745;
+    background: #f8fff9;
+}
+        /* Тестовые стили для формул - убедитесь что они работают */
+/* Стили для математических формул */
+.math-formula-display {
+    font-size: 1.2em;
+    line-height: 1.4;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #e9ecef;
+    color: #000; /* Черный текст */
+}
+
+/* Стили для верхних индексов (superscript) */
+.superscript {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+    margin-right: 1px;
+    color: #000; /* Черный текст */
+}
+
+
+
+
+
+/* Стили для корней */
+.math-formula-display span[style*="inline-flex"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    position: relative !important;
+}
+
+.math-formula-display span[style*="font-size: 1.3em"] {
+    font-size: 1.3em !important;
+    margin-right: 1px !important;
+    color: #000; /* Черный текст */
+}
+
+.math-formula-display span[style*="border-top: 2px"] {
+    border-top: 2px solid currentColor !important;
+    padding: 0 10px !important;
+    margin-left: -3px !important;
+    color: #000; /* Черный текст */
+}
+        /* Стили для изображений в результатах */
+.answer-image-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.answer-image {
+    position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.answer-image img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    border: 2px solid #e2e8f0;
+}
+
+.answer-image:hover img {
+    transform: scale(1.02);
+}
+
+.zoom-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.answer-image:hover .zoom-indicator {
+    opacity: 1;
+}
+
+.selected-answer-content, .correct-answer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Для мобильных */
+@media (max-width: 768px) {
+    .answer-image img {
+        max-width: 100%;
+        max-height: 150px;
+    }
+}
+
+        .image-modal {
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Стили для индикатора увеличения при наведении */
+.answer-image:hover .zoom-indicator {
+    opacity: 1;
+}
+
+.answer-image:hover img {
+    transform: scale(1.02);
+}
+</style>
+<body oncontextmenu="return false;">
+    <div class="result-container">
+        <div class="score-card">
+            <h1><i class="fi fi-ss-chart-simple-horizontal"></i> Результат теста</h1>
+            <div class="score-circle">
+                {{ result.percentage|floatformat:0 }}%
+            </div>
+            <h2 class="no-copy">{{ result.test.title }}</h2>
+            <p class="no-copy">Правильных ответов: {{ result.score }} из {{ result.total_questions }}</p>
+            <p class="no-copy">Время: {{ result.time_taken }} сек</p>
+            <p class="no-copy">Ученик(ца): {{ result.student_name }}</p>
+        </div>
+
+        <!-- Сообщение о завершении -->
+        <div style="background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0;">
+            <h3><i class="fi fi-sr-terms-check"></i> Тест завершен!</h3>
+            <p>Ваш результат сохранен. Тест можно пройти только один раз.</p>
+        </div>
+
+        <div class="questions-review no-copy">
+            <h3><i class="fi fi-sr-attention-detail"></i> Детализация ответов:</h3>
+
+            {% for student_answer in student_answers %}
+                <div class="question-item {% if student_answer.is_correct %}correct{% else %}incorrect{% endif %} no-copy">
+
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4>Вопрос {{ forloop.counter }}</h4>
+                        <span class="badge {% if student_answer.is_correct %}badge-success{% else %}badge-danger{% endif %}">
+                            {% if student_answer.is_correct %}
+                                <i class="fi fi-br-check"></i> Правильно
+                            {% else %}
+                                <i class="fi fi-br-x"></i> Неправильно
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <!-- Информация о формате вопроса -->
+                    <div style="margin-bottom: 10px; color: #666; font-size: 0.9em;">
+                        <i class="fi fi-sr-info"></i> Формат:
+                        {% if student_answer.question.question_format == 'text_answers' %}
+                            Текстовые ответы
+                        {% elif student_answer.question.question_format == 'photo_answers' %}
+                            Ответы с изображениями
+                        {% elif student_answer.question.question_format == 'matching' %}
+                            Сопоставление
+                        {% elif student_answer.question.question_format == 'find_error' %}
+                            Найди ошибку
+                        {% elif student_answer.question.question_format == 'voice_answer' %}
+                            Голосовой ответ
+                        {% elif student_answer.question.question_format == 'math_formula' or student_answer.question.question_format == 'math_equation' %}
+                            Математический вопрос
+                        {% else %}
+                            Стандартный вопрос
+                        {% endif %}
+                    </div>
+
+                    <!-- Изображение вопроса -->
+                    {% if student_answer.question.image %}
+                    <div class="question-image" style="margin: 15px 0;">
+                        <img src="{{ student_answer.question.image.url }}" alt="Изображение вопроса" style="max-width: 300px; border-radius: 8px;">
+                    </div>
+                    {% endif %}
+
+                   <!-- Текст вопроса -->
+                    <!-- Текст вопроса с отладкой -->
+<!-- Текст вопроса -->
+{% if student_answer.question.text %}
+    {% if student_answer.question.question_format in 'math_formula math_equation' %}
+        <!-- Для математических вопросов - отображаем математическое выражение -->
+        <div class="question-text math-formula-display">
+            {{ student_answer.question.math_expression|safe }}
+        </div>
+
+        <!-- Если нужно, можно также показывать текстовое описание -->
+        {% if student_answer.question.text and student_answer.question.text != student_answer.question.math_expression %}
+            <p><strong class="no-copy">{{ student_answer.question.text }}</strong></p>
+        {% endif %}
+    {% else %}
+        <!-- Для обычных вопросов -->
+        <p><strong class="no-copy">{{ student_answer.question.text }}</strong></p>
+    {% endif %}
+{% endif %}
+
+                    <!-- ОТОБРАЖЕНИЕ ПО ФОРМАТУ ВОПРОСА -->
+                    {% if student_answer.question.question_format in 'text_answers photo_answers default' %}
+                        <!-- Вопросы с выбором ответа -->
+                        {% if student_answer.selected_answer %}
+                            <p class="no-copy"><strong>Ваш ответ:</strong>
+                                {% if student_answer.selected_answer.text %}
+                                    <span class="math-formula">{{ student_answer.selected_answer.text|safe }}</span>
+                                {% else %}
+                                    {{ student_answer.selected_answer.text }}
+                                {% endif %}
+                            </p>
+                            {% if student_answer.selected_answer.image %}
+                            <div style="margin-top: 10px;">
+                                <img src="{{ student_answer.selected_answer.image.url }}" alt="Ваш ответ" style="max-width: 200px; border-radius: 8px;">
+                            </div>
+                            {% endif %}
+                        {% else %}
+                            <p class="no-copy" style="color: #dc3545;">Вы не ответили на этот вопрос</p>
+                        {% endif %}
+
+                    {% elif student_answer.question.question_format == 'math_formula' or student_answer.question.question_format == 'math_equation' %}
+                        <!-- МАТЕМАТИЧЕСКИЕ ФОРМУЛЫ -->
+                        <div class="math-results">
+                            <p class="no-copy"><strong>Ваш ответ:</strong></p>
+                            <div>
+                                {% if student_answer.text_answer %}
+                                    <!-- Текстовый ответ или формула -->
+                                    <div class="math-formula-display">{{ student_answer.text_answer|safe }}</div>
+                                {% elif student_answer.selected_answer %}
+                                    <!-- Выбранный ответ (может быть фото, формула или оба) -->
+                                    <div class="selected-answer-content">
+                                        {% if student_answer.selected_answer.image %}
+                                        <!-- ЕСЛИ ЕСТЬ ФОТО ОТВЕТА -->
+                                        <div class="answer-image-container" style="margin-bottom: 10px; text-align: center;">
+                                            <div class="answer-image" style="position: relative; display: inline-block;">
+                                                <img src="{{ student_answer.selected_answer.image.url }}"
+                                                     alt="Изображение ответа"
+                                                     onclick="openImageModal('{{ student_answer.selected_answer.image.url }}')"
+                                                     style="max-width: 200px; max-height: 150px; border-radius: 8px; border: 2px solid #e2e8f0; cursor: pointer;">
+                                                <div class="zoom-indicator" style="position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; opacity: 0; transition: opacity 0.3s ease;">🔍 Увеличить</div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- ПЕРВОЕ: МАТЕМАТИЧЕСКАЯ ФОРМУЛА -->
+                                        {% if student_answer.selected_answer.math_expression %}
+                                            <div class="math-formula-display">{{ student_answer.selected_answer.math_expression|safe }}</div>
+
+                                        <!-- ВТОРОЕ: ОБЫЧНЫЙ ТЕКСТ -->
+                                        {% elif student_answer.selected_answer.text and student_answer.selected_answer.text != "Ответ с изображением" %}
+                                            <div class="math-formula-display">{{ student_answer.selected_answer.text|safe }}</div>
+                                        {% endif %}
+
+                                        <!-- ЕСЛИ ТОЛЬКО ФОТО БЕЗ ФОРМУЛЫ -->
+                                        {% if student_answer.selected_answer.image and not student_answer.selected_answer.math_expression and not student_answer.selected_answer.text %}
+                                            <p class="no-copy" style="color: #666; font-style: italic; text-align: center;">Ответ с изображением</p>
+                                        {% endif %}
+                                    </div>
+                                {% else %}
+                                    <p class="no-copy" style="margin: 0; color: #666;">Ответ не предоставлен</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+
+                    {% elif student_answer.question.question_format == 'matching' %}
+                        <!-- Сопоставление с фотографиями -->
+                        <div class="matching-results">
+                            <p class="no-copy"><strong>Ваши сопоставления:</strong></p>
+                            {% if student_answer.matching_data %}
+                                {% for key, match in student_answer.matching_data.items %}
+                                <div class="matching-pair" style="display: flex; align-items: center; margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; gap: 15px;">
+
+                                    <!-- Фото элемента -->
+
+
+                                    <!-- Текстовые результаты -->
+                                    <div style="flex: 1;">
+                                        <div style="margin-bottom: 10px;">
+                                            <p class="no-copy" style="margin: 0; font-size: 14px;">
+                                                <strong>Вы выбрали:</strong> {{ match.selected_text }}
+                                            </p>
+                                            <p class="no-copy" style="margin: 5px 0 0 0; font-size: 14px;">
+                                                <strong>Правильно:</strong> {{ match.correct_text }}
+                                            </p>
+                                        </div>
+
+                                        {% if match.is_correct %}
+                                            <span style="color: #28a745; font-size: 14px; font-weight: bold;">✓ Правильно</span>
+                                        {% else %}
+                                            <span style="color: #dc3545; font-size: 14px; font-weight: bold;">✗ Неправильно</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="no-copy" style="color: #666; text-align: center; padding: 20px;">Сопоставление не выполнено</p>
+                            {% endif %}
+
+
+                        </div>
+
+
+                    {% elif student_answer.question.question_format == 'find_error' %}
+                        <!-- Найди ошибку -->
+                        <div class="find-error-results">
+                            <p class="no-copy"><strong>Ваш ответ:</strong></p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                                <p class="no-copy" style="margin: 0;">
+                                    {% if student_answer.text_answer %}
+                                        {{ student_answer.text_answer }}
+                                    {% else %}
+                                        Вы не описали ошибку
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                    {% elif student_answer.question.question_format == 'voice_answer' %}
+                        <!-- Голосовой ответ -->
+                        <div class="voice-results">
+                            <p class="no-copy"><strong>Ваш ответ:</strong></p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                                <p class="no-copy" style="margin: 0;">
+                                    {% if student_answer.text_answer %}
+                                        {{ student_answer.text_answer }}
+                                    {% else %}
+                                        Голосовой ответ не записан
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if not student_answer.is_correct %}
+                        <div style="background: #d4edda; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                            <p style="color: #28a745; margin: 0; font-weight: bold;">
+                                <i class="fi fi-sr-lightbulb"></i> Правильный ответ:
+                            </p>
+
+                            {% if student_answer.question.question_format in 'math_formula math_equation' %}
+                                <!-- Для математических вопросов -->
+                                {% for answer in student_answer.question.answers.all %}
+                                    {% if answer.is_correct %}
+                                        <div class="correct-answer-content" style="margin-top: 10px;">
+
+
+
+                                            {% if answer.image %}
+                                            <!-- ФОТО ПРАВИЛЬНОГО ОТВЕТА -->
+                                            <div class="answer-image-container" style="margin-bottom: 10px; text-align: center;">
+                                                <div class="answer-image" style="position: relative; display: inline-block;">
+                                                    <img src="{{ answer.image.url }}"
+                                                         alt="Правильный ответ"
+                                                         onclick="openImageModal('{{ answer.image.url }}')"
+                                                         style="max-width: 200px; max-height: 150px; border-radius: 8px; border: 2px solid #28a745; cursor: pointer;">
+                                                    <div class="zoom-indicator" style="position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; opacity: 0; transition: opacity 0.3s ease;">🔍 Увеличить</div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            <!-- ПЕРВОЕ: МАТЕМАТИЧЕСКАЯ ФОРМУЛА -->
+                                            {% if answer.math_expression %}
+                                                <div class="math-formula-display" style="font-size: 1.2em; font-family: 'Times New Roman', serif; padding: 10px; background: #f8f9fa; border-radius: 5px; margin: 10px 0; text-align: center;">
+                                                    {{ answer.math_expression|safe }}
+                                                </div>
+
+                                            <!-- ВТОРОЕ: ОБЫЧНЫЙ ТЕКСТ (если нет формулы) -->
+                                            {% elif answer.text and answer.text != "Ответ с изображением" %}
+                                                <div class="text-answer" style="padding: 10px; background: #f8f9fa; border-radius: 5px; margin: 10px 0; text-align: center;">
+                                                    <strong>{{ answer.text }}</strong>
+                                                </div>
+                                            {% endif %}
+
+                                            <!-- ЕСЛИ ТОЛЬКО ФОТО БЕЗ ТЕКСТА И ФОРМУЛЫ -->
+                                            {% if answer.image and not answer.math_expression and not answer.text %}
+                                                <p style="color: #666; font-style: italic; text-align: center;">Правильный ответ с изображением</p>
+                                            {% endif %}
+
+                                            <!-- ЕСЛИ НИЧЕГО НЕТ -->
+                                            {% if not answer.math_expression and not answer.text and not answer.image %}
+                                                <p style="color: #666; font-style: italic; text-align: center;">Правильный ответ не указан</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                        ❌ Не найден правильный ответ для этого вопроса
+                                    </div>
+                                {% endfor %}
+
+                            {% elif student_answer.question.question_format == 'matching' %}
+                                <!-- Для сопоставления показываем все правильные пары -->
+                                <div style="margin-top: 10px;">
+                                    {% for answer in student_answer.question.answers.all %}
+                                        <div style="margin: 5px 0; padding: 5px; background: white; border-radius: 5px;">
+                                            {% if answer.image %}
+                                                <img src="{{ answer.image.url }}" alt="Правильное изображение" style="max-width: 150px; border-radius: 5px; margin-right: 10px;">
+                                            {% endif %}
+                                            {{ answer.matching_text }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% elif student_answer.question.question_format == 'find_error' %}
+                                <!-- Для "найди ошибку" показываем правильное описание -->
+                                {% for answer in student_answer.question.answers.all %}
+                                    {% if answer.is_correct %}
+                                        <p style="margin: 5px 0 0 0;">{{ answer.text }}</p>
+                                    {% endif %}
+                                {% endfor %}
+
+                            {% else %}
+                                <!-- Для стандартных вопросов -->
+                                {% for answer in student_answer.question.answers.all %}
+                                    {% if answer.is_correct %}
+                                        <p style="margin: 5px 0 0 0;">
+                                            {% if answer.text %}
+                                                <span class="math-formula">{{ answer.text|safe }}</span>
+                                            {% else %}
+                                                {{ answer.text }}
+                                            {% endif %}
+                                            {% if answer.image %}
+                                                <div style="margin-top: 10px;">
+                                                    <img src="{{ answer.image.url }}" alt="Правильный ответ" style="max-width: 200px; border-radius: 8px;">
+                                                </div>
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div style="text-align: center; padding: 20px; color: #666;">
+                    <p>Нет данных об ответах</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Модальное окно для увеличения фото -->
+<div id="imageModal" class="image-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="modal-content" style="position: relative; max-width: 90%; max-height: 90%;">
+        <button class="close-modal" onclick="closeImageModal()" style="position: absolute; top: -40px; right: -10px; background: rgba(255, 255, 255, 0.2); border: none; color: white; font-size: 24px; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center;">×</button>
+        <img id="modalImage" class="modal-image" src="" alt="Увеличенное изображение" style="max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 8px;">
+    </div>
+</div>
+
+
+    <script>
+        // Дополнительная защита от копирования
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('Копирование текста запрещено');
+        });
+
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+
+        // Запрет F12 и других инструментов разработчика
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'C') || (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                alert('Доступ запрещен');
+            }
+        });
+
+        // Функция для открытия модального окна с изображением
+function openImageModal(imageUrl) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+
+    modalImage.src = imageUrl;
+    modal.style.display = 'flex';
+
+    // Блокируем прокрутку страницы
+    document.body.style.overflow = 'hidden';
+}
+
+// Функция для закрытия модального окна
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+
+    // Восстанавливаем прокрутку страницы
+    document.body.style.overflow = 'auto';
+}
+
+// Закрытие по клику вне изображения
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeImageModal();
+    }
+});
+
+// Закрытие по клавише Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});
+    </script>
+</body>
+
+</html>

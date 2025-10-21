@@ -1,0 +1,3144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <title>Создать Математический Тест</title>
+    <style>
+        {% load static %}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .math-test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .help-sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .help-sidebar h2 {
+    color: #6366f1;
+    margin-bottom: 25px;
+    font-size: 1.4em;
+    text-align: center;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 15px;
+}
+
+.help-item {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.help-item:hover {
+    border-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+}
+
+.help-item h4 {
+    color: #374151;
+    margin: 0 0 10px 0;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.help-item p {
+    color: #6b7280;
+    margin: 8px 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.help-item ul {
+    color: #6b7280;
+    margin: 8px 0;
+    padding-left: 20px;
+    font-size: 0.9em;
+}
+
+.help-item li {
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.help-examples {
+    background: linear-gradient(135deg, #f0f4ff 0%, #f8faff 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #e0e7ff;
+}
+
+.help-examples h4 {
+    color: #4f46e5;
+    margin: 0 0 15px 0;
+    font-size: 1.1em;
+}
+
+.example {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid #6366f1;
+}
+
+.example strong {
+    color: #374151;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.example p {
+    color: #6b7280;
+    margin: 0;
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+
+.help-tip {
+    background: linear-gradient(135deg, #f0fff4 0%, #f8fff8 100%);
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid #d1fae5;
+}
+
+.help-tip h4 {
+    color: #059669;
+    margin: 0 0 8px 0;
+    font-size: 1em;
+}
+
+.help-tip p {
+    color: #065f46;
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .help-sidebar {
+        position: static;
+        margin-top: 30px;
+    }
+}
+
+        .format-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .format-button {
+            display: block;
+            cursor: pointer;
+        }
+
+        .format-button input[type="radio"] {
+            display: none;
+        }
+
+        .format-button-content {
+            border: 2px solid #e5e7eb;
+            background: white;
+            padding: 20px 15px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .format-button input[type="radio"]:checked + .format-button-content {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .format-icon {
+            font-size: 2em;
+        }
+
+        .format-text {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .format-text strong {
+            font-weight: 600;
+        }
+
+        .format-text small {
+            color: #6b7280;
+            font-size: 0.8em;
+        }
+
+        .question-section, .answers-section {
+            margin: 30px 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1em;
+            margin: 10px 0;
+            resize: vertical;
+        }
+
+        .keyboard-toggle {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .keyboard-toggle:hover {
+            background: #4f46e5;
+        }
+
+        .math-preview {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            min-height: 50px;
+            border: 2px dashed #dee2e6;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+        }
+
+        .answer-item {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px solid #e5e7eb;
+            margin: 15px 0;
+        }
+
+        .correct-answer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .add-button, .btn {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+         .submit-btn {
+            background: #10b981;
+         }
+
+        .btn-primary {
+            background: #6366f1;
+        }
+
+        .delete-button {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Модальное окно клавиатуры */
+        .math-keyboard-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .math-keyboard-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            max-width: 1200px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 20px;
+        }
+
+        /* Стили вашей математической клавиатуры */
+        .keyboard-container {
+            padding: 0;
+        }
+
+        .keyboard-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .formula-display {
+            background: #f8f9fa;
+            padding: 20px;
+            min-height: 80px;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 24px;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        .keyboard-tabs {
+            display: flex;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            overflow-x: auto;
+        }
+
+        .keyboard-tab {
+            padding: 15px 20px;
+            color: white;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .keyboard-tab.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .keyboard-panel {
+            background: #ecf0f1;
+            padding: 20px;
+            min-height: 200px;
+            display: none;
+        }
+
+        .keyboard-panel.active {
+            display: block;
+        }
+
+        .keyboard-section {
+            margin-bottom: 15px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .key {
+            min-width: 70px;
+            padding: 15px 10px;
+            background: white;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            font-family: 'Times New Roman', serif;
+            flex: 1;
+        }
+
+        .key:hover {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .keyboard-controls {
+            padding: 20px;
+            background: #f8f9fa;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .control-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-success { background: #2ecc71; color: white; }
+        .btn-primary { background: #3498db; color: white; }
+
+        /* Стили для плейсхолдеров */
+        .placeholder {
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 0 2px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .placeholder.filled {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        /* Математические стили */
+        .sup {
+            vertical-align: super;
+            font-size: 0.7em;
+        }
+
+        .sub {
+            vertical-align: sub;
+            font-size: 0.7em;
+        }
+
+        .fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 3px;
+    vertical-align: middle;
+}
+
+
+
+
+        .numerator {
+    display: block;
+    padding: 0 5px;
+    font-size: 0.9em;
+    border-bottom: 3px solid black; /* ЖИРНАЯ линия */
+}
+
+.denominator {
+    display: block;
+    padding: 0 5px;
+    font-size: 0.9em;
+}
+
+        .sqrt {
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .sqrt::before {
+            content: "√";
+            position: absolute;
+            left: 0;
+            top: -2px;
+            font-size: 1.2em;
+        }
+
+        .superscript {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+}
+
+.subscript {
+    font-size: 0.7em;
+    vertical-align: sub;
+    line-height: 1;
+}
+
+
+
+
+
+
+
+.integral-with-limits {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.integral-upper {
+    font-size: 0.7em;
+    line-height: 1;
+    margin-bottom: 1px;
+}
+
+.integral-lower {
+    font-size: 0.7em;
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.integral-symbol {
+    font-size: 1.6em;
+    line-height: 1;
+}
+/* Стиль для математического корня */
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    font-family: "Times New Roman", serif;
+}
+
+.sqrt-symbol svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.sqrt-content {
+    border-top: 2px solid currentColor;
+    padding: 0 12px;
+    margin-left: -10px;
+    font-style: italic;
+    font-size: 1.1em;
+}
+        /* Стили для красивого корня с чертой */
+.math-formula-display span[style*="inline-flex"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    position: relative !important;
+}
+
+.math-formula-display .superscript {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+    margin-right: 2px;
+    position: relative;
+    top: -5px;
+}
+
+        /* Стили для загрузки изображений */
+.image-upload-section {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px dashed #dee2e6;
+}
+
+.upload-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.upload-label.small {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.image-upload-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.image-upload-input.small {
+    padding: 8px;
+    font-size: 12px;
+}
+
+.image-preview {
+    margin-top: 10px;
+    display: none;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+}
+
+.image-preview.small img {
+    max-width: 120px;
+    max-height: 80px;
+}
+
+.answer-image-upload {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #dee2e6;
+}
+/* Стили для загрузки изображений ответов */
+.answer-image-upload {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #dee2e6;
+}
+
+.upload-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.upload-label.small {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.image-upload-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.image-upload-input.small {
+    padding: 8px;
+    font-size: 12px;
+}
+
+.image-preview {
+    margin-top: 10px;
+    display: none;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+}
+
+.image-preview.small img {
+    max-width: 120px;
+    max-height: 80px;
+}
+        /* Стили для загрузки изображений ответов */
+.answer-image-upload {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px dashed #dee2e6;
+}
+
+.upload-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.upload-label.small {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.image-upload-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.image-upload-input.small {
+    padding: 8px;
+    font-size: 12px;
+}
+
+.image-preview {
+    margin-top: 10px;
+    display: none;
+}
+
+.image-preview img {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+}
+
+.image-preview.small img {
+    max-width: 120px;
+    max-height: 80px;
+}
+
+        .question-block {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.question-title {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.answers-container {
+    margin: 20px 0;
+}
+
+.answer-block {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e9ecef;
+    position: relative;
+}
+
+.remove-answer-btn {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+        /* Контейнер загрузки изображения */
+.image-upload-section {
+    margin: 20px 0;
+}
+
+/* Метка */
+.upload-label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 16px;
+}
+
+/* Горизонтальный контейнер для загрузки */
+.image-upload-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 80px;
+}
+
+.image-upload-horizontal:hover {
+    border-color: #6366f1;
+    background: #f0f4ff;
+}
+
+/* Превью изображения */
+.image-preview-horizontal {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    display: none;
+}
+
+/* Контейнер превью */
+.image-preview-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Когда есть изображение */
+.image-upload-horizontal.has-image .upload-placeholder-horizontal {
+    display: none;
+}
+
+.image-upload-horizontal.has-image .image-preview-horizontal {
+    display: block;
+}
+
+/* Плейсхолдер загрузки */
+.upload-placeholder-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.placeholder-icon-horizontal {
+    width: 40px;
+    height: 40px;
+    background: #6366f1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.placeholder-text-horizontal {
+    display: flex;
+    flex-direction: column;
+}
+
+.placeholder-title-horizontal {
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.placeholder-subtitle-horizontal {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+/* Скрытый инпут */
+.image-upload-input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+/* Кнопка удаления */
+.remove-image-btn-horizontal {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #ef4444;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    z-index: 10;
+}
+
+.image-preview-container:hover .remove-image-btn-horizontal {
+    display: flex;
+}
+
+/* Информация о загруженном файле */
+.file-info-horizontal {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.image-upload-horizontal.has-image .file-info-horizontal {
+    display: flex;
+}
+
+.file-name-horizontal {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+}
+
+.file-size-horizontal {
+    font-size: 12px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+        /* Горизонтальный контейнер для ответа */
+.answer-content-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Текстовое поле ответа */
+.answer-text-input-horizontal {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.answer-text-input-horizontal:focus {
+    border-color: #6366f1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.answer-text-input-horizontal::placeholder {
+    color: #9ca3af;
+}
+
+/* Контейнер загрузки изображения ответа */
+.answer-image-upload-horizontal {
+    position: relative;
+    min-width: 120px;
+    height: 60px;
+}
+
+/* Стили для загрузки изображения */
+.image-upload-horizontal-small {
+    width: 120px;
+    height: 60px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-upload-horizontal-small:hover {
+    border-color: #6366f1;
+    background: #f0f4ff;
+}
+
+/* Превью изображения ответа */
+.image-preview-horizontal-small {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    display: none;
+}
+
+/* Иконка загрузки */
+.upload-icon-horizontal {
+    width: 24px;
+    height: 24px;
+    color: #6b7280;
+    transition: color 0.3s ease;
+}
+
+.image-upload-horizontal-small:hover .upload-icon-horizontal {
+    color: #6366f1;
+}
+
+/* Когда есть изображение */
+.answer-image-upload-horizontal.has-image .image-preview-horizontal-small {
+    display: block;
+}
+
+.answer-image-upload-horizontal.has-image .upload-icon-horizontal {
+    display: none;
+}
+
+/* Кнопка удаления изображения */
+.remove-image-btn-horizontal-small {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    background: #ef4444;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.answer-image-upload-horizontal:hover .remove-image-btn-horizontal-small {
+    display: flex;
+}
+
+.remove-image-btn-horizontal-small:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+/* Скрытый инпут */
+.image-upload-input-horizontal {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+/* Правильный ответ */
+.correct-option-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.radio-input-horizontal {
+    display: none;
+}
+
+.radio-label-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.radio-label-horizontal:hover {
+    border-color: #10b981;
+    color: #059669;
+}
+
+.radio-input-horizontal:checked + .radio-label-horizontal {
+    background: #10b981;
+    border-color: #10b981;
+    color: white;
+}
+
+.radio-icon-horizontal {
+    font-size: 16px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .answer-content-horizontal {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .answer-text-input-horizontal {
+        min-width: auto;
+    }
+
+    .answer-image-upload-horizontal {
+        align-self: flex-start;
+    }
+
+    .correct-option-horizontal {
+        margin-left: 0;
+        justify-content: center;
+    }
+}
+        .correct-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 16px;
+    background: white;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--border);
+    max-width: 300px;
+}
+
+.correct-option:hover {
+    border-color: var(--success);
+    background: rgba(40, 167, 69, 0.05);
+}
+
+/* Скрываем стандартный radio */
+.correct-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Кастомный радио кружок */
+.correct-option input[type="radio"] + span::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    top: 2px;
+}
+
+/* ЗЕЛЕНЫЙ стиль для выбранного радио */
+.correct-option input[type="radio"]:checked + span::before {
+    border-color: #28a745;
+    background: #28a745;
+    box-shadow: inset 0 0 0 3px white;
+}
+
+/* ЗЕЛЕНЫЙ текст при выборе */
+.correct-option input[type="radio"]:checked + span {
+    color: #28a745;
+    font-weight: 600;
+}
+
+/* ЗЕЛЕНАЯ рамка и фон при выборе */
+.correct-option:has(input[type="radio"]:checked) {
+    border-color: #28a745;
+    background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Если не работают CSS переменные, добавьте: */
+:root {
+    --border: #ddd;
+    --success: #28a745;
+}
+
+        .editable {
+    min-width: 20px;
+    min-height: 1em;
+    border: 1px dashed #ccc;
+    padding: 2px 4px;
+    margin: 1px;
+}
+
+.editable:focus {
+    border-color: #007bff;
+    outline: none;
+    background: #f8f9fa;
+}
+        /* Стиль для активного редактируемого поля */
+[contenteditable="true"]:focus {
+    outline: 2px solid #4CAF50 !important;
+    outline-offset: 2px !important;
+    background: #f0fff0 !important;
+}
+        .big-brackets {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    font-family: 'Times New Roman', serif;
+}
+
+.bracket-left, .bracket-right {
+    font-size: 1.5em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.bracket-content {
+    padding: 0 2px;
+    display: inline-block;
+}
+
+/* Особые стили для разных типов скобок */
+.big-brackets.parentheses .bracket-left,
+.big-brackets.parentheses .bracket-right {
+    font-size: 1.8em;
+}
+
+.big-brackets.square .bracket-left,
+.big-brackets.square .bracket-right {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+.big-brackets.braces .bracket-left,
+.big-brackets.braces .bracket-right {
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+/* Автоподстройка размера скобок под содержимое */
+.big-brackets:has(.fraction) .bracket-left,
+.big-brackets:has(.fraction) .bracket-right {
+    font-size: 2em;
+}
+
+.big-brackets:has(.big-brackets) .bracket-left,
+.big-brackets:has(.big-brackets) .bracket-right {
+    font-size: 2.2em;
+}
+
+        .subscript {
+    font-size: 0.7em;
+    vertical-align: sub;
+    line-height: 1;
+    display: inline-block;
+}
+
+/* Стили для кастомного ввода */
+.custom-input-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-input-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.custom-input-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    z-index: 2001;
+    position: relative;
+}
+
+.custom-input-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-input-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-input-body {
+    padding: 25px;
+}
+
+.custom-input-field {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+.custom-input-field:focus {
+    border-color: #6366f1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.custom-input-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.custom-input-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.cancel-btn:hover {
+    background: #e5e7eb;
+}
+
+.confirm-btn {
+    background: #6366f1;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background: #4f46e5;
+}
+        @keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.math-keyboard-notification {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+        /* Стили для кастомного модального окна подтверждения */
+.custom-confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-confirm-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.custom-confirm-container {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.custom-confirm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.custom-confirm-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-confirm-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.custom-confirm-header .close-btn:hover {
+    background: #f8f9fa;
+    color: #333;
+}
+
+.custom-confirm-body {
+    padding: 20px;
+}
+
+.custom-confirm-body p {
+    margin: 0 0 20px 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+.custom-confirm-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.custom-confirm-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.custom-confirm-btn.cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.custom-confirm-btn.cancel-btn:hover {
+    background: #5a6268;
+}
+
+.custom-confirm-btn.confirm-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.custom-confirm-btn.confirm-btn:hover {
+    background: #c82333;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+        /* Стили для нового layout */
+.keyboard-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-height: 80vh;
+}
+
+.video-sidebar {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.video-section h3 {
+    color: #6366f1;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.video-container {
+    margin-bottom: 20px;
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 8px;
+    background: #000;
+}
+
+.video-title {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #374151;
+    font-weight: 500;
+}
+
+.quick-tips {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.quick-tips h4 {
+    color: #059669;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.quick-tips ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quick-tips li {
+    padding: 5px 0;
+    color: #6b7280;
+    font-size: 0.9em;
+    position: relative;
+    padding-left: 15px;
+}
+
+.quick-tips li:before {
+    content: "•";
+    color: #6366f1;
+    position: absolute;
+    left: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .keyboard-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .video-sidebar {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="math-test-container">
+        <div class="main-content">
+            <div class="header">
+                <h1><i class="fi fi-sr-folder-math"></i> Создать Математический Тест</h1>
+            </div>
+
+            <div class="content">
+                <form method="post" id="mathTestForm"  enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Тип вопроса -->
+
+
+                    <!-- Вопрос -->
+
+
+                    <!-- Ответы -->
+                    <!-- Контейнер для всех вопросов -->
+                    <div id="questions-container">
+                        <!-- Вопросы будут добавляться здесь автоматически -->
+                    </div>
+
+                    <div class="buttons-container">
+                        <button type="button" class="btn add-btn" onclick="addQuestion()">
+                            <i class="fi fi-sr-seal-question"></i> Добавить вопрос
+                        </button>
+
+                        <button type="submit" class="btn submit-btn">
+                            <i class="fi fi-sr-check-circle"></i> Завершить создание теста
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="help-sidebar">
+            <h2>🎯 Как использовать клавиатуру</h2>
+
+            <div class="help-item">
+                <h4>🔤 1. Начните с основных символов</h4>
+                <p>Используйте вкладку <strong>"Основные"</strong> для цифр, букв и простых операций: + - × ÷ = ( )</p>
+            </div>
+
+            <div class="help-item">
+                <h4>📐 2. Добавьте математические функции</h4>
+                <p>Перейдите на вкладки:</p>
+                <ul>
+                    <li><strong>Алгебра</strong> - дроби, корни, степени</li>
+                    <li><strong>Геометрия</strong> - тригонометрия, греческие буквы</li>
+                    <li><strong>Матанализ</strong> - интегралы, производные, пределы</li>
+                </ul>
+            </div>
+
+            <div class="help-item">
+                <h4>□ 3. Заполняйте плейсхолдеры</h4>
+                <p>Нажимайте на квадратики <strong>□</strong> чтобы:</p>
+                <ul>
+                    <li>Ввести числа или переменные</li>
+                    <li>Добавить другие математические выражения</li>
+                    <li>Создать сложные формулы</li>
+                </ul>
+            </div>
+
+            <div class="help-item">
+                <h4>🔄 4. Редактируйте в любое время</h4>
+                <p>Можно в любой момент:</p>
+                <ul>
+                    <li>Нажать на заполненный плейсхолдер для изменения</li>
+                    <li>Использовать ⌫ для удаления</li>
+                    <li>Нажать "Очистить" чтобы начать заново</li>
+                </ul>
+            </div>
+
+            <div class="help-item">
+                <h4>💾 5. Сохраните и вставьте</h4>
+                <p>Когда формула готова:</p>
+                <ul>
+                    <li>Нажмите <strong>"Сохранить"</strong> чтобы не потерять</li>
+                    <li>Нажмите <strong>"Вставить формулу"</strong> чтобы добавить в вопрос</li>
+                </ul>
+            </div>
+
+            <div class="help-examples">
+                <h4>📝 Примеры создания формул:</h4>
+                <div class="example">
+                    <strong>Дробь с степенью:</strong>
+                    <p>1. Нажмите "a/b" → 2. Заполните числитель → 3. Нажмите " ⁿ " в числителе → 4. Заполните степень</p>
+                </div>
+                <div class="example">
+                    <strong>Корень с показателем:</strong>
+                    <p>1. Нажмите "√xⁿ" → 2. Заполните основание → 3. Заполните показатель степени</p>
+                </div>
+                <div class="example">
+                    <strong>Скобки с выражением:</strong>
+                    <p>1. Нажмите "( )" → 2. Заполните содержимое скобок любой формулой</p>
+                </div>
+            </div>
+
+            <div class="help-tip">
+                <h4>💡 Совет</h4>
+                <p>Можно вкладывать формулы друг в друга! Например: дробь внутри корня, или степень в числителе дроби.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно математической клавиатуры -->
+    <div class="math-keyboard-modal" id="mathKeyboardModal">
+        <div class="modal-content">
+          <div class="keyboard-layout">
+            <div class="keyboard-container">
+                <div class="keyboard-header">
+                    <h2><i class="fi fi-sr-folder-math"></i> Математическая Клавиатура</h2>
+                    <p>Создайте формулу и нажмите "Вставить". Нажимайте на □ чтобы заполнить.</p>
+                </div>
+
+                <div class="formula-display" id="formulaDisplay">
+                    Ваша формула появится здесь...
+                </div>
+
+                <div class="keyboard-tabs">
+                    <button class="keyboard-tab active" data-tab="basic">Основные</button>
+                    <button class="keyboard-tab" data-tab="algebra">Алгебра</button>
+                    <button class="keyboard-tab" data-tab="geometry">Геометрия</button>
+                    <button class="keyboard-tab" data-tab="calculus">Матанализ</button>
+                </div>
+
+                <!-- Основные -->
+                <div class="keyboard-panel active" id="basicPanel">
+                    <div class="keyboard-section">
+                        <div class="keyboard-row">
+                            <div class="key" data-symbol="x">x</div>
+                            <div class="key" data-symbol="y">y</div>
+                            <div class="key" data-symbol="z">z</div>
+                            <div class="key" data-symbol="a">a</div>
+                            <div class="key" data-symbol="b">b</div>
+                            <div class="key" data-symbol="c">c</div>
+
+                        </div>
+                    </div>
+
+                    <div class="keyboard-section">
+                        <div class="keyboard-row">
+                            <div class="key" data-symbol="1">1</div>
+                            <div class="key" data-symbol="2">2</div>
+                            <div class="key" data-symbol="3">3</div>
+                            <div class="key" data-symbol="+" style="background: #ffccd8b3;">+</div>
+                            <div class="key" data-template="power">xⁿ</div>
+                            <div class="key" data-symbol="(">(</div>
+                            <div class="key" data-symbol=")">)</div>
+                        </div>
+                        <div class="keyboard-row">
+                            <div class="key" data-symbol="4">4</div>
+                            <div class="key" data-symbol="5">5</div>
+                            <div class="key" data-symbol="6">6</div>
+                            <div class="key" data-symbol="-" style="background: #ffccd8b3;">-</div>
+                            <div class="key" data-symbol="π">π</div>
+                            <div class="key" data-symbol="[">[</div>
+                            <div class="key" data-symbol="]">]</div>
+                        </div>
+                        <div class="keyboard-row">
+                            <div class="key" data-symbol="7">7</div>
+                            <div class="key" data-symbol="8">8</div>
+                            <div class="key" data-symbol="9">9</div>
+                            <div class="key" data-symbol="*" style="background: #ffccd8b3;">×</div>
+                            <div class="key" data-symbol="=">=</div>
+                            <div class="key" data-symbol="{">{</div>
+                            <div class="key" data-symbol="}">}</div>
+                        </div>
+                        <div class="keyboard-row">
+                            <div class="key" data-symbol="0">0</div>
+                            <div class="key" data-symbol=".">.</div>
+                            <div class="key" data-symbol=",">,</div>
+                            <div class="key" data-symbol=":" style="background: #ffccd8b3;">÷</div>
+                            <div class="key" data-symbol="e">e</div>
+                            <div class="key" data-symbol="∞">∞</div>
+                            <div class="key" data-action="backspace">⌫</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Алгебра -->
+                <div class="keyboard-panel" id="algebraPanel">
+                    <div class="keyboard-section">
+                        <div class="keyboard-row">
+                            <div class="key" data-template="sqrt">√x</div>
+                            <div class="key" data-template="sqrt_power">√xⁿ</div> <!-- НОВАЯ КНОПКА -->
+                            <div class="key" data-template="nroot">ⁿ√x</div>
+                            <div class="key" data-template="square">x²</div>
+                            <div class="key" data-template="cube">x³</div>
+                            <div class="key" data-template="power">xⁿ</div>
+                            <div class="key" data-template="small_power">ⁿ</div> <!-- НОВАЯ КНОПКА - ТОЛЬКО МАЛЕНЬКАЯ СТЕПЕНЬ -->
+                        </div>
+
+                        <div class="keyboard-row">
+                            <div class="key" data-template="frac">a/b</div>
+                            <div class="key" data-template="frac_power">aˣ/bˣ</div>
+                            <div class="key" data-template="binom">C(n,k)</div>
+                            <div class="key" data-template="factorial">n!</div>
+                            <div class="key" data-template="abs">|x|</div>
+                            <div class="key" data-template="sum">∑</div>
+                            <div class="key" data-symbol="f">f</div>
+                            <div class="key" data-symbol="F">F</div>
+
+                        </div>
+
+                        <div class="keyboard-row">
+                            <div class="key" data-template="big_parentheses_right">(</div>
+                            <div class="key" data-template="big_parentheses_left">)</div><!-- Большие круглые -->
+                            <div class="key" data-template="big_brackets_right">[</div> <!-- Большие квадратные -->            <!-- Большие фигурные -->
+                            <div class="key" data-template="big_brackets_left">]</div>
+                            <div class="key" data-template="big_braces_right">{</div> <!-- Большие фигурные -->
+                            <div class="key" data-template="big_braces_left">}</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Геометрия -->
+                <div class="keyboard-panel" id="geometryPanel">
+                    <div class="keyboard-section">
+                        <div class="keyboard-row">
+                            <div class="key" data-template="sin">sin</div>
+                            <div class="key" data-template="cos">cos</div>
+                            <div class="key" data-template="tan">tan</div>
+                            <div class="key" data-template="cot">cot</div>
+                            <div class="key" data-template="subscript">ₙ</div>
+                            <div class="key" data-template="just">(x)</div>
+                        </div>
+                        <div class="keyboard-row">
+                            <div class="key" data-symbol="α">α</div>
+                            <div class="key" data-symbol="β">β</div>
+                            <div class="key" data-symbol="γ">γ</div>
+                            <div class="key" data-symbol="θ">θ</div>
+                            <div class="key" data-symbol="φ">φ</div>
+                            <div class="key" data-symbol="ω">ω</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Матанализ -->
+                <div class="keyboard-panel" id="calculusPanel">
+                    <div class="keyboard-section">
+                        <div class="keyboard-row">
+                            <div class="key" data-template="derivative">dy/dx</div>
+                            <div class="key" data-template="partial">∂f/∂x</div>
+                            <div class="key" data-template="integral">∫f(x)dx</div>
+                            <div class="key" data-template="integral_limits">∫⁰₀</div>
+                            <div class="key" data-template="def_integral">∫ₐᵇf(x)dx</div>
+                            <div class="key" data-template="integral_symbol">∫</div>
+                        </div>
+                        <div class="keyboard-row">
+                            <div class="key" data-template="limit">lim</div>
+                            <div class="key" data-template="series">∑aₙ</div>
+                            <div class="key" data-template="nabla">∇</div>
+                            <div class="key" data-template="laplacian">Δ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="keyboard-controls">
+                    <button class="control-btn btn-danger" id="clearBtn"><i class="fi fi-ss-eraser"></i> Очистить</button>
+                    <button class="control-btn btn-primary" id="saveBtn"><i class="fi fi-sr-bookmark"></i> Сохранить</button>
+                    <button class="control-btn btn-success" onclick="insertFormula()"><i class="fi fi-sr-check-circle"></i> Вставить формулу</button>
+                    <button class="control-btn" onclick="closeMathKeyboard()"><i class="fi fi-sr-circle-x"></i> Закрыть</button>
+                </div>
+            </div>
+            <!-- Правая часть - видео -->
+            <div class="video-sidebar">
+                <div class="video-section">
+                    <h3><i class="fi fi-sr-play"></i> Видео-обучение</h3>
+                    <div class="video-container">
+                        <video controls>
+                            <source src="{% static 'video/clideo_editor_9b61fcb68bee422f970548f823f49dde.mp4' %}" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                        <div class="video-title">Создание формулы </div>
+                    </div>
+
+                    <div class="video-container">
+                        <video controls>
+                            <source src="{% static 'video/clideo_editor_9b61fcb68bee422f970548f823f49dde.mp4' %}" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                        <div class="video-title">Создание формулы </div>
+                    </div>
+                </div>
+                <div class="quick-tips">
+                    <h4><i class="fi fi-sr-bulb"></i> Быстрые подсказки</h4>
+                    <ul>
+                        <li>Нажимайте на □ для редактирования</li>
+                        <li>Используйте вкладки для разных функций</li>
+                        <li>Сохраняйте сложные формулы</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+
+   // Глобальные переменные
+let currentInputField = '';
+let mathKeyboard = null;
+let questionCount = 0;
+let answerCounts = []; // Будет хранить количество ответов для каждого вопроса
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    addQuestion(); // Добавляем первый вопрос автоматически
+});
+
+// Функции для управления модальным окном
+function openMathKeyboard(field) {
+    currentInputField = field;
+    document.getElementById('mathKeyboardModal').classList.add('active');
+
+    // Инициализируем клавиатуру если еще не инициализирована
+    if (!mathKeyboard) {
+        mathKeyboard = new MathKeyboard();
+    }
+}
+
+function closeMathKeyboard() {
+    document.getElementById('mathKeyboardModal').classList.remove('active');
+}
+
+// Обновленная функция вставки формулы
+function insertFormula() {
+    if (mathKeyboard && currentInputField) {
+        const displayFormula = mathKeyboard.getFinalFormulaForDisplay();
+
+        if (currentInputField.startsWith('question_')) {
+            const questionIndex = currentInputField.split('_')[1];
+            document.getElementById(`mathExpression_${questionIndex}`).value = displayFormula;
+            document.getElementById(`questionMathPreview_${questionIndex}`).innerHTML = displayFormula;
+        } else if (currentInputField.startsWith('answer_')) {
+            const parts = currentInputField.split('_');
+            const questionIndex = parts[1];
+            const answerIndex = parts[2];
+
+            document.getElementById(`answerFormula_${questionIndex}_${answerIndex}`).value = displayFormula;
+            document.getElementById(`answerPreview_${questionIndex}_${answerIndex}`).innerHTML = displayFormula;
+        }
+    }
+    closeMathKeyboard();
+}
+
+function addQuestion() {
+    const questionsContainer = document.getElementById('questions-container');
+    const newQuestionIndex = questionCount;
+
+    const newQuestion = `
+        <div class="question-block" data-question-index="${newQuestionIndex}">
+            <div class="question-header">
+                <h3 class="question-title">
+                    <i class="fi fi-sr-seal-question"></i> Вопрос ${newQuestionIndex + 1}
+                </h3>
+                <button type="button" class="remove-btn" onclick="removeQuestion(${newQuestionIndex})"
+                        ${newQuestionIndex === 0 ? 'style="display: none;"' : ''}>
+                    <i class="fi fi-br-x"></i>
+                </button>
+            </div>
+
+            <!-- Тип вопроса -->
+            <div class="format-section">
+                <h4><i class="fi fi-br-bullseye-arrow"></i> Тип математического вопроса:</h4>
+                <div class="format-buttons">
+                    <label class="format-button">
+                        <input type="radio" name="question_format_${newQuestionIndex}" value="math_formula" checked>
+                        <div class="format-button-content">
+                            <span class="format-icon">∫</span>
+                            <span class="format-text">
+                                <strong>Формулы</strong>
+                                <small>Выбор формулы</small>
+                            </span>
+                        </div>
+                    </label>
+
+                    <label class="format-button">
+                        <input type="radio" name="question_format_${newQuestionIndex}" value="math_equation">
+                        <div class="format-button-content">
+                            <span class="format-icon">=</span>
+                            <span class="format-text">
+                                <strong>Уравнения</strong>
+                                <small>Решение уравнений</small>
+                            </span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Текст вопроса -->
+            <div class="input-group">
+                <textarea name="question_text_${newQuestionIndex}" placeholder="Введите текст вопроса..." rows="3" required></textarea>
+            </div>
+
+           <!-- Изображение вопроса в горизонтальном стиле -->
+            <div class="image-upload-section">
+                <label class="upload-label">
+                    <i class="fi fi-sr-camera"></i> Добавить изображение к вопросу (графики, диаграммы)
+                </label>
+
+                <div class="image-upload-horizontal" id="imageUpload_${newQuestionIndex}">
+                    <!-- Контейнер превью -->
+                    <div class="image-preview-container">
+                        <img class="image-preview-horizontal"
+                             id="questionImagePreview_${newQuestionIndex}"
+                             alt="Предпросмотр">
+                        <button type="button" class="remove-image-btn-horizontal"
+                                onclick="removeQuestionImage(${newQuestionIndex})">
+                            ×
+                        </button>
+                    </div>
+
+                    <!-- Плейсхолдер -->
+                    <div class="upload-placeholder-horizontal">
+                        <div class="placeholder-icon-horizontal">
+                            <i class="fi fi-sr-camera"></i>
+                        </div>
+                        <div class="placeholder-text-horizontal">
+                            <span class="placeholder-title-horizontal">Нажмите чтобы загрузить изображение</span>
+                            <span class="placeholder-subtitle-horizontal">PNG, JPG, WEBP до 5MB</span>
+                        </div>
+                    </div>
+
+                    <!-- Информация о файле -->
+                    <div class="file-info-horizontal">
+                        <span class="file-name-horizontal" id="fileName_${newQuestionIndex}"></span>
+                        <span class="file-size-horizontal" id="fileSize_${newQuestionIndex}"></span>
+                    </div>
+
+                    <!-- Скрытый инпут -->
+                    <input type="file" name="question_image_${newQuestionIndex}"
+                           accept="image/*" class="image-upload-input"
+                           onchange="handleQuestionImageUpload(this, ${newQuestionIndex})">
+                </div>
+            </div>
+
+            <!-- Математическая формула вопроса -->
+            <div class="math-formula-section">
+                <button type="button" class="keyboard-toggle" onclick="openMathKeyboard('question_${newQuestionIndex}')">
+                    <i class="fi fi-sr-folder-math"></i> Добавить математическую формулу к вопросу
+                </button>
+                <div id="questionMathPreview_${newQuestionIndex}" class="math-preview">
+                    Математические формулы появятся здесь...
+                </div>
+                <input type="hidden" name="math_expression_${newQuestionIndex}" id="mathExpression_${newQuestionIndex}" value="">
+            </div>
+
+            <!-- Ответы -->
+            <h4 class="answers-title"><i class="fi fi-br-answer-alt"></i> Ответы</h4>
+            <div id="answers-${newQuestionIndex}" class="answers-container">
+                <!-- Ответы будут добавляться здесь -->
+            </div>
+
+            <button type="button" class="btn add-answer-btn" onclick="addAnswer(${newQuestionIndex})">
+                <i class="fi fi-br-plus"></i> Добавить ответ
+            </button>
+        </div>
+    `;
+
+    questionsContainer.insertAdjacentHTML('beforeend', newQuestion);
+    answerCounts[newQuestionIndex] = 0;
+
+    // Добавляем 2 начальных ответа
+    addAnswer(newQuestionIndex);
+    addAnswer(newQuestionIndex);
+
+    questionCount++;
+    setupImagePreviews();
+}
+
+function addAnswer(questionIndex) {
+    const answersContainer = document.getElementById(`answers-${questionIndex}`);
+    const answerCount = answerCounts[questionIndex];
+    const newAnswerIndex = answerCount;
+
+    const newAnswer = `
+        <div class="answer-block" data-answer-index="${newAnswerIndex}">
+            <button type="button" class="remove-answer-btn" onclick="removeAnswer(${questionIndex}, ${newAnswerIndex})"
+                    ${answerCount < 2 ? 'style="display: none;"' : ''}>×</button>
+
+            <div class="answer-content">
+                <!-- Горизонтальный блок ответа -->
+<div class="answer-content-horizontal">
+
+    <!-- Текстовое поле -->
+    <input type="text"
+           name="answer_text_${questionIndex}_${newAnswerIndex}"
+           placeholder="Текст ответа..."
+           class="answer-text-input-horizontal">
+
+    <!-- Загрузка изображения -->
+    <div class="answer-image-upload-horizontal"
+         id="answerImageUpload_${questionIndex}_${newAnswerIndex}">
+
+        <!-- Превью -->
+        <img class="image-preview-horizontal-small"
+             id="answerImagePreview_${questionIndex}_${newAnswerIndex}"
+             alt="Предпросмотр">
+
+        <!-- Иконка загрузки -->
+        <div class="image-upload-horizontal-small">
+            <span class="upload-icon-horizontal"><i class="fi fi-sr-camera"></i></span>
+        </div>
+
+        <!-- Кнопка удаления -->
+        <button type="button"
+                class="remove-image-btn-horizontal-small"
+                onclick="removeAnswerImage(${questionIndex}, ${newAnswerIndex})">
+            ×
+        </button>
+
+        <!-- Скрытый инпут -->
+        <input type="file"
+               name="answer_image_${questionIndex}_${newAnswerIndex}"
+               accept="image/*"
+               class="image-upload-input-horizontal"
+               onchange="handleAnswerImageUpload(this, ${questionIndex}, ${newAnswerIndex})">
+    </div>
+</div>
+
+                <!-- Формула ответа -->
+                <div class="answer-formula-section">
+                    <button type="button" class="keyboard-toggle small"
+                            onclick="openMathKeyboard('answer_${questionIndex}_${newAnswerIndex}')">
+                        <i class="fi fi-sr-folder-math"></i> Добавить формулу ответа
+                    </button>
+                    <div id="answerPreview_${questionIndex}_${newAnswerIndex}" class="math-preview small">
+                        Формула ответа...
+                    </div>
+                    <input type="hidden" name="answer_formula_${questionIndex}_${newAnswerIndex}"
+                           id="answerFormula_${questionIndex}_${newAnswerIndex}" value="">
+                </div>
+
+                <!-- Правильный ответ -->
+                <label class="correct-option">
+                    <input type="radio" name="correct_answer_${questionIndex}" value="${newAnswerIndex}"
+                           ${newAnswerIndex === 0 ? 'required' : ''}>
+                    <span class="correct-badge"> Правильный ответ</span>
+                </label>
+            </div>
+        </div>
+    `;
+
+    answersContainer.insertAdjacentHTML('beforeend', newAnswer);
+    answerCounts[questionIndex]++;
+    setupImagePreviews();
+}
+
+function handleAnswerImageUpload(input, questionIndex, answerIndex) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        const preview = document.getElementById(`answerImagePreview_${questionIndex}_${answerIndex}`);
+        const uploadContainer = document.getElementById(`answerImageUpload_${questionIndex}_${answerIndex}`);
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            uploadContainer.classList.add('has-image');
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+function removeAnswerImage(questionIndex, answerIndex) {
+    const input = document.querySelector(`input[name="answer_image_${questionIndex}_${answerIndex}"]`);
+    const preview = document.getElementById(`answerImagePreview_${questionIndex}_${answerIndex}`);
+    const uploadContainer = document.getElementById(`answerImageUpload_${questionIndex}_${answerIndex}`);
+
+    input.value = '';
+    preview.src = '';
+    uploadContainer.classList.remove('has-image');
+}
+function removeQuestion(questionIndex) {
+    if (questionCount > 1) {
+        const questionBlock = document.querySelector(`[data-question-index="${questionIndex}"]`);
+        if (questionBlock) {
+            questionBlock.remove();
+            questionCount--;
+            renumberQuestions();
+        }
+    }
+}
+
+function removeAnswer(questionIndex, answerIndex) {
+    const answersContainer = document.getElementById(`answers-${questionIndex}`);
+    const answerBlocks = answersContainer.querySelectorAll('.answer-block');
+
+    if (answerBlocks.length > 2) {
+        const answerBlock = document.querySelector(`[data-question-index="${questionIndex}"] .answer-block[data-answer-index="${answerIndex}"]`);
+        if (answerBlock) {
+            answerBlock.remove();
+            answerCounts[questionIndex]--;
+            renumberAnswers(questionIndex);
+        }
+    } else {
+        alert('Должно быть минимум 2 ответа!');
+    }
+}
+
+function renumberQuestions() {
+    const questions = document.querySelectorAll('.question-block');
+    questionCount = questions.length;
+
+    questions.forEach((questionBlock, index) => {
+        const newQuestionIndex = index;
+        const oldQuestionIndex = parseInt(questionBlock.getAttribute('data-question-index'));
+
+        questionBlock.setAttribute('data-question-index', newQuestionIndex);
+
+        // Обновляем заголовок
+        const title = questionBlock.querySelector('.question-title');
+        title.innerHTML = `<i class="fi fi-sr-seal-question"></i> Вопрос ${newQuestionIndex + 1}`;
+
+        // Обновляем имена полей в вопросе
+        questionBlock.querySelectorAll('[name*="_' + oldQuestionIndex + '"]').forEach(field => {
+            const newName = field.name.replace(`_${oldQuestionIndex}`, `_${newQuestionIndex}`);
+            field.name = newName;
+        });
+
+        questionBlock.querySelectorAll('[id*="_' + oldQuestionIndex + '"]').forEach(element => {
+            const newId = element.id.replace(`_${oldQuestionIndex}`, `_${newQuestionIndex}`);
+            element.id = newId;
+        });
+
+        // Обновляем обработчики
+        questionBlock.querySelector('.keyboard-toggle').setAttribute('onclick', `openMathKeyboard('question_${newQuestionIndex}')`);
+        questionBlock.querySelector('.add-answer-btn').setAttribute('onclick', `addAnswer(${newQuestionIndex})`);
+        questionBlock.querySelector('.remove-btn').setAttribute('onclick', `removeQuestion(${newQuestionIndex})`);
+
+        // Обновляем ответы
+        renumberAnswers(newQuestionIndex);
+    });
+
+    // Обновляем массив счетчиков ответов
+    const newAnswerCounts = [];
+    questions.forEach((_, index) => {
+        const answersContainer = document.getElementById(`answers-${index}`);
+        newAnswerCounts[index] = answersContainer.querySelectorAll('.answer-block').length;
+    });
+    answerCounts = newAnswerCounts;
+}
+
+function renumberAnswers(questionIndex) {
+    const answersContainer = document.getElementById(`answers-${questionIndex}`);
+    const answerBlocks = answersContainer.querySelectorAll('.answer-block');
+
+    answerBlocks.forEach((block, newAnswerIndex) => {
+        const oldAnswerIndex = parseInt(block.getAttribute('data-answer-index'));
+        block.setAttribute('data-answer-index', newAnswerIndex);
+
+        // Обновляем имена полей
+        block.querySelectorAll('[name*="_' + oldAnswerIndex + '"]').forEach(field => {
+            const newName = field.name.replace(`_${oldAnswerIndex}`, `_${newAnswerIndex}`);
+            field.name = newName;
+        });
+
+        block.querySelectorAll('[id*="_' + oldAnswerIndex + '"]').forEach(element => {
+            const newId = element.id.replace(`_${oldAnswerIndex}`, `_${newAnswerIndex}`);
+            element.id = newId;
+        });
+
+        // Обновляем radio value
+        const radioInput = block.querySelector('input[type="radio"]');
+        radioInput.value = newAnswerIndex;
+
+        // Обновляем обработчики
+        const removeBtn = block.querySelector('.remove-answer-btn');
+        removeBtn.setAttribute('onclick', `removeAnswer(${questionIndex}, ${newAnswerIndex})`);
+
+        const formulaBtn = block.querySelector('.keyboard-toggle');
+        formulaBtn.setAttribute('onclick', `openMathKeyboard('answer_${questionIndex}_${newAnswerIndex}')`);
+    });
+
+    answerCounts[questionIndex] = answerBlocks.length;
+
+    // Показываем/скрываем кнопки удаления ответов
+    answerBlocks.forEach((block, index) => {
+        const removeBtn = block.querySelector('.remove-answer-btn');
+        removeBtn.style.display = answerBlocks.length > 2 ? 'block' : 'none';
+    });
+}
+
+function setupImagePreviews() {
+    document.querySelectorAll('.image-upload-input').forEach(input => {
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const preview = this.parentElement.querySelector('.image-preview');
+
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Предпросмотр">`;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+}
+
+// Валидация и отправка формы
+document.getElementById('mathTestForm').addEventListener('submit', function(e) {
+    console.log("=== ПРОВЕРКА ФОРМЫ ПЕРЕД ОТПРАВКОЙ ===");
+
+    let isValid = true;
+    const questions = document.querySelectorAll('.question-block');
+
+    // Проверяем каждый вопрос
+    questions.forEach((question, qIndex) => {
+        const questionIndex = question.getAttribute('data-question-index');
+        const questionText = question.querySelector(`textarea[name="question_text_${questionIndex}"]`);
+        const correctAnswer = question.querySelector(`input[name="correct_answer_${questionIndex}"]:checked`);
+
+        console.log(`Вопрос ${questionIndex}:`);
+        console.log(`  Текст: "${questionText.value}"`);
+        console.log(`  Правильный ответ:`, correctAnswer ? correctAnswer.value : 'не выбран');
+
+        // Проверка текста вопроса
+        if (!questionText.value.trim()) {
+            isValid = false;
+            questionText.style.borderColor = '#dc3545';
+            console.log(`  ❌ Ошибка: нет текста вопроса`);
+        } else {
+            questionText.style.borderColor = '';
+        }
+
+        // Проверка правильного ответа
+        if (!correctAnswer) {
+            isValid = false;
+            console.log(`  ❌ Ошибка: не выбран правильный ответ`);
+        }
+
+        // Проверка ответов
+        const answerBlocks = question.querySelectorAll('.answer-block');
+        let hasValidAnswers = false;
+
+        answerBlocks.forEach((answerBlock, aIndex) => {
+            const answerText = answerBlock.querySelector(`input[name="answer_text_${questionIndex}_${aIndex}"]`).value.trim();
+            const answerFormula = answerBlock.querySelector(`input[name="answer_formula_${questionIndex}_${aIndex}"]`).value;
+            const answerImage = answerBlock.querySelector(`input[name="answer_image_${questionIndex}_${aIndex}"]`).files[0];
+
+            console.log(`  Ответ ${aIndex}: текст="${answerText}", формула="${answerFormula}", фото=${answerImage ? 'есть' : 'нет'}`);
+
+            if (answerText || answerFormula || answerImage) {
+                hasValidAnswers = true;
+            }
+        });
+
+        if (!hasValidAnswers) {
+            isValid = false;
+            console.log(`  ❌ Ошибка: нет ни одного заполненного ответа`);
+        }
+    });
+
+    if (!isValid) {
+        e.preventDefault();
+        alert('❌ Пожалуйста, заполните все обязательные поля:\n- Текст вопроса\n- Хотя бы один ответ\n- Отметьте правильный ответ');
+        return;
+    }
+
+    // Если все хорошо, показываем данные формы
+    console.log("=== ВСЕ ДАННЫЕ ФОРМЫ ===");
+    const formData = new FormData(this);
+    for (let [key, value] of formData.entries()) {
+        if (value instanceof File) {
+            console.log(`${key}: FILE - ${value.name} (${value.size} bytes)`);
+        } else {
+            console.log(`${key}: ${value}`);
+        }
+    }
+
+    console.log("✅ Форма валидна, отправляем...");
+});
+
+// ВАША КЛАВИАТУРА С ПЛЕЙСХОЛДЕРАМИ
+class MathKeyboard {
+    constructor() {
+        this.currentFormula = '';
+        this.placeholders = new Map();
+        this.placeholderCounter = 0;
+
+        // ДОБАВЬТЕ ЭТО - НАСТРОЙКИ АВТООЧИСТКИ
+        this.autoClear = true; // true - включить автоочистку, false - выключить
+        this.clearTimeout = 300000; // 5 минут (300000 мс)
+        this.clearTimer = null;
+
+        // ШАБЛОНЫ
+        this.templates = {
+            sqrt: `<span style="display: inline-flex; align-items: center; position: relative;">
+                <span style="font-size: 1.3em; margin-right: 1px;">√</span>
+                <span style="border-top: 2px solid currentColor; padding: 0 10px; margin-left: -3px;">{ph}</span>
+            </span>`,
+            sqrt_power: `<span style="display: inline-flex; align-items: center; position: relative;">
+                            <span style="font-size: 1.3em; margin-right: 1px;">√</span>
+                            <span style="border-top: 2px solid currentColor; padding: 0 8px; margin-left: -2px;">
+                                {ph1}<span class="superscript">{ph2}</span>
+                            </span>
+                        </span>`,
+            nroot: `<span style="display: inline-flex; align-items: center; position: relative;">
+                <span class="superscript" style="margin-right: 2px; position: relative; top: -5px;">{ph1}</span>
+                <span style="font-size: 1.3em; margin-right: 1px;">√</span>
+                <span style="border-top: 2px solid currentColor; padding: 0 8px; margin-left: -2px;">{ph2}</span>
+            </span>`,
+            square: "{ph}<span class='superscript'>2</span>",
+            cube: "{ph}<span class='superscript'>3</span>",
+            power: "{ph1}<span class='superscript'>{ph2}</span>",
+            frac: "<div class='fraction'><span class='numerator'>{ph1}</span><span class='denominator'>{ph2}</span></div>",
+             // Дробь со степенями: aˣ/bˣ
+            frac_power: `<div class='fraction'>
+                <span class='numerator'>{ph1}<span class='superscript'>{ph3}</span></span>
+                <span class='denominator'>{ph2}<span class='superscript'>{ph4}</span></span>
+            </div>`,
+            binom: "C({ph1},{ph2})",
+            factorial: "{ph}!",
+            abs: "|{ph}|",
+            sum: "∑<span class='subscript'>{ph1}</span><span class='superscript'>{ph2}</span>",
+            log: "log<span class='subscript'>{ph1}</span>({ph2})",
+            ln: "ln({ph})",
+            exp: "e<span class='superscript'>{ph}</span>",
+            sin: "sin",
+            cos: "cos",
+            tan: "tan",
+            cot: "cot",
+            just: "({ph})",
+            arcsin: "arcsin({ph})",
+            arccos: "arccos({ph})",
+            arctan: "arctan({ph})",
+            sinh: "sinh({ph})",
+            derivative: "<div class='fraction'><span class='numerator'>d{ph1}</span><span class='denominator'>d{ph2}</span></div>",
+            partial: "∂{ph1}/∂{ph2}",
+            integral: "∫{ph1}d{ph2}",
+            integral_limits: `<div style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 5px;">
+                <div style="font-size: 12px;">{ph2}</div>
+                <div style="font-size: 18px;">∫</div>
+                <div style="font-size: 12px;">{ph1}</div>
+            </div>`,
+            def_integral: `<div style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 5px;">
+                <div style="font-size: 12px;">{ph2}</div>
+                <div style="font-size: 18px;">∫</div>
+                <div style="font-size: 12px;">{ph1}</div>
+            </div>{ph3}d{ph4}`,
+            integral_symbol: "∫",
+            limit: "lim_{ph1}",
+            series: "∑<span class='subscript'>{ph1}</span><span class='superscript'>{ph2}</span>",
+            nabla: "∇{ph}",
+            laplacian: "Δ{ph}",
+            small_power: "<span class='superscript'>{ph}</span>",
+            subscript: "<span class='subscript'>{ph}</span>",
+
+
+                     // Большие круглые скобки
+            big_parentheses_right: `<span class="big-brackets parentheses">
+                <span class="bracket-left">(</span>
+
+            </span>`,
+            big_parentheses_left: `<span class="big-brackets parentheses">
+
+                <span class="bracket-right">)</span>
+            </span>`,
+
+            // Большие квадратные скобки
+            big_brackets_right: `<span class="big-brackets square">
+                <span class="bracket-left">[</span>
+
+
+            </span>`,
+            big_brackets_left: `<span class="big-brackets square">
+
+                <span class="bracket-right">]</span>
+            </span>`,
+
+            // Большие фигурные скобки
+            big_braces_right: `<span class="big-brackets braces">
+                <span class="bracket-left">{</span>
+
+
+            </span>`,
+            big_braces_left: `<span class="big-brackets braces">
+
+
+                <span class="bracket-right">}</span>
+            </span>`,
+        };
+
+        this.init();
+    }
+
+    init() {
+        this.loadSavedData();
+        this.setupEventListeners();
+        this.updateDisplay();
+        this.showPanel('basic');
+
+        this.startAutoClear();
+    }
+
+    setupEventListeners() {
+        // Вкладки
+        document.querySelectorAll('.keyboard-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                this.showPanel(e.target.dataset.tab);
+            });
+        });
+
+        // Символы
+        document.querySelectorAll('.key[data-symbol]').forEach(key => {
+            key.addEventListener('click', (e) => {
+                this.addSymbol(e.target.dataset.symbol);
+            });
+        });
+
+        // Шаблоны
+        document.querySelectorAll('.key[data-template]').forEach(key => {
+            key.addEventListener('click', (e) => {
+                this.addTemplate(e.target.dataset.template);
+            });
+        });
+
+        // Кнопка backspace
+        document.querySelector('.key[data-action="backspace"]').addEventListener('click', () => {
+            this.backspace();
+        });
+
+        // Управляющие кнопки
+        document.getElementById('clearBtn').addEventListener('click', () => this.clear());
+        document.getElementById('saveBtn').addEventListener('click', () => this.save());
+
+        // Обработчики для плейсхолдеров (делегирование)
+        document.getElementById('formulaDisplay').addEventListener('click', (e) => {
+            if (e.target.classList.contains('placeholder')) {
+                this.editPlaceholder(e.target.dataset.id);
+            }
+        });
+    }
+
+    showPanel(panelName) {
+        document.querySelectorAll('.keyboard-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.tab === panelName);
+        });
+
+        document.querySelectorAll('.keyboard-panel').forEach(panel => {
+            panel.classList.toggle('active', panel.id === panelName + 'Panel');
+        });
+    }
+
+    addSymbol(symbol) {
+        this.resetAutoClear();
+        const display = document.getElementById('formulaDisplay');
+        const activeElement = document.activeElement;
+
+        console.log("Active element:", activeElement);
+
+        // ПРОВЕРЯЕМ РЕДАКТИРУЕМЫЕ ПОЛЯ ДРОБИ
+        if (activeElement && activeElement.hasAttribute('contenteditable') && display.contains(activeElement)) {
+            console.log("Adding to contenteditable field:", symbol);
+
+            // Фокусируемся на поле
+            activeElement.focus();
+
+            // Добавляем символ в поле
+            this.insertAtCursor(activeElement, symbol);
+            return;
+        }
+
+        // Проверяем, есть ли активный плейсхолдер (старая логика)
+        const activePlaceholder = display.querySelector('.placeholder.editing');
+        if (activePlaceholder) {
+            console.log("Adding to placeholder:", symbol);
+            const placeholderId = activePlaceholder.dataset.id;
+            const currentData = this.placeholders.get(placeholderId) || { value: '' };
+            currentData.value += symbol;
+            this.placeholders.set(placeholderId, currentData);
+            this.updateDisplay();
+            return;
+        }
+
+        // Если ничего не активно, добавляем в общую формулу
+        console.log("Adding to formula:", symbol);
+        this.currentFormula += symbol;
+        this.updateDisplay();
+    }
+
+
+    insertAtCursor(element, html) {
+        const selection = window.getSelection();
+
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+
+            // Создаем временный элемент для вставки HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // Вставляем HTML содержимое
+            const fragment = document.createDocumentFragment();
+            while (tempDiv.firstChild) {
+                fragment.appendChild(tempDiv.firstChild);
+            }
+            range.insertNode(fragment);
+
+            // Перемещаем курсор после вставленного содержимого
+            range.setStartAfter(fragment.lastChild);
+            range.setEndAfter(fragment.lastChild);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            // Если нет выделения, добавляем в конец
+            element.innerHTML += html;
+        }
+
+        element.focus();
+        this.updateCurrentFormulaFromDisplay();
+    }
+
+    updateCurrentFormulaFromDisplay() {
+        const display = document.getElementById('formulaDisplay');
+        this.currentFormula = display.innerHTML;
+    }
+
+    addTemplate(templateName) {
+
+        this.resetAutoClear();
+        const display = document.getElementById('formulaDisplay');
+        const activeElement = document.activeElement;
+
+        // ЕСЛИ ЕСТЬ АКТИВНОЕ РЕДАКТИРУЕМОЕ ПОЛЕ - добавляем шаблон ВНУТРЬ него
+        if (activeElement && activeElement.hasAttribute('contenteditable') && display.contains(activeElement)) {
+            console.log("Adding template to active editable field:", templateName);
+
+            if (this.templates[templateName]) {
+                let template = this.templates[templateName];
+
+                // Заменяем плейсхолдеры на простые символы для вставки в поле
+                template = template.replace(/{ph1}/g, '□').replace(/{ph2}/g, '□').replace(/{ph}/g, '□');
+
+                // Вставляем шаблон в активное поле
+                this.insertAtCursor(activeElement, template);
+            }
+            return;
+        }
+
+        // СТАРАЯ ЛОГИКА - если нет активного поля, добавляем в общую формулу
+        if (this.templates[templateName]) {
+            let template = this.templates[templateName];
+            const placeholders = [];
+
+            let phIndex = 1;
+            while (template.includes(`{ph${phIndex}}`)) {
+                const id = `ph_${++this.placeholderCounter}`;
+                placeholders.push(id);
+                template = template.replace(`{ph${phIndex}}`, this.createPlaceholder(id));
+                phIndex++;
+            }
+
+            if (template.includes('{ph}')) {
+                const id = `ph_${++this.placeholderCounter}`;
+                placeholders.push(id);
+                template = template.replace(/{ph}/g, this.createPlaceholder(id));
+            }
+
+            this.currentFormula += template;
+
+            placeholders.forEach(id => {
+                this.placeholders.set(id, { value: '', template: templateName });
+            });
+
+            this.updateDisplay();
+
+            // Автофокус для дроби
+            if (templateName === 'frac2') {
+                setTimeout(() => {
+                    const firstEditable = display.querySelector('[contenteditable="true"]');
+                    if (firstEditable) {
+                        firstEditable.focus();
+                        firstEditable.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 200);
+            }
+        }
+    }
+
+    createPlaceholder(id) {
+            return `<span class="placeholder" data-id="${id}">□</span>`;
+        }
+
+        editPlaceholder(id) {
+        const display = document.getElementById('formulaDisplay');
+
+        // Убираем класс editing у всех плейсхолдеров
+        display.querySelectorAll('.placeholder').forEach(ph => {
+            ph.classList.remove('editing');
+        });
+
+        // Добавляем класс editing к текущему плейсхолдеру
+        const currentPlaceholder = display.querySelector(`[data-id="${id}"]`);
+        if (currentPlaceholder) {
+            currentPlaceholder.classList.add('editing');
+        }
+
+        // СОЗДАЕМ КАСТОМНОЕ МОДАЛЬНОЕ ОКНО вместо prompt
+        this.showCustomInputModal(id);
+    }
+    // ДОБАВЬТЕ этот новый метод для кастомного ввода:
+showCustomInputModal(placeholderId) {
+    // Создаем модальное окно
+    const modal = document.createElement('div');
+    modal.className = 'custom-input-modal';
+    modal.innerHTML = `
+        <div class="custom-input-backdrop"></div>
+        <div class="custom-input-container">
+            <div class="custom-input-header">
+                <h3>Введите значение</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="custom-input-body">
+                <input type="text"
+                       class="custom-input-field"
+                       placeholder="Введите число или выражение..."
+                       value="${this.placeholders.get(placeholderId)?.value || ''}">
+                <div class="custom-input-buttons">
+                    <button class="custom-input-btn cancel-btn">Отмена</button>
+                    <button class="custom-input-btn confirm-btn">Готово</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Добавляем в body
+    document.body.appendChild(modal);
+
+    // Фокусируемся на поле ввода
+    const inputField = modal.querySelector('.custom-input-field');
+    setTimeout(() => inputField.focus(), 100);
+
+    // Обработчики событий
+    const closeModal = () => {
+        document.body.removeChild(modal);
+        const currentPlaceholder = document.querySelector(`[data-id="${placeholderId}"]`);
+        if (currentPlaceholder) {
+            currentPlaceholder.classList.remove('editing');
+        }
+    };
+
+    // Кнопка закрытия
+    modal.querySelector('.close-btn').addEventListener('click', closeModal);
+    modal.querySelector('.cancel-btn').addEventListener('click', closeModal);
+
+    // Кнопка подтверждения
+    modal.querySelector('.confirm-btn').addEventListener('click', () => {
+        const newValue = inputField.value.trim();
+        this.placeholders.set(placeholderId, {
+            ...this.placeholders.get(placeholderId),
+            value: newValue
+        });
+        this.updateDisplay();
+        closeModal();
+    });
+
+    // Закрытие по клику на бэкдроп
+    modal.querySelector('.custom-input-backdrop').addEventListener('click', closeModal);
+
+    // Закрытие по Escape
+    inputField.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+        } else if (e.key === 'Enter') {
+            modal.querySelector('.confirm-btn').click();
+        }
+    });
+}
+
+    backspace() {
+
+        this.resetAutoClear();
+        this.currentFormula = this.currentFormula.slice(0, -1);
+        this.updateDisplay();
+    }
+
+    clear() {
+    // Вместо confirm показываем кастомное модальное окно
+    this.showClearConfirmationModal();
+}
+
+showClearConfirmationModal() {
+    // Создаем модальное окно подтверждения очистки
+    const modal = document.createElement('div');
+    modal.className = 'custom-confirm-modal';
+    modal.innerHTML = `
+        <div class="custom-confirm-backdrop"></div>
+        <div class="custom-confirm-container">
+            <div class="custom-confirm-header">
+                <h3><i class="fi fi-sr-eraser"></i> Очистить формулу</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="custom-confirm-body">
+                <p>Вы уверены, что хотите очистить всю формулу? Это действие нельзя отменить.</p>
+                <div class="custom-confirm-buttons">
+                    <button class="custom-confirm-btn cancel-btn">Отмена</button>
+                    <button class="custom-confirm-btn confirm-btn btn-danger">Очистить</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Добавляем в body
+    document.body.appendChild(modal);
+
+    // Обработчики событий
+    const closeModal = () => {
+        document.body.removeChild(modal);
+    };
+
+    // Кнопка закрытия
+    modal.querySelector('.close-btn').addEventListener('click', closeModal);
+    modal.querySelector('.cancel-btn').addEventListener('click', closeModal);
+
+    // Кнопка подтверждения очистки
+    modal.querySelector('.confirm-btn').addEventListener('click', () => {
+        this.clearWithoutConfirm();
+        closeModal();
+    });
+
+    // Закрытие по клику на бэкдроп
+    modal.querySelector('.custom-confirm-backdrop').addEventListener('click', closeModal);
+
+    // Закрытие по Escape
+    modal.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // Фокусируемся на модальном окне
+    modal.focus();
+}
+
+    updateDisplay() {
+        let displayFormula = this.currentFormula;
+
+        // Заменяем плейсхолдеры на заполненные значения
+        this.placeholders.forEach((data, id) => {
+            const placeholderHtml = this.createPlaceholder(id);
+            const displayValue = data.value ?
+                `<span class="placeholder filled" data-id="${id}">${data.value}</span>` :
+                placeholderHtml;
+
+            displayFormula = displayFormula.split(placeholderHtml).join(displayValue);
+        });
+
+        const display = document.getElementById('formulaDisplay');
+        display.innerHTML = displayFormula || 'Ваша формула появится здесь...';
+
+        // ОБРАБОТЧИКИ ДЛЯ РЕДАКТИРУЕМЫХ ПОЛЕЙ ДРОБИ
+        display.querySelectorAll('[contenteditable="true"]').forEach(editable => {
+            // Убираем старые обработчики
+            const newEditable = editable.cloneNode(true);
+            editable.parentNode.replaceChild(newEditable, editable);
+
+            // Добавляем новые обработчики
+            newEditable.addEventListener('input', () => {
+                this.updateCurrentFormulaFromDisplay();
+            });
+
+            newEditable.addEventListener('click', (e) => {
+                e.stopPropagation();
+                newEditable.focus();
+            });
+
+            newEditable.addEventListener('focus', () => {
+                console.log("Editable field focused:", newEditable);
+            });
+        });
+
+        // Обработчики для плейсхолдеров (старая логика)
+        display.querySelectorAll('.placeholder').forEach(placeholder => {
+            placeholder.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.editPlaceholder(placeholder.dataset.id);
+            });
+        });
+    }
+    getFinalFormula() {
+        let finalFormula = this.currentFormula;
+
+        this.placeholders.forEach((data, id) => {
+            const placeholderHtml = this.createPlaceholder(id);
+            const value = data.value || '';
+            finalFormula = finalFormula.split(placeholderHtml).join(value);
+        });
+
+        return finalFormula;
+    }
+
+    getFinalFormulaForDisplay() {
+        let displayFormula = this.currentFormula;
+
+        this.placeholders.forEach((data, id) => {
+            const placeholderHtml = this.createPlaceholder(id);
+            const displayValue = data.value ?
+                `<span class="placeholder filled" data-id="${id}">${data.value}</span>` :
+                `<span class="placeholder" data-id="${id}">□</span>`;
+
+            displayFormula = displayFormula.split(placeholderHtml).join(displayValue);
+        });
+
+        return displayFormula;
+    }
+
+    save() {
+        const data = {
+            formula: this.currentFormula,
+            placeholders: Array.from(this.placeholders.entries()),
+            counter: this.placeholderCounter
+        };
+
+        localStorage.setItem('mathKeyboard', JSON.stringify(data));
+        alert('Формула сохранена!');
+    }
+
+    loadSavedData() {
+        try {
+            const saved = localStorage.getItem('mathKeyboard');
+            if (saved) {
+                const data = JSON.parse(saved);
+                this.currentFormula = data.formula || '';
+                this.placeholders = new Map(data.placeholders || []);
+                this.placeholderCounter = data.counter || 0;
+            }
+        } catch (e) {
+            console.log('Нет сохраненных данных или ошибка загрузки');
+        }
+    }
+    // ДОБАВЬТЕ ЭТИ МЕТОДЫ ПРЯМО ПЕРЕД ЗАКРЫВАЮЩЕЙ СКОБКОЙ КЛАССА
+
+    // Автоматическое очищение
+    startAutoClear() {
+        if (this.autoClear && this.clearTimeout > 0) {
+            this.clearTimer = setTimeout(() => {
+                this.clearWithoutConfirm();
+            }, this.clearTimeout);
+        }
+    }
+
+    resetAutoClear() {
+        if (this.clearTimer) {
+            clearTimeout(this.clearTimer);
+        }
+        if (this.autoClear && this.clearTimeout > 0) {
+            this.startAutoClear();
+        }
+    }
+
+    clearWithoutConfirm() {
+    this.currentFormula = '';
+    this.placeholders.clear();
+    this.placeholderCounter = 0;
+    this.updateDisplay();
+
+    // Показываем уведомление вместо alert
+    this.showNotification('Формула очищена', 'info');
+}
+
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `math-keyboard-notification ${type}`;
+        notification.textContent = message;
+
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: ${type === 'info' ? '#2196F3' : '#f44336'};
+            color: white;
+            border-radius: 4px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 3000);
+    }
+}
+
+
+
+
+
+
+        // Добавьте эту функцию если хотите возможность удалять фото
+function removeImage(previewId) {
+    const preview = document.getElementById(previewId);
+    const input = preview.parentElement.querySelector('.image-upload-input');
+
+    preview.style.display = 'none';
+    preview.innerHTML = '';
+    input.value = '';
+}
+
+     document.getElementById('mathTestForm').addEventListener('submit', function(e) {
+
+    console.log("=== ОТЛАДКА ПЕРЕД ОТПРАВКОЙ ФОРМЫ ===");
+
+    const answerFormulas = document.querySelectorAll('input[name="answer_formula[]"]');
+    const answerImages = document.querySelectorAll('input[name="answer_images[]"]');
+    const correctAnswer = document.querySelector('input[name="correct_answer"]:checked');
+
+    console.log("Количество формул ответов:", answerFormulas.length);
+    console.log("Количество полей для фото:", answerImages.length);
+    console.log("Правильный ответ:", correctAnswer ? correctAnswer.value : 'не выбран');
+
+    // Проверим ВСЕ данные формы
+    const formData = new FormData(this);
+    console.log("=== ВСЕ ДАННЫЕ ФОРМЫ ===");
+    for (let [key, value] of formData.entries()) {
+        if (key === 'answer_images[]') {
+            console.log(`${key}:`, value.name, value.size, "bytes");
+        } else {
+            console.log(`${key}:`, value);
+        }
+    }
+
+    // Теперь можно отправить форму вручную для тестирования
+    // this.submit();
+});
+
+        function handleQuestionImageUpload(input, questionIndex) {
+    const file = input.files[0];
+    if (file) {
+        const reader = new FileReader();
+        const preview = document.getElementById(`questionImagePreview_${questionIndex}`);
+        const uploadContainer = document.getElementById(`imageUpload_${questionIndex}`);
+        const fileName = document.getElementById(`fileName_${questionIndex}`);
+        const fileSize = document.getElementById(`fileSize_${questionIndex}`);
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            uploadContainer.classList.add('has-image');
+
+            // Показываем информацию о файле
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+function removeQuestionImage(questionIndex) {
+    const input = document.querySelector(`input[name="question_image_${questionIndex}"]`);
+    const preview = document.getElementById(`questionImagePreview_${questionIndex}`);
+    const uploadContainer = document.getElementById(`imageUpload_${questionIndex}`);
+    const fileName = document.getElementById(`fileName_${questionIndex}`);
+    const fileSize = document.getElementById(`fileSize_${questionIndex}`);
+
+    input.value = '';
+    preview.src = '';
+    uploadContainer.classList.remove('has-image');
+    fileName.textContent = '';
+    fileSize.textContent = '';
+}
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+</script>
+</body>
+</html>

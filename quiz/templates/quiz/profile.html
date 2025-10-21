@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой профиль</title>
+
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-chubby/css/uicons-solid-chubby.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+     <meta name="csrf-token" content="{{ csrf_token }}">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-chubby/css/uicons-solid-chubby.css'>
+    {% load static %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+         :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        .profile-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+    position: relative; /* ✅ нужно обязательно */
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    padding: 15px;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+        /* Анимация пузырьков */
+.profile-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(50px 50px at 5% 10%, rgba(255,255,255,0.2) 50%, transparent 50%),
+        radial-gradient(18px 18px at 15% 50%, rgba(255,255,255,0.15) 50%, transparent 50%),
+        radial-gradient(40px 40px at 25% 80%, rgba(255,255,255,0.25) 50%, transparent 50%),
+        radial-gradient(14px 14px at 40% 30%, rgba(255,255,255,0.3) 50%, transparent 50%),
+        radial-gradient(25px 25px at 50% 60%, rgba(255,255,255,0.1) 50%, transparent 50%),
+        radial-gradient(35px 35px at 60% 20%, rgba(255,255,255,0.2) 50%, transparent 50%),
+        radial-gradient(15px 15px at 70% 70%, rgba(255,255,255,0.25) 50%, transparent 50%),
+        radial-gradient(10px 10px at 80% 40%, rgba(255,255,255,0.15) 50%, transparent 50%),
+        radial-gradient(18px 18px at 90% 90%, rgba(255,255,255,0.2) 50%, transparent 50%),
+        radial-gradient(29px 29px at 75% 15%, rgba(255,255,255,0.4) 50%, transparent 50%),
+        radial-gradient(36px 36px at 30% 30%, rgba(255,255,255,0.4) 50%, transparent 50%),
+        radial-gradient(20px 20px at 45% 90%, rgba(255,255,255,0.25) 50%, transparent 50%),
+        radial-gradient(32px 32px at 85% 60%, rgba(255,255,255,0.3) 50%, transparent 50%);
+    animation: bubbles 10s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+
+
+
+@keyframes bubbles {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(2.1);
+    }
+}
+
+        .profile-header h2 {
+            color: white;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            margin-right: 100px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 85px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .profile-content {
+            padding: 40px;
+        }
+
+
+        .header-icon {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+
+
+        }
+
+        /* Стили для кнопок создания */
+        .create-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4facfe;
+        }
+
+        .create-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .create-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .test-type-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 15px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #495057;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .test-type-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #4facfe;
+            color: #4facfe;
+        }
+
+        .test-type-btn .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+
+        }
+
+
+        .test-type-btn .title {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .test-type-btn .desc {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .all-variants-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .all-variants-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Стили для списка тестов */
+        .tests-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #e9ecef;
+        }
+
+        .tests-section h3 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+            transition: all 0.3s ease;
+        }
+
+        .test-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .test-info {
+            flex: 1;
+        }
+
+        .test-title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .test-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .test-type-badge {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .test-link {
+            background: #28a745;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+
+        }
+
+        .test-link:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .empty-state .icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* Кнопка выхода */
+        .logout-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .logout-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .profile-content {
+                padding: 20px;
+            }
+
+            .create-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .test-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .test-link {
+                align-self: stretch;
+                text-align: center;
+            }
+        }
+        .test-type-btn .icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+/* Стили для уведомлений */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    z-index: 1001;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.notification button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Анимация удаления элемента */
+.test-item.removing {
+    animation: slideOutLeft 0.3s ease forwards;
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+        max-height: 200px;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-weight: 300;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    transform: scale(1.2);
+}
+
+.modal-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.warning-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.test-to-delete {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border-left: 4px solid #dc3545;
+}
+
+.warning-text {
+    color: #dc3545;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.modal-footer .btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+/* Кнопка удаления в списке */
+.delete-btn {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-left: 4px;
+}
+
+.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+.test-actions {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-left: 30px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+    .test-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .delete-btn {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .notification {
+        left: 20px;
+        right: 20px;
+    }
+}
+
+        /* Стили для уведомлений */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    z-index: 1001;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.notification button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Анимация удаления элемента */
+.test-item {
+    transition: all 0.3s ease;
+}
+        .copy-btn {
+            background: #28a745;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 2px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .copy-btn:hover {
+            background: #218838;
+
+            transform: translateY(-2px);
+
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>
+                <span><img src="{% static 'img/easy__4_-removebg-preview.png' %}" style="width: 200px; height: 200px; vertical-align: middle;"></span>
+                 Добро пожаловать!
+
+            </h2>
+            <p style="margin-left: 100px;">Управляйте вашими тестами и создавайте новые</p>
+        </div>
+
+        <div class="profile-content">
+            <!-- Секция создания тестов -->
+            <div class="create-section">
+                <h3><i class="fi fi-sr-select"></i> Создать новый тест</h3>
+                <div class="create-buttons">
+                    <a href="{% url 'quiz:create_test' 'text' %}" class="test-type-btn">
+                        <span class="icon">
+                            <img src="{% static 'img/text_test.png' %}" alt="Текстовый тест">
+                        </span>
+                        <span class="title">Текстовый тест</span>
+                        <span class="desc">Вопросы с текстовыми ответами</span>
+                    </a>
+
+                    <a href="{% url 'quiz:create_test' 'voice' %}" class="test-type-btn">
+                        <span class="icon">
+                            <img src="{% static 'img/voice_test2.png' %}" alt="Голосовой тест">
+                        </span>
+                        <span class="title">Голосовой тест</span>
+                        <span class="desc">Вопросы с голосовыми ответами</span>
+                    </a>
+
+                    <a href="{% url 'quiz:create_test' 'photo' %}" class="test-type-btn">
+                        <span class="icon">
+                            <img src="{% static 'img/photo.png' %} " alt="Фото тест" >
+                        </span>
+                        <span class="title">Фото тест</span>
+                        <span class="desc">Вопросы с фотоответами</span>
+                    </a>
+                </div>
+                <a href="{% url 'quiz:select_test_type' %}" class="all-variants-btn">
+                    <i class="fi fi-ss-multiple-alt"></i> Все варианты создания
+                </a>
+                <a href="{% url 'quiz:student_results' %}" class="all-variants-btn">
+                    <i class="fi fi-br-chart-simple-horizontal"></i> Результаты учеников
+                </a>
+            </div>
+
+            <!-- Секция списка тестов -->
+            <div class="tests-section">
+                <h3>📚 Мои созданные тесты</h3>
+
+                {% if tests %}
+                    <div class="test-list">
+                        {% for test in tests %}
+                            <div class="test-item" id="test-{{ test.id }}">
+                                <div class="test-info">
+                                    <div class="test-title">{{ test.title }}</div>
+                                    <div class="test-meta">
+                                        <span class="test-type-badge">
+                                            {% if test.test_format == 'photo' %}
+                                                 Фото тест
+                                            {% elif test.test_format == 'voice' %}
+                                                 Голосовой тест
+                                            {% elif test.test_format == 'text' %}
+                                                 Текстовый тест
+                                            {% elif test.test_format == 'math' %}
+                                                Математический тест
+                                            {% elif test.test_format == 'mixed' %}
+                                                Смешанный тест
+                                            {% else %}
+                                                 {{ test.test_format|default:"Обычный тест" }}
+                                            {% endif %}
+                                        </span>
+                                        <span> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
+                                        <span> Вопросов: {{ test.questions.count }}</span>
+                                    </div>
+                                </div>
+                                <div class="test-actions">
+                                    <!-- РАЗНЫЕ URL ДЛЯ РАЗНЫХ ТИПОВ ТЕСТОВ -->
+                                    {% if test.test_format == 'voice' %}
+                                        <a href="{% url 'quiz:take_voice_test' test.public_id %}" class="test-link" target="_blank">
+                                            <i class="fi fi-sc-link-alt"></i> Ссылка для прохождения
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'quiz:take_test' test.public_id %}" class="test-link" target="_blank">
+                                            <i class="fi fi-sc-link-alt"></i> Ссылка для прохождения
+                                        </a>
+                                    {% endif %}
+
+                                    <button class="copy-btn" onclick="copyToClipboard('{{ test.public_id }}', '{{ test.test_format }}')">
+                                        <i class="fi fi-sr-duplicate"></i> Копировать
+                                    </button>
+                                    <button type="button" class="delete-btn"
+                                            onclick="confirmDelete({{ test.id }}, '{{ test.title|escapejs }}')">
+                                        <i class="fi fi-ss-trash"></i> Удалить
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <h3>Тестов пока нет</h3>
+                        <p>Создайте ваш первый тест, нажав на кнопку выше</p>
+                    </div>
+                {% endif %}
+
+                <!-- Модальное окно подтверждения удаления -->
+                <div id="deleteModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3><i class="fi fi-ss-trash-xmark"></i> Подтверждение удаления</h3>
+                            <span class="close" onclick="closeDeleteModal()">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="warning-icon">⚠️</div>
+                            <p>Вы уверены, что хотите удалить тест?</p>
+                            <div class="test-to-delete">
+                                <strong id="testTitleToDelete"></strong>
+                            </div>
+                            <p class="warning-text">Это действие нельзя отменить!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">
+                                <i class="fi fi-sr-circle-x"></i> Отмена
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="deleteTest()">
+                                <i class="fi fi-sr-check-circle"></i> Да, удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+<!-- Уведомление об успешном удалении -->
+<div id="successNotification" class="notification success" style="display: none;">
+    <span>✅ Тест успешно удален!</span>
+    <button onclick="closeSuccessNotification()">&times;</button>
+</div>
+
+<!-- Кнопка выхода -->
+<div class="logout-section">
+    <a href="{% url 'accounts:logout' %}" class="logout-btn">
+        <i class="fi fi-sc-leave"></i> Выйти из аккаунта
+    </a>
+</div>
+
+<script>
+let currentTestId = null;
+
+// Подтверждение удаления
+function confirmDelete(testId, testTitle) {
+    console.log('confirmDelete called with:', testId, testTitle);
+    currentTestId = testId;
+    document.getElementById('testTitleToDelete').textContent = testTitle;
+    document.getElementById('deleteModal').style.display = 'block';
+}
+
+// Закрытие модального окна удаления
+function closeDeleteModal() {
+    console.log('Closing delete modal');
+    document.getElementById('deleteModal').style.display = 'none';
+    currentTestId = null;
+}
+
+// Закрытие уведомления об успешном копировании
+function closeCopyNotification() {
+    const notification = document.getElementById('copyNotification');
+    if (notification) {
+        notification.remove();
+    }
+}
+
+// Закрытие уведомления об успешном удалении
+function closeSuccessNotification() {
+    const notification = document.getElementById('successNotification');
+    if (notification) {
+        notification.style.display = 'none';
+    }
+}
+
+// Основная функция удаления
+async function deleteTest() {
+    console.log('deleteTest called, currentTestId:', currentTestId);
+
+    if (!currentTestId) {
+        console.error('No test ID to delete');
+        return;
+    }
+
+    const deleteBtn = document.querySelector('.modal-footer .btn-danger');
+    const originalText = deleteBtn.innerHTML;
+    deleteBtn.innerHTML = '⏳ Удаление...';
+    deleteBtn.disabled = true;
+
+    try {
+        const url = `{% url 'quiz:delete_test' 0 %}`.replace('0', currentTestId);
+        console.log('Delete URL:', url);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            },
+        });
+
+        console.log('Response status:', response.status);
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Response data:', data);
+
+            if (data.success) {
+                // Успешное удаление
+                const testElement = document.getElementById(`test-${currentTestId}`);
+                console.log('Test element found:', testElement);
+
+                if (testElement) {
+                    testElement.style.transition = 'all 0.3s ease';
+                    testElement.style.opacity = '0';
+                    testElement.style.transform = 'translateX(-100%)';
+
+                    setTimeout(() => {
+                        testElement.remove();
+                        console.log('Test element removed from DOM');
+
+                        // Показываем уведомление об успехе удаления
+                        const successNotification = document.getElementById('successNotification');
+                        if (successNotification) {
+                            successNotification.style.display = 'flex';
+                        }
+
+                        // Проверяем, есть ли еще тесты
+                        const remainingTests = document.querySelectorAll('.test-item');
+                        console.log('Remaining tests:', remainingTests.length);
+
+                        if (remainingTests.length === 0) {
+                            console.log('No tests left, reloading...');
+                            location.reload();
+                        }
+
+                        // Скрываем уведомление об удалении через 3 секунды
+                        setTimeout(() => {
+                            if (successNotification) {
+                                successNotification.style.display = 'none';
+                            }
+                        }, 3000);
+                    }, 300);
+                }
+
+                // ЗАКРЫВАЕМ МОДАЛЬНОЕ ОКНО СРАЗУ ПОСЛЕ УСПЕШНОГО УДАЛЕНИЯ
+                closeDeleteModal();
+
+            } else {
+                throw new Error(data.error || 'Ошибка удаления');
+            }
+        } else {
+            const errorText = await response.text();
+            console.error('Response error text:', errorText);
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('Delete error:', error);
+        alert('❌ Ошибка при удалении теста: ' + error.message);
+    } finally {
+        // Всегда восстанавливаем кнопку, даже при ошибке
+        deleteBtn.innerHTML = originalText;
+        deleteBtn.disabled = false;
+
+        // При ошибке тоже закрываем модальное окно
+        closeDeleteModal();
+    }
+}
+
+// Функция для получения CSRF токена
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Обновленная функция для уведомления о копировании
+function showCopyNotification(message, type = 'success') {
+    let notification = document.getElementById('copyNotification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'copyNotification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+        `;
+        document.body.appendChild(notification);
+    }
+
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="closeCopyNotification()" style="margin-left: 10px; background: none; border: none; color: white; cursor: pointer;">×</button>
+    `;
+
+    setTimeout(() => {
+        closeCopyNotification();
+    }, 3000);
+}
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeDeleteModal();
+    }
+});
+
+// Закрытие модального окна при клике вне его
+window.onclick = function(event) {
+    const modal = document.getElementById('deleteModal');
+    if (event.target == modal) {
+        closeDeleteModal();
+    }
+}
+
+
+
+
+// Функции уведомлений
+function showNotification(message, type) {
+    const notification = document.getElementById('notification');
+    const messageEl = document.getElementById('notificationMessage');
+
+    messageEl.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.style.display = 'flex';
+
+    setTimeout(() => {
+        closeNotification();
+    }, 3000);
+}
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeDeleteModal();
+    }
+});
+
+   function copyToClipboard() {
+    // Находим ссылку для прохождения теста
+    const testLink = document.querySelector('.test-link');
+    const url = testLink.href;
+
+    // Используем современный Clipboard API
+    navigator.clipboard.writeText(url)
+        .then(() => {
+            // Показываем уведомление об успехе
+            showNotification('Ссылка скопирована в буфер обмена!', 'success');
+        })
+        .catch(err => {
+            // Fallback для старых браузеров
+            copyToClipboardFallback(url);
+        });
+}
+
+
+    function copyToClipboard(publicId, testFormat) {
+    let baseUrl = window.location.origin;
+    let testUrl;
+
+    // Определяем URL в зависимости от типа теста
+    if (testFormat === 'voice') {
+        testUrl = `${baseUrl}{% url 'quiz:take_voice_test' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', publicId);
+    } else {
+        testUrl = `${baseUrl}{% url 'quiz:take_test' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', publicId);
+    }
+
+    navigator.clipboard.writeText(testUrl).then(function() {
+        showNotification('✅ Ссылка скопирована ');
+    }).catch(function(err) {
+        console.error('Ошибка копирования: ', err);
+        showNotification('❌ Ошибка копирования', 'error');
+    });
+}
+
+function showNotification(message, type = 'success') {
+    // Создаем или находием уведомление
+    let notification = document.getElementById('copyNotification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'copyNotification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+    }
+
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" style="margin-left: 10px; background: none; border: none; color: white; cursor: pointer;">×</button>
+    `;
+
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 3000);
+}
+
+
+
+
+
+// Закрытие модального окна при клике вне его
+window.onclick = function(event) {
+    const modal = document.getElementById('deleteModal');
+    if (event.target == modal) {
+        closeDeleteModal();
+    }
+}
+</script>
+
+</body>
+</html>
+
+
