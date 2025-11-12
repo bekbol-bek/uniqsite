@@ -465,6 +465,416 @@ audio {
 audio::-webkit-media-controls-panel {
     background: #f8f9fa;
 }
+
+        /* Мобильная адаптация для страницы создания смешанного теста */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px !important;
+        font-size: 16px;
+    }
+
+    .create-mixed-test {
+        max-width: 100% !important;
+        border-radius: 15px;
+        margin: 0 auto;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    /* Шапка */
+    .header {
+        padding: 25px 20px !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .header h1 {
+        font-size: 1.8em !important;
+        text-align: center;
+    }
+
+    .header p {
+        font-size: 1.1em !important;
+        line-height: 1.4;
+    }
+
+    /* Основной контент */
+    form {
+        gap: 1rem;
+    }
+
+    .section {
+        padding: 20px 15px !important;
+        border-radius: 15px;
+        margin-bottom: 1rem;
+    }
+
+    .section h3 {
+        font-size: 1.2em;
+        margin-bottom: 1.2rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Поля ввода */
+    input[type="text"], textarea, select {
+        padding: 16px 15px !important;
+        font-size: 18px !important;
+        border-radius: 12px;
+        min-height: 55px;
+    }
+
+    textarea {
+        min-height: 120px;
+        font-size: 16px !important;
+    }
+
+    /* Секции вопросов */
+    .question-section {
+        padding: 20px 15px !important;
+        margin-bottom: 1.2rem;
+        border-left-width: 5px;
+    }
+
+    .question-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin-bottom: 1.2rem;
+    }
+
+    .question-header h3 {
+        font-size: 1.1em;
+        text-align: center;
+    }
+
+    .delete-btn {
+        padding: 14px 20px !important;
+        font-size: 16px;
+        min-height: 50px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Выбор формата */
+    .format-selector {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+        margin: 1.2rem 0;
+    }
+
+    .format-option {
+        padding: 20px 10px !important;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .format-option .icon {
+        font-size: 1.8em !important;
+        margin-bottom: 8px;
+    }
+
+    .format-option .label {
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    /* Медиа секции */
+    .media-section {
+        padding: 20px 15px !important;
+        margin: 1.2rem 0;
+    }
+
+    .media-section h4 {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .media-upload {
+        padding: 25px 15px !important;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Контейнер ответов */
+    .answers-container {
+        margin: 1.2rem 0;
+    }
+
+    .answer-item {
+        padding: 20px 15px !important;
+        margin-bottom: 15px;
+        border-left-width: 4px;
+    }
+
+    .answer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    .answer-controls {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .correct-label {
+        padding: 14px 20px !important;
+        min-height: 50px;
+        justify-content: center;
+        font-size: 16px;
+    }
+
+    .correct-label input[type="radio"] {
+        transform: scale(1.3);
+    }
+
+    /* Кнопки */
+    .button-group {
+        margin: 1.5rem 0;
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 18px 25px !important;
+        font-size: 17px !important;
+        font-weight: 600;
+        border-radius: 15px;
+        min-height: 60px;
+        width: 100% !important;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .btn-success {
+        order: 1;
+        font-size: 18px !important;
+        min-height: 65px;
+        max-width: 100% !important;
+    }
+
+    .btn-add, .btn-addd {
+        order: 2;
+        max-width: 100% !important;
+    }
+
+    .btn-primary {
+        order: 3;
+    }
+
+    /* Кнопка математической клавиатуры */
+    .math-keyboard-btn {
+        padding: 16px 20px !important;
+        font-size: 16px;
+        min-height: 55px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Превью изображений */
+    .preview-image {
+        max-width: 100% !important;
+        max-height: 200px;
+        margin-top: 15px;
+    }
+
+    /* Аудио загрузка */
+    .voice-upload {
+        min-height: 140px;
+    }
+
+    .audio-info {
+        margin-top: 15px;
+        padding: 15px;
+    }
+
+    .audio-file-info {
+        font-size: 15px;
+    }
+
+    /* Аудио плеер */
+    audio {
+        width: 100%;
+        height: 50px;
+    }
+
+    /* Улучшение фокуса */
+    input[type="text"]:focus, textarea:focus, select:focus {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+        transform: translateY(-2px);
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px !important;
+    }
+
+    .header {
+        padding: 20px 15px !important;
+    }
+
+    .header h1 {
+        font-size: 1.6em !important;
+    }
+
+    .section, .question-section {
+        padding: 18px 12px !important;
+    }
+
+    .format-selector {
+        grid-template-columns: 1fr !important;
+    }
+
+    .format-option {
+        min-height: 90px;
+        padding: 18px 8px !important;
+    }
+
+    input[type="text"], textarea, select {
+        padding: 14px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .btn {
+        padding: 16px 20px !important;
+        font-size: 16px !important;
+        min-height: 55px;
+    }
+
+    .media-upload {
+        padding: 20px 12px !important;
+        min-height: 110px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 10px !important;
+    }
+
+    .header {
+        padding: 20px !important;
+    }
+
+    .section, .question-section {
+        padding: 18px 15px !important;
+    }
+
+    .format-selector {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    input[type="text"], textarea, select {
+        min-height: 45px;
+        padding: 14px 12px !important;
+    }
+
+    .btn {
+        padding: 14px 18px !important;
+        min-height: 50px;
+    }
+
+    .media-upload {
+        min-height: 100px;
+    }
+}
+
+/* Улучшение касаний для мобильных */
+@media (max-width: 768px) {
+    .btn,
+    .delete-btn,
+    .math-keyboard-btn,
+    .format-option,
+    .media-upload,
+    .correct-label,
+    input[type="text"],
+    textarea,
+    select,
+    input[type="radio"] {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+
+    .btn:active,
+    .delete-btn:active,
+    .math-keyboard-btn:active,
+    .format-option:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Увеличиваем область клика */
+    .correct-label {
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+    .format-option {
+        min-height: 100px;
+    }
+}
+
+/* Оптимизация анимаций для мобильных */
+@media (max-width: 768px) {
+    .section:hover,
+    .question-section:hover,
+    .format-option:hover,
+    .btn:hover {
+        transform: none;
+    }
+
+    .section:active,
+    .question-section:active,
+    .format-option:active {
+        transform: scale(0.98);
+    }
+
+    .btn-primary:hover,
+    .btn-success:hover,
+    .btn-add:hover,
+    .btn-addd:hover {
+        transform: none;
+    }
+
+    .btn-primary:active,
+    .btn-success:active,
+    .btn-add:active,
+    .btn-addd:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Убираем масштабирование при фокусе на iOS */
+@media (max-width: 768px) {
+    input[type="text"], textarea, select {
+        font-size: 16px !important;
+    }
+}
+
+/* Улучшение для длинных текстов */
+@media (max-width: 768px) {
+    .header h1,
+    .header p,
+    .section h3,
+    .question-header h3,
+    .format-option .label {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-align: center;
+    }
+}
+
+
     </style>
 </head>
 <body>

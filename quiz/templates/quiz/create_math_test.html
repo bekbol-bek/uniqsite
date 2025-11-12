@@ -1658,6 +1658,1501 @@
         display: none;
     }
 }
+        /* Мобильная адаптация для страницы математического теста */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px !important;
+        font-size: 16px;
+    }
+
+    .math-test-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+        max-width: 100%;
+    }
+
+    /* Основной контент */
+    .main-content {
+        border-radius: 20px;
+        margin: 0 auto;
+    }
+
+    /* Шапка */
+    .header {
+        padding: 25px 20px !important;
+    }
+
+    .header h1 {
+        font-size: 1.8em !important;
+        text-align: center;
+    }
+
+    /* Контент */
+    .content {
+        padding: 25px 20px !important;
+    }
+
+    /* Боковая панель помощи */
+    .help-sidebar {
+        padding: 25px 20px !important;
+        border-radius: 20px;
+        position: static;
+        margin-top: 20px;
+    }
+
+    .help-sidebar h2 {
+        font-size: 1.3em;
+        text-align: center;
+    }
+
+    .help-item {
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+    }
+
+    .help-item h4 {
+        font-size: 1.1em;
+    }
+
+    .help-item p, .help-item ul {
+        font-size: 1em;
+        line-height: 1.5;
+    }
+
+    .help-examples {
+        padding: 20px 15px;
+        margin: 20px 0;
+    }
+
+    .example {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .help-tip {
+        padding: 20px 15px;
+    }
+
+    /* Выбор формата */
+    .format-buttons {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .format-button-content {
+        padding: 25px 20px !important;
+        min-height: 100px;
+        gap: 12px;
+    }
+
+    .format-icon {
+        font-size: 2.2em !important;
+    }
+
+    .format-text strong {
+        font-size: 1.1em;
+    }
+
+    .format-text small {
+        font-size: 0.9em;
+    }
+
+    /* Секции вопросов и ответов */
+    .question-section, .answers-section {
+        margin: 25px 0;
+    }
+
+    .question-block {
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+        border-radius: 15px;
+    }
+
+    .question-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .question-title {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .remove-btn {
+        padding: 14px 20px !important;
+        font-size: 16px;
+        min-height: 50px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Поля ввода */
+    textarea {
+        padding: 18px 15px !important;
+        font-size: 18px !important;
+        border-radius: 15px;
+        min-height: 120px;
+        margin: 12px 0;
+    }
+
+    .math-preview {
+        padding: 20px 15px;
+        margin: 15px 0;
+        font-size: 20px;
+        min-height: 70px;
+    }
+
+    /* Кнопка клавиатуры */
+    .keyboard-toggle {
+        padding: 16px 20px !important;
+        font-size: 17px;
+        border-radius: 12px;
+        min-height: 55px;
+        width: 100%;
+        justify-content: center;
+        margin: 15px 0;
+    }
+
+    /* Элементы ответов */
+    .answer-item {
+        padding: 20px 15px !important;
+        margin: 20px 0;
+        border-radius: 15px;
+    }
+
+    .answer-block {
+        padding: 20px 15px !important;
+        margin-bottom: 15px;
+        border-radius: 12px;
+    }
+
+    .remove-answer-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        top: 8px;
+        right: 8px;
+    }
+
+    /* Горизонтальные ответы */
+    .answer-content-horizontal {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .answer-text-input-horizontal {
+        min-width: auto;
+        padding: 16px 15px !important;
+        font-size: 16px;
+        min-height: 55px;
+    }
+
+    .answer-image-upload-horizontal {
+        align-self: center;
+        min-width: 140px;
+        height: 80px;
+    }
+
+    .image-upload-horizontal-small {
+        width: 140px;
+        height: 80px;
+    }
+
+    .correct-option-horizontal {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .radio-label-horizontal {
+        padding: 14px 20px !important;
+        font-size: 16px;
+        min-height: 50px;
+        justify-content: center;
+    }
+
+    /* Правильный ответ */
+    .correct-option {
+        max-width: 100% !important;
+        width: 100%;
+        padding: 16px 20px !important;
+        font-size: 16px;
+        min-height: 55px;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .correct-option input[type="radio"] + span::before {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Загрузка изображений */
+    .image-upload-section {
+        margin: 20px 0;
+    }
+
+    .upload-label {
+        font-size: 17px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .image-upload-horizontal {
+        min-height: 100px;
+        padding: 20px 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .upload-placeholder-horizontal {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .placeholder-icon-horizontal {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .placeholder-title-horizontal {
+        font-size: 16px;
+    }
+
+    .placeholder-subtitle-horizontal {
+        font-size: 14px;
+    }
+
+    .image-preview-horizontal {
+        width: 100%;
+        max-width: 200px;
+        height: 120px;
+    }
+
+    /* Кнопки действий */
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .btn {
+        padding: 18px 25px !important;
+        font-size: 17px !important;
+        font-weight: 600;
+        border-radius: 15px;
+        min-height: 60px;
+        width: 100% !important;
+        justify-content: center;
+        text-align: center;
+        margin: 5px 0 !important;
+    }
+
+    .submit-btn {
+        order: 1;
+        font-size: 18px !important;
+        min-height: 65px;
+    }
+
+    .add-button {
+        order: 2;
+    }
+
+    .btn-primary {
+        order: 3;
+    }
+
+    .delete-button {
+        padding: 12px 20px !important;
+        font-size: 16px;
+        min-height: 50px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Модальное окно клавиатуры */
+    .modal-content {
+        width: 98% !important;
+        margin: 10px;
+        max-height: 85vh;
+    }
+
+    .keyboard-header {
+        padding: 20px 15px;
+    }
+
+    .formula-display {
+        padding: 20px 15px;
+        font-size: 20px;
+        min-height: 70px;
+    }
+
+    .keyboard-tabs {
+        flex-wrap: wrap;
+    }
+
+    .keyboard-tab {
+        padding: 12px 15px;
+        font-size: 13px;
+        flex: 1;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    .keyboard-panel {
+        padding: 15px 10px;
+    }
+
+    .keyboard-row {
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .key {
+        min-width: 60px;
+        padding: 12px 8px;
+        font-size: 14px;
+        flex: 1;
+    }
+
+    .keyboard-controls {
+        padding: 15px 10px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .control-btn {
+        padding: 14px 20px;
+        font-size: 16px;
+        width: 100%;
+        min-height: 50px;
+    }
+
+    /* Кастомные модальные окна */
+    .custom-input-container,
+    .custom-confirm-container {
+        width: 95% !important;
+        max-width: 350px;
+    }
+
+    .custom-input-body,
+    .custom-confirm-body {
+        padding: 20px 15px;
+    }
+
+    .custom-input-field {
+        padding: 16px 15px;
+        font-size: 18px;
+        min-height: 55px;
+    }
+
+    .custom-input-buttons,
+    .custom-confirm-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .custom-input-btn,
+    .custom-confirm-btn {
+        padding: 14px 20px;
+        font-size: 16px;
+        min-height: 50px;
+        width: 100%;
+    }
+
+    /* Улучшение фокуса */
+    textarea:focus,
+    .answer-text-input-horizontal:focus,
+    .custom-input-field:focus {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+        transform: translateY(-2px);
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px !important;
+    }
+
+    .header {
+        padding: 20px 15px !important;
+    }
+
+    .header h1 {
+        font-size: 1.6em !important;
+    }
+
+    .content {
+        padding: 20px 15px !important;
+    }
+
+    .help-sidebar {
+        padding: 20px 15px !important;
+    }
+
+    .format-button-content {
+        padding: 20px 15px !important;
+        min-height: 90px;
+    }
+
+    textarea {
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .btn {
+        padding: 16px 20px !important;
+        font-size: 16px !important;
+        min-height: 55px;
+    }
+
+    .key {
+        min-width: 50px;
+        padding: 10px 6px;
+        font-size: 13px;
+    }
+
+    .keyboard-tab {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 10px !important;
+    }
+
+    .math-test-container {
+        gap: 15px;
+    }
+
+    .content,
+    .help-sidebar {
+        padding: 20px !important;
+    }
+
+    .format-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    textarea {
+        min-height: 80px;
+        padding: 14px 12px !important;
+    }
+
+    .btn {
+        padding: 14px 18px !important;
+        min-height: 50px;
+    }
+
+    .modal-content {
+        max-height: 80vh;
+    }
+
+    .keyboard-layout {
+        grid-template-columns: 1fr;
+        max-height: 70vh;
+    }
+
+    .video-sidebar {
+        display: none;
+    }
+}
+
+/* Улучшение касаний для мобильных */
+@media (max-width: 768px) {
+    .btn,
+    .add-button,
+    .delete-button,
+    .keyboard-toggle,
+    .format-button,
+    .key,
+    .keyboard-tab,
+    .correct-option,
+    .radio-label-horizontal,
+    .remove-btn,
+    .remove-answer-btn,
+    .image-upload-horizontal,
+    .image-upload-horizontal-small,
+    textarea,
+    input[type="text"],
+    input[type="radio"] {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+
+    .btn:active,
+    .add-button:active,
+    .delete-button:active,
+    .keyboard-toggle:active,
+    .format-button:active,
+    .key:active,
+    .correct-option:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Увеличиваем область клика */
+    .correct-option,
+    .radio-label-horizontal {
+        min-height: 55px;
+        display: flex;
+        align-items: center;
+    }
+
+    .format-button-content {
+        min-height: 100px;
+    }
+}
+
+/* Оптимизация анимаций для мобильных */
+@media (max-width: 768px) {
+    .question-block:hover,
+    .answer-item:hover,
+    .help-item:hover,
+    .format-button:hover,
+    .btn:hover {
+        transform: none;
+    }
+
+    .question-block:active,
+    .answer-item:active,
+    .help-item:active,
+    .format-button:active {
+        transform: scale(0.98);
+    }
+
+    .key:hover {
+        transform: none;
+    }
+
+    .key:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Убираем масштабирование при фокусе на iOS */
+@media (max-width: 768px) {
+    textarea,
+    .answer-text-input-horizontal,
+    .custom-input-field {
+        font-size: 16px !important;
+    }
+}
+
+/* Улучшение для длинных текстов */
+@media (max-width: 768px) {
+    .header h1,
+    .help-sidebar h2,
+    .question-title,
+    .format-text strong,
+    .format-text small {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-align: center;
+    }
+
+    .math-preview {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+        .vertical-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.stack-top, .stack-bottom {
+    padding: 0 5px;
+    min-height: 1.2em;
+    min-width: 20px;
+    text-align: center;
+    border: 1px dashed #ccc;
+}
+
+.stack-top {
+    border-bottom: none;
+}
+
+.vertical-no-line {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.vtop, .vbottom {
+    padding: 0 5px;
+    min-height: 1.2em;
+    min-width: 20px;
+    text-align: center;
+    border: 1px dashed #ccc;
+}
+
+.vertical-bold-line {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.bold-top, .bold-bottom {
+    padding: 0 5px;
+    min-height: 1.2em;
+    min-width: 20px;
+    text-align: center;
+    border: 1px dashed #ccc;
+}
+
+.bold-line {
+    width: 100%;
+    height: 2px;
+    background: #000;
+    margin: 2px 0;
+}
+        .vertical-stack-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 5px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.stack-top, .stack-bottom {
+    padding: 8px 12px;
+    min-height: 1.5em;
+    min-width: 30px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    margin: 2px;
+    background: white;
+}
+
+.stack-top {
+    border-bottom: 2px solid #000;
+}
+
+.stack-top:focus, .stack-bottom:focus {
+    outline: 2px solid #4CAF50;
+    background: #f0fff0;
+}
+        .vertical-stack-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 5px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 4px;
+    padding: 2px;
+    background: #f9f9f9;
+}
+
+.stack-top, .stack-bottom {
+    padding: 8px 12px;
+    min-height: 1.5em;
+    min-width: 30px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    margin: 2px;
+    background: white;
+    cursor: text;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+}
+
+.stack-top {
+    border-bottom: 2px solid #000;
+}
+
+.stack-top:focus, .stack-bottom:focus {
+    outline: 2px solid #4CAF50 !important;
+    background: #f0fff0 !important;
+}
+
+        /* Стили для редактируемых полей в дробях и стеках */
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.numerator, .denominator {
+    min-height: 1.5em;
+    min-width: 30px;
+    padding: 4px 8px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    background: white;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.numerator {
+    border-bottom: 2px solid #000;
+    margin-bottom: 1px;
+}
+
+.denominator {
+    margin-top: 1px;
+}
+
+/* Улучшенные стили для вертикальных стеков */
+.vertical-stack-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 5px;
+    border: 2px dashed #e0e0e0;
+    border-radius: 4px;
+    padding: 2px;
+    background: #f9f9f9;
+}
+
+.stack-top, .stack-bottom {
+    padding: 8px 12px;
+    min-height: 1.5em;
+    min-width: 30px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    margin: 2px;
+    background: white;
+    cursor: text;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.stack-top {
+    border-bottom: 2px solid #000;
+}
+
+/* Стили для активных редактируемых полей */
+[contenteditable="true"] {
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+[contenteditable="true"]:focus {
+    outline: 2px solid #4CAF50 !important;
+    background: #f0fff0 !important;
+    border-color: #4CAF50 !important;
+}
+
+/* Плейсхолдеры для пустых полей */
+[contenteditable="true"]:empty:before {
+    content: attr(data-placeholder);
+    color: #999;
+    font-style: italic;
+}
+
+[contenteditable="true"]:focus:empty:before {
+    color: #ccc;
+}
+
+/* Улучшенная видимость математических элементов */
+.math-formula-display {
+    line-height: 1.8;
+    font-size: 18px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    min-height: 80px;
+    border: 2px dashed #dee2e6;
+}
+
+/* Стили для лучшего отображения корней */
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.sqrt-content {
+    border-top: 2px solid currentColor;
+    padding: 0 12px;
+    margin-left: -8px;
+    font-style: italic;
+}
+
+/* Улучшенные стили для верхних индексов */
+.superscript {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+    position: relative;
+    top: -0.4em;
+}
+
+/* Улучшенные стили для нижних индексов */
+.subscript {
+    font-size: 0.7em;
+    vertical-align: sub;
+    line-height: 1;
+    position: relative;
+    bottom: -0.2em;
+}
+
+/* Улучшенная видимость черты в дробях */
+.fraction .numerator {
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 2px;
+}
+
+/* Стили для лучшего UX при редактировании */
+.editing-highlight {
+    animation: pulse-highlight 1.5s ease-in-out;
+}
+
+@keyframes pulse-highlight {
+    0% { background-color: #f0fff0; }
+    50% { background-color: #e0f7e0; }
+    100% { background-color: #f0fff0; }
+}
+
+/* Улучшенная видимость для мобильных устройств */
+@media (max-width: 768px) {
+    .numerator, .denominator {
+        min-height: 2em;
+        padding: 8px 10px;
+        font-size: 18px;
+    }
+
+    .stack-top, .stack-bottom {
+        min-height: 2em;
+        padding: 10px 12px;
+        font-size: 18px;
+    }
+
+    .math-formula-display {
+        font-size: 20px;
+        padding: 20px;
+    }
+}
+        /* Улучшенные стили для редактируемых полей в дробях */
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+.numerator, .denominator {
+    min-height: 1.4em;
+    min-width: 25px;
+    padding: 2px 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background: white;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.2;
+    outline: none;
+}
+
+.numerator {
+    border-bottom: 1px solid #000 !important;
+    border-radius: 3px 3px 0 0;
+}
+
+.denominator {
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+}
+
+/* Улучшенные стили для вертикальных стеков */
+.vertical-stack-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.stack-top, .stack-bottom {
+    padding: 4px 8px;
+    min-height: 1.4em;
+    min-width: 25px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background: white;
+    font-family: 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.2;
+    outline: none;
+}
+
+.stack-top {
+    border-bottom: 1px solid #000 !important;
+    border-radius: 3px 3px 0 0;
+}
+
+.stack-bottom {
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+}
+
+/* Стили для активных полей */
+[contenteditable="true"]:focus {
+    background: #f0f9ff !important;
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+}
+
+/* Убираем стандартное поведение плейсхолдеров */
+[contenteditable="true"]:empty:before {
+    content: none !important;
+}
+
+/* Стили для текста внутри редактируемых полей */
+.numerator, .denominator,
+.stack-top, .stack-bottom {
+    color: #333;
+    font-weight: normal;
+}
+
+/* Улучшенное отображение формулы */
+.math-formula-display {
+    line-height: 1.6;
+    font-size: 18px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    min-height: 80px;
+    border: 2px dashed #dee2e6;
+}
+
+/* Стили для лучшего отображения математических символов */
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.sqrt-content {
+    border-top: 1px solid currentColor;
+    padding: 0 8px;
+    margin-left: -6px;
+}
+
+/* Убираем лишние отступы и границы */
+.big-brackets {
+    display: inline-flex;
+    align-items: center;
+}
+
+.bracket-left, .bracket-right {
+    font-size: 1.2em;
+}
+
+
+
+
+
+
+/* Стили для дробей с редактируемыми полями */
+.fraction .numerator.editable-field,
+.fraction .denominator.editable-field {
+    border: 1px dashed #ccc;
+    min-width: 25px;
+    text-align: center;
+    display: block;
+}
+
+.fraction .numerator.editable-field {
+    border-bottom: 2px solid #000 !important;
+}
+
+/* Стили для верхних/нижних индексов */
+.superscript.editable-field,
+.subscript.editable-field {
+    font-size: 0.7em;
+    min-width: 10px;
+    border: 1px dashed #ccc;
+}
+
+        /* Стили для редактируемых полей */
+.editable-field {
+    display: inline-block;
+    min-width: 20px;
+    min-height: 1.2em;
+    border: 1px dashed #ccc;
+    padding: 2px 4px;
+    margin: 0 1px;
+    background: white;
+    cursor: text;
+    outline: none;
+    vertical-align: middle;
+    line-height: 1.2;
+}
+
+.editable-field:focus {
+    border: 2px solid #4CAF50 !important;
+    background: #f0fff0 !important;
+    outline: none;
+}
+
+/* Стили для дробей */
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.fraction .numerator,
+.fraction .denominator {
+    padding: 2px 6px;
+    min-width: 25px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    background: white;
+}
+
+.fraction .numerator {
+    border-bottom: 2px solid #000;
+    margin-bottom: 1px;
+}
+
+.fraction .denominator {
+    margin-top: 1px;
+}
+
+/* Стили для корней */
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.sqrt-content {
+    border-top: 2px solid currentColor;
+    padding: 0 8px;
+    margin-left: -2px;
+}
+
+/* Стили для вертикального стека (дроби) */
+.vertical-stack-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 5px;
+    position: relative;
+}
+
+.stack-top, .stack-bottom {
+    padding: 2px 8px;
+    min-width: 30px;
+    min-height: 1.2em;
+    text-align: center;
+    border: 1px dashed #ccc;
+    background: white;
+    font-family: 'Times New Roman', serif;
+    line-height: 1.2;
+}
+
+.stack-top {
+    border-bottom: 2px solid #000 !important;
+    margin-bottom: 1px;
+}
+
+.stack-bottom {
+    margin-top: 1px;
+}
+
+/* Убедитесь, что редактируемые поля работают правильно */
+.vertical-stack-container .editable-field:focus {
+    border: 2px solid #4CAF50 !important;
+    background: #f0fff0 !important;
+    outline: none;
+}
+
+.stack-top, .stack-bottom {
+    padding: 2px 6px;
+    min-width: 25px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    background: white;
+}
+
+.stack-top {
+    border-bottom: 2px solid #000;
+    margin-bottom: 1px;
+}
+
+.stack-bottom {
+    margin-top: 1px;
+}
+
+/* Стили для верхних/нижних индексов */
+sup, sub {
+    font-size: 0.7em;
+    line-height: 0; /* Убираем стандартный line-height */
+    vertical-align: baseline; /* Сбрасываем выравнивание */
+    position: relative; /* Для позиционирования */
+}
+
+sup {
+    vertical-align: super; /* Делаем выше */
+    top: -0.5em; /* Поднимаем еще выше */
+}
+
+sub {
+    vertical-align: sub;
+    bottom: -0.25em; /* Опускаем ниже */
+}
+
+sup.editable-field,
+sub.editable-field {
+    min-width: 10px;
+    border: 1px dashed #ccc;
+    padding: 1px 3px;
+    display: inline-block;
+}
+
+/* Особые стили для степеней в дробях и корнях */
+.fraction .numerator sup,
+.fraction .denominator sup,
+.sqrt-content sup {
+    top: -0.6em; /* Еще выше в специальных контекстах */
+    font-size: 0.6em; /* Чуть меньше размер */
+}
+
+/* Улучшенные стили для степеней в шаблоне power */
+[data-template="power"] sup.editable-field {
+    top: -0.7em;
+    font-size: 0.65em;
+    margin-left: 1px;
+}
+
+/* Стили для маленькой степени отдельно */
+[data-template="small_power"] sup.editable-field {
+    top: -0.8em;
+    font-size: 0.6em;
+    min-width: 8px;
+    padding: 1px 2px;
+}
+
+/* Стили для больших скобок */
+.big-brackets {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.bracket-left, .bracket-right {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .editable-field {
+        min-width: 25px;
+        min-height: 1.5em;
+        padding: 4px 6px;
+        font-size: 18px;
+    }
+
+    .fraction .numerator,
+    .fraction .denominator {
+        min-width: 30px;
+        padding: 4px 8px;
+        font-size: 16px;
+    }
+}
+
+        /* Основной редактируемый дисплей */
+.math-formula-editable {
+    min-height: 80px;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: #f8f9fa;
+    font-size: 18px;
+    line-height: 1.6;
+    font-family: 'Times New Roman', serif;
+    outline: none;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.math-formula-editable:focus {
+    border-color: #4CAF50;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+/* Стили для математических шаблонов */
+.math-template {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+    position: relative;
+}
+
+/* Дроби */
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.numerator, .denominator {
+    padding: 2px 8px;
+    min-width: 20px;
+    text-align: center;
+    background: white;
+    border: 1px dashed #ccc;
+}
+
+.fraction-line {
+    width: 100%;
+    height: 2px;
+    background: #000;
+    margin: 2px 0;
+}
+
+/* Корни */
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Times New Roman', serif;
+}
+
+.sqrt-content {
+    border-top: 2px solid currentColor;
+    padding: 0 8px;
+    margin-left: -2px;
+    font-style: italic;
+}
+
+/* Степени */
+.power-template {
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.base, .exponent {
+    padding: 1px 4px;
+    border: 1px dashed #ccc;
+    background: white;
+}
+
+.exponent {
+    font-size: 0.7em;
+    margin-left: 1px;
+}
+
+/* Функции */
+.function {
+    font-family: 'Times New Roman', serif;
+}
+
+.function-content {
+    padding: 1px 4px;
+    border: 1px dashed #ccc;
+    background: white;
+    margin: 0 2px;
+}
+
+/* Скобки */
+.big-brackets {
+    display: inline-flex;
+    align-items: center;
+}
+
+.bracket-left, .bracket-right {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.bracket-content {
+    padding: 1px 6px;
+    border: 1px dashed #ccc;
+    background: white;
+    margin: 0 2px;
+}
+
+/* Вертикальные стеки */
+.vertical-stack {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px dashed #e0e0e0;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.stack-top, .stack-bottom {
+    padding: 4px 8px;
+    min-width: 25px;
+    text-align: center;
+    border: 1px dashed #ccc;
+    background: white;
+}
+
+.stack-line {
+    width: 100%;
+    height: 1px;
+    background: #000;
+    margin: 2px 0;
+}
+
+/* Подсветка при фокусе */
+.math-template:focus-within {
+    outline: 2px solid #4CAF50;
+    border-radius: 3px;
+}
+
+.numerator:focus, .denominator:focus,
+.base:focus, .exponent:focus,
+.function-content:focus, .bracket-content:focus,
+.stack-top:focus, .stack-bottom:focus {
+    outline: 2px solid #2196F3;
+    background: #f0f9ff;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .math-formula-editable {
+        font-size: 16px;
+        padding: 15px;
+        min-height: 60px;
+    }
+
+    .numerator, .denominator,
+    .stack-top, .stack-bottom {
+        padding: 3px 6px;
+        min-width: 20px;
+    }
+}
+        /* Стиль для видимого курсора */
+.math-cursor {
+    display: inline-block;
+    width: 2px;
+    background: #4CAF50;
+    animation: blink 1s infinite;
+    margin: 0 1px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Улучшенные стили для фокуса */
+.math-formula-editable:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.editable-field:focus,
+.numerator:focus,
+.denominator:focus,
+.stack-top:focus,
+.stack-bottom:focus {
+    outline: 2px solid #2196F3 !important;
+    background: #f0f9ff !important;
+}
+/* Улучшенные стили для корней */
+.sqrt-symbol {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    font-family: 'Times New Roman', serif;
+    position: relative;
+}
+
+.sqrt-content {
+    border-top: 2px solid currentColor;
+    padding: 0 15px;
+    margin-left: -1px;
+    font-style: italic;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Специфичные стили для разных типов корней */
+.sqrt-symbol:not(:has(sup)) .sqrt-content {
+    margin-left: -3px;
+}
+
+.sqrt-symbol:has(sup) {
+    align-items: baseline;
+}
+
+.sqrt-symbol:has(sup) .sqrt-content {
+    margin-left: -2px;
+    margin-top: 0px;
+}
+
+/* Стили для верхнего индекса в корне n-ной степени */
+.sqrt-symbol > sup {
+    position: relative;
+    top: -8px;
+    left: 2px;
+    font-size: 0.7em;
+    margin-right: -4px;
+}
+
+/* Убедитесь, что черта отображается во всех случаях */
+.math-formula-display .sqrt-content {
+    border-top: 2px solid currentColor !important;
+}
+
+/* Стили для лучшего отображения в превью */
+.math-preview .sqrt-symbol {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.math-preview .sqrt-content {
+    border-top: 2px solid currentColor !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+
+        .math-formula-editable {
+    caret-color: #4CAF50; /* Зеленый курсор для лучшей видимости */
+}
+
+.math-formula-editable:focus {
+    outline: 2px solid #4CAF50;
+}
+
+/* Убедитесь, что редактируемые поля не ломают поток */
+.editable-field {
+    display: inline-block;
+    min-width: 20px;
+    min-height: 1.2em;
+}
     </style>
 </head>
 <body>
@@ -1857,11 +3352,11 @@
 
                         <div class="keyboard-row">
                             <div class="key" data-template="frac">a/b</div>
-                            <div class="key" data-template="frac_power">aˣ/bˣ</div>
-                            <div class="key" data-template="binom">C(n,k)</div>
-                            <div class="key" data-template="factorial">n!</div>
+
+<!--                            <div class="key" data-template="binom">C(n,k)</div>-->
+<!--                            <div class="key" data-template="factorial">n!</div>-->
                             <div class="key" data-template="abs">|x|</div>
-                            <div class="key" data-template="sum">∑</div>
+<!--                            <div class="key" data-template="sum">∑</div>-->
                             <div class="key" data-symbol="f">f</div>
                             <div class="key" data-symbol="F">F</div>
 
@@ -1874,6 +3369,7 @@
                             <div class="key" data-template="big_brackets_left">]</div>
                             <div class="key" data-template="big_braces_right">{</div> <!-- Большие фигурные -->
                             <div class="key" data-template="big_braces_left">}</div>
+                            <div class="key" data-template="log">log</div>
                         </div>
 
                     </div>
@@ -1992,19 +3488,20 @@ function closeMathKeyboard() {
 // Обновленная функция вставки формулы
 function insertFormula() {
     if (mathKeyboard && currentInputField) {
-        const displayFormula = mathKeyboard.getFinalFormulaForDisplay();
+        // ИСПРАВЛЕНИЕ: используем статическую версию вместо редактируемой
+        const staticFormula = mathKeyboard.getStaticFormula();
 
         if (currentInputField.startsWith('question_')) {
             const questionIndex = currentInputField.split('_')[1];
-            document.getElementById(`mathExpression_${questionIndex}`).value = displayFormula;
-            document.getElementById(`questionMathPreview_${questionIndex}`).innerHTML = displayFormula;
+            document.getElementById(`mathExpression_${questionIndex}`).value = staticFormula;
+            document.getElementById(`questionMathPreview_${questionIndex}`).innerHTML = staticFormula;
         } else if (currentInputField.startsWith('answer_')) {
             const parts = currentInputField.split('_');
             const questionIndex = parts[1];
             const answerIndex = parts[2];
 
-            document.getElementById(`answerFormula_${questionIndex}_${answerIndex}`).value = displayFormula;
-            document.getElementById(`answerPreview_${questionIndex}_${answerIndex}`).innerHTML = displayFormula;
+            document.getElementById(`answerFormula_${questionIndex}_${answerIndex}`).value = staticFormula;
+            document.getElementById(`answerPreview_${questionIndex}_${answerIndex}`).innerHTML = staticFormula;
         }
     }
     closeMathKeyboard();
@@ -2439,113 +3936,103 @@ document.getElementById('mathTestForm').addEventListener('submit', function(e) {
     console.log("✅ Форма валидна, отправляем...");
 });
 
-// ВАША КЛАВИАТУРА С ПЛЕЙСХОЛДЕРАМИ
 class MathKeyboard {
     constructor() {
         this.currentFormula = '';
-        this.placeholders = new Map();
-        this.placeholderCounter = 0;
+        this.lastActiveElement = null;
+        this.isComposing = false;
 
-        // ДОБАВЬТЕ ЭТО - НАСТРОЙКИ АВТООЧИСТКИ
-        this.autoClear = true; // true - включить автоочистку, false - выключить
-        this.clearTimeout = 300000; // 5 минут (300000 мс)
-        this.clearTimer = null;
-
-        // ШАБЛОНЫ
+        // Шаблоны с редактируемыми полями
         this.templates = {
-            sqrt: `<span style="display: inline-flex; align-items: center; position: relative;">
-                <span style="font-size: 1.3em; margin-right: 1px;">√</span>
-                <span style="border-top: 2px solid currentColor; padding: 0 10px; margin-left: -3px;">{ph}</span>
+             sqrt: `<span class="sqrt-symbol math-template">
+                <span>√</span>
+                <span class="sqrt-content">
+                    <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
+                </span>
             </span>`,
-            sqrt_power: `<span style="display: inline-flex; align-items: center; position: relative;">
-                            <span style="font-size: 1.3em; margin-right: 1px;">√</span>
-                            <span style="border-top: 2px solid currentColor; padding: 0 8px; margin-left: -2px;">
-                                {ph1}<span class="superscript">{ph2}</span>
-                            </span>
-                        </span>`,
-            nroot: `<span style="display: inline-flex; align-items: center; position: relative;">
-                <span class="superscript" style="margin-right: 2px; position: relative; top: -5px;">{ph1}</span>
-                <span style="font-size: 1.3em; margin-right: 1px;">√</span>
-                <span style="border-top: 2px solid currentColor; padding: 0 8px; margin-left: -2px;">{ph2}</span>
+
+            sqrt_power: `<span class="sqrt-symbol math-template">
+                <span>√</span>
+                <span class="sqrt-content">
+                    <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
+                    <sup class="editable-field" contenteditable="true" data-placeholder="степень">□</sup>
+                </span>
             </span>`,
-            square: "{ph}<span class='superscript'>2</span>",
-            cube: "{ph}<span class='superscript'>3</span>",
-            power: "{ph1}<span class='superscript'>{ph2}</span>",
-            frac: "<div class='fraction'><span class='numerator'>{ph1}</span><span class='denominator'>{ph2}</span></div>",
-             // Дробь со степенями: aˣ/bˣ
-            frac_power: `<div class='fraction'>
-                <span class='numerator'>{ph1}<span class='superscript'>{ph3}</span></span>
-                <span class='denominator'>{ph2}<span class='superscript'>{ph4}</span></span>
-            </div>`,
-            binom: "C({ph1},{ph2})",
-            factorial: "{ph}!",
-            abs: "|{ph}|",
-            sum: "∑<span class='subscript'>{ph1}</span><span class='superscript'>{ph2}</span>",
-            log: "log<span class='subscript'>{ph1}</span>({ph2})",
-            ln: "ln({ph})",
-            exp: "e<span class='superscript'>{ph}</span>",
-            sin: "sin",
-            cos: "cos",
-            tan: "tan",
-            cot: "cot",
-            just: "({ph})",
-            arcsin: "arcsin({ph})",
-            arccos: "arccos({ph})",
-            arctan: "arctan({ph})",
-            sinh: "sinh({ph})",
-            derivative: "<div class='fraction'><span class='numerator'>d{ph1}</span><span class='denominator'>d{ph2}</span></div>",
-            partial: "∂{ph1}/∂{ph2}",
-            integral: "∫{ph1}d{ph2}",
-            integral_limits: `<div style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 5px;">
-                <div style="font-size: 12px;">{ph2}</div>
-                <div style="font-size: 18px;">∫</div>
-                <div style="font-size: 12px;">{ph1}</div>
-            </div>`,
-            def_integral: `<div style="display: inline-block; vertical-align: middle; text-align: center; margin: 0 5px;">
-                <div style="font-size: 12px;">{ph2}</div>
-                <div style="font-size: 18px;">∫</div>
-                <div style="font-size: 12px;">{ph1}</div>
-            </div>{ph3}d{ph4}`,
-            integral_symbol: "∫",
-            limit: "lim_{ph1}",
-            series: "∑<span class='subscript'>{ph1}</span><span class='superscript'>{ph2}</span>",
-            nabla: "∇{ph}",
-            laplacian: "Δ{ph}",
-            small_power: "<span class='superscript'>{ph}</span>",
-            subscript: "<span class='subscript'>{ph}</span>",
 
+            nroot: `<span class="sqrt-symbol math-template">
+                <sup class="editable-field" contenteditable="true" data-placeholder="n">□</sup>
+                <span>√</span>
+                <span class="sqrt-content">
+                    <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
+                </span>
+            </span>`,
 
-                     // Большие круглые скобки
-            big_parentheses_right: `<span class="big-brackets parentheses">
+            power: `<span class="power-template math-template">
+                <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
+                <sup class="editable-field" contenteditable="true" data-placeholder="степень">□</sup>
+            </span>`,
+
+            square: `<span class="square-template math-template">
+                <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
+                <sup>2</sup>
+            </span>`,
+
+            cube: `<span class="cube-template math-template">
+                <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
+                <sup>3</sup>
+            </span>`,
+
+            small_power: `<sup class="editable-field small-power math-template" contenteditable="true" data-placeholder="степень">□</sup>`,
+
+            frac: `<span class="fraction math-template">
+                <span class="numerator editable-field" contenteditable="true" data-placeholder="числитель">□</span>
+                <span class="denominator editable-field" contenteditable="true" data-placeholder="знаменатель">□</span>
+            </span>`,
+
+            subscript: `<sub class="editable-field math-template" contenteditable="true" data-placeholder="индекс">□</sub>`,
+
+            big_parentheses_right: `<span class="big-brackets parentheses math-template">
                 <span class="bracket-left">(</span>
-
+                <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
             </span>`,
-            big_parentheses_left: `<span class="big-brackets parentheses">
 
+            big_parentheses_left: `<span class="big-brackets parentheses math-template">
+                <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
                 <span class="bracket-right">)</span>
             </span>`,
 
-            // Большие квадратные скобки
-            big_brackets_right: `<span class="big-brackets square">
-                <span class="bracket-left">[</span>
+            sin: `<span class="function-template math-template">sin(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
+            cos: `<span class="function-template math-template">cos(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
+            tan: `<span class="function-template math-template">tan(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
+            cot: `<span class="function-template math-template">cot(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
+            log: `<span class="function-template math-template">log(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
+            limit: `<span class="function-template math-template">lim(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
 
+            just: `<span class="parentheses-template math-template">(<span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>)</span>`,
+            abs: `<span class="abs-template math-template">|<span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>|</span>`,
 
+            vertical_stack: `<span class="vertical-stack-container math-template">
+                <span class="stack-top editable-field" contenteditable="true" data-placeholder="верх">□</span>
+                <span class="stack-bottom editable-field" contenteditable="true" data-placeholder="низ">□</span>
             </span>`,
-            big_brackets_left: `<span class="big-brackets square">
-
-                <span class="bracket-right">]</span>
+            def_integral: `<span class="integral-template math-template" style="display: inline-flex; align-items: center; vertical-align: middle;">
+                <span class="integral-limits" style="display: inline-flex; flex-direction: column; align-items: center; margin-right: 3px;">
+                    <sup class="editable-field" contenteditable="true" data-placeholder="b" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sup>
+                    <span style="font-size: 1.2em; line-height: 1;">∫</span>
+                    <sub class="editable-field" contenteditable="true" data-placeholder="a" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sub>
+                </span>
+                <span class="editable-field" contenteditable="true" data-placeholder="f(x)" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 20px; margin: 0 2px;">□</span>
+                <span>d</span>
+                <span class="editable-field" contenteditable="true" data-placeholder="x" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 10px; margin-left: 2px;">□</span>
             </span>`,
-
-            // Большие фигурные скобки
-            big_braces_right: `<span class="big-brackets braces">
-                <span class="bracket-left">{</span>
-
-
-            </span>`,
-            big_braces_left: `<span class="big-brackets braces">
-
-
-                <span class="bracket-right">}</span>
+            integral_symbol: "∫",
+            integral_limits: `<span class="integral-template math-template" style="display: inline-flex; align-items: center; vertical-align: middle;">
+                <span style="display: inline-flex; flex-direction: column; align-items: center; margin-right: 3px;">
+                    <sup class="editable-field" contenteditable="true" data-placeholder="b" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sup>
+                    <span style="font-size: 1.2em; line-height: 1;">∫</span>
+                    <sub class="editable-field" contenteditable="true" data-placeholder="a" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sub>
+                </span>
+                <span class="editable-field" contenteditable="true" data-placeholder="f(x)" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 20px; margin: 0 2px;">□</span>
             </span>`,
         };
 
@@ -2553,51 +4040,643 @@ class MathKeyboard {
     }
 
     init() {
-        this.loadSavedData();
         this.setupEventListeners();
-        this.updateDisplay();
+        this.initializeDisplay();
         this.showPanel('basic');
-
-        this.startAutoClear();
     }
 
     setupEventListeners() {
         // Вкладки
         document.querySelectorAll('.keyboard-tab').forEach(tab => {
-            tab.addEventListener('click', (e) => {
+            tab.addEventListener('mousedown', (e) => {
+                e.preventDefault();
                 this.showPanel(e.target.dataset.tab);
             });
         });
 
-        // Символы
-        document.querySelectorAll('.key[data-symbol]').forEach(key => {
-            key.addEventListener('click', (e) => {
-                this.addSymbol(e.target.dataset.symbol);
-            });
-        });
+        // Кнопки клавиатуры
+        const keyboardContainer = document.querySelector('.keyboard-container');
+        if (keyboardContainer) {
+            keyboardContainer.addEventListener('mousedown', (e) => {
+                const key = e.target.closest('.key');
+                if (key) {
+                    e.preventDefault();
 
-        // Шаблоны
-        document.querySelectorAll('.key[data-template]').forEach(key => {
-            key.addEventListener('click', (e) => {
-                this.addTemplate(e.target.dataset.template);
-            });
-        });
+                    if (key.dataset.symbol) {
+                        this.insertSymbol(key.dataset.symbol);
+                    } else if (key.dataset.template) {
+                        this.insertTemplate(key.dataset.template);
+                    } else if (key.dataset.action === 'backspace') {
+                        this.handleBackspace();
+                    }
 
-        // Кнопка backspace
-        document.querySelector('.key[data-action="backspace"]').addEventListener('click', () => {
-            this.backspace();
-        });
+                    // Сохраняем фокус
+                    this.restoreFocus();
+                }
+            });
+        }
 
         // Управляющие кнопки
-        document.getElementById('clearBtn').addEventListener('click', () => this.clear());
-        document.getElementById('saveBtn').addEventListener('click', () => this.save());
+        document.getElementById('clearBtn').addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            this.clear();
+        });
 
-        // Обработчики для плейсхолдеров (делегирование)
-        document.getElementById('formulaDisplay').addEventListener('click', (e) => {
-            if (e.target.classList.contains('placeholder')) {
-                this.editPlaceholder(e.target.dataset.id);
+        document.getElementById('saveBtn').addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            this.save();
+        });
+
+        this.setupDisplayEvents();
+    }
+
+    initializeDisplay() {
+        const display = document.getElementById('formulaDisplay');
+        display.innerHTML = '';
+        display.setAttribute('contenteditable', 'true');
+        display.classList.add('math-formula-editable');
+
+        // Устанавливаем фокус на дисплей
+        setTimeout(() => {
+            display.focus();
+            this.setCursorToEnd(display);
+        }, 100);
+    }
+    setupDisplayEvents() {
+        const display = document.getElementById('formulaDisplay');
+
+        display.addEventListener('focus', () => {
+            this.lastActiveElement = display;
+        });
+
+        display.addEventListener('click', (e) => {
+            // При клике на дисплей устанавливаем курсор в место клика
+            if (e.target === display || e.target.classList.contains('math-formula-editable')) {
+                this.lastActiveElement = display;
+                setTimeout(() => {
+                    this.setCursorAtClick(e);
+                }, 10);
             }
         });
+
+        display.addEventListener('input', (e) => {
+            this.updateCurrentFormula();
+        });
+
+        display.addEventListener('keydown', (e) => {
+            this.handleKeydown(e);
+        });
+
+        display.addEventListener('compositionstart', () => {
+            this.isComposing = true;
+        });
+
+        display.addEventListener('compositionend', () => {
+            this.isComposing = false;
+        });
+
+        // Обработка кликов по редактируемым полям внутри шаблонов
+        display.addEventListener('mousedown', (e) => {
+            const editableField = e.target.closest('.editable-field, .numerator, .denominator, .stack-top, .stack-bottom');
+            if (editableField) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.lastActiveElement = editableField;
+                setTimeout(() => {
+                    editableField.focus();
+                    // Устанавливаем курсор в конец поля, а не в начало
+                    this.setCursorToEnd(editableField);
+                }, 10);
+            }
+        });
+
+        // Обработка кликов на шаблоны (но не на поля)
+        display.addEventListener('mousedown', (e) => {
+            const template = e.target.closest('.math-template');
+            if (template && !e.target.closest('.editable-field')) {
+                e.preventDefault();
+                e.stopPropagation();
+                // При клике на шаблон устанавливаем курсор после него
+                setTimeout(() => {
+                    this.setCursorAfterElement(template);
+                }, 10);
+            }
+        });
+
+        // Обработка кликов между элементами
+        display.addEventListener('mousedown', (e) => {
+            // Если клик между элементами, устанавливаем курсор в это место
+            if (e.target === display) {
+                this.lastActiveElement = display;
+            }
+        });
+    }
+
+    // Установка курсора после элемента
+    setCursorAfterElement(element) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+
+        // Создаем нулевой пробел после элемента если его нет
+        if (!element.nextSibling || element.nextSibling.nodeType !== Node.TEXT_NODE) {
+            const zeroSpace = document.createTextNode('\u200B');
+            element.parentNode.insertBefore(zeroSpace, element.nextSibling);
+        }
+
+        range.setStartAfter(element);
+        range.setEndAfter(element);
+        range.collapse(true);
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        this.lastActiveElement = document.getElementById('formulaDisplay');
+    }
+
+    // Установка курсора перед элементом
+    setCursorBeforeElement(element) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+
+        // Создаем нулевой пробел перед элементом если его нет
+        if (!element.previousSibling || element.previousSibling.nodeType !== Node.TEXT_NODE) {
+            const zeroSpace = document.createTextNode('\u200B');
+            element.parentNode.insertBefore(zeroSpace, element);
+        }
+
+        range.setStartBefore(element);
+        range.setEndBefore(element);
+        range.collapse(true);
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        this.lastActiveElement = document.getElementById('formulaDisplay');
+    }
+
+    // Установка курсора в место клика
+    setCursorAtClick(event) {
+        const display = document.getElementById('formulaDisplay');
+
+        // Создаем нулевой пробел если дисплей пустой
+        if (display.childNodes.length === 0) {
+            const zeroSpace = document.createTextNode('\u200B');
+            display.appendChild(zeroSpace);
+        }
+
+        let range;
+
+        // Пытаемся установить курсор в точку клика
+        if (document.caretRangeFromPoint) {
+            range = document.caretRangeFromPoint(event.clientX, event.clientY);
+        } else if (document.caretPositionFromPoint) {
+            const caretPosition = document.caretPositionFromPoint(event.clientX, event.clientY);
+            if (caretPosition) {
+                range = document.createRange();
+                range.setStart(caretPosition.offsetNode, caretPosition.offset);
+                range.collapse(true);
+            }
+        }
+
+        if (range && display.contains(range.startContainer)) {
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            // Fallback: устанавливаем курсор в конец
+            this.setCursorToEnd(display);
+        }
+    }
+
+    // НОВАЯ функция - простая вставка символа
+    insertSymbol(symbol) {
+        if (this.isComposing) return;
+
+        const display = document.getElementById('formulaDisplay');
+        const selection = window.getSelection();
+
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const textNode = document.createTextNode(symbol);
+            range.insertNode(textNode);
+
+            // Перемещаем курсор после вставленного символа
+            range.setStartAfter(textNode);
+            range.setEndAfter(textNode);
+        } else {
+            // Если нет выделения, добавляем в конец
+            const textNode = document.createTextNode(symbol);
+            display.appendChild(textNode);
+            this.setCursorToEnd(display);
+        }
+
+        this.updateCurrentFormula();
+    }
+
+    getInsertionTarget() {
+        // Если есть активное редактируемое поле, используем его
+        if (this.lastActiveElement &&
+            this.lastActiveElement.classList &&
+            (this.lastActiveElement.classList.contains('editable-field') ||
+             this.lastActiveElement.classList.contains('numerator') ||
+             this.lastActiveElement.classList.contains('denominator') ||
+             this.lastActiveElement.classList.contains('stack-top') ||
+             this.lastActiveElement.classList.contains('stack-bottom'))) {
+            return this.lastActiveElement;
+        }
+
+        // Иначе используем основной дисплей
+        return document.getElementById('formulaDisplay');
+    }
+
+    insertIntoDisplay(symbol) {
+        const display = document.getElementById('formulaDisplay');
+        const selection = window.getSelection();
+
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+
+            // Проверяем, не находимся ли мы внутри редактируемого поля
+            const editableField = range.startContainer.closest?.('.editable-field');
+            if (editableField && editableField !== display) {
+                this.insertIntoEditableField(editableField, symbol);
+                return;
+            }
+
+            // Если курсор находится в нулевом пробеле, заменяем его
+            if (range.startContainer.nodeType === Node.TEXT_NODE &&
+                range.startContainer.textContent === '\u200B') {
+                range.deleteContents();
+            }
+
+            // Вставляем символ в текущую позицию курсора
+            const textNode = document.createTextNode(symbol);
+            range.insertNode(textNode);
+
+            // Перемещаем курсор после вставленного символа
+            range.setStartAfter(textNode);
+            range.setEndAfter(textNode);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            // Если нет выделения, добавляем в конец
+            const textNode = document.createTextNode(symbol);
+            display.appendChild(textNode);
+            this.setCursorToEnd(display);
+        }
+
+        this.updateCurrentFormula();
+    }
+
+    insertIntoEditableField(field, symbol) {
+        const selection = window.getSelection();
+
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+
+            // Заменяем placeholder если нужно
+            if (field.textContent === '□' || field.textContent.trim() === '□') {
+                range.selectNodeContents(field);
+                range.deleteContents();
+            }
+
+            const textNode = document.createTextNode(symbol);
+            range.insertNode(textNode);
+
+            range.setStartAfter(textNode);
+            range.setEndAfter(textNode);
+        } else {
+            field.textContent = field.textContent === '□' ? symbol : field.textContent + symbol;
+            this.setCursorToEnd(field);
+        }
+
+        this.updateCurrentFormula();
+    }
+
+    // ПЕРЕРАБОТАННАЯ функция вставки шаблона
+    insertTemplate(templateName) {
+        if (!this.templates[templateName]) return;
+
+        const display = document.getElementById('formulaDisplay');
+        const selection = window.getSelection();
+        const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.templates[templateName];
+        const templateElement = tempDiv.firstChild;
+
+        if (range) {
+            // Вставляем шаблон в текущую позицию курсора
+            range.deleteContents();
+            range.insertNode(templateElement);
+
+            // Сразу после шаблона добавляем текстовый узел для курсора
+            const spaceForCursor = document.createTextNode('\u200B');
+            range.insertNode(spaceForCursor);
+
+            // Ставим курсор после шаблона
+            range.setStartAfter(spaceForCursor);
+            range.setEndAfter(spaceForCursor);
+        } else {
+            // Если нет выделения, добавляем в конец
+            display.appendChild(templateElement);
+            const spaceForCursor = document.createTextNode('\u200B');
+            display.appendChild(spaceForCursor);
+            this.setCursorToEnd(display);
+        }
+
+        this.updateCurrentFormula();
+        this.restoreFocus();
+    }
+    insertTemplateIntoDisplay(templateName) {
+        const display = document.getElementById('formulaDisplay');
+        const selection = window.getSelection();
+        const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.templates[templateName];
+        const templateElement = tempDiv.firstChild;
+
+        if (range) {
+            // Проверяем, не находимся ли мы внутри редактируемого поля
+            const editableField = range.startContainer.closest?.('.editable-field');
+            if (editableField && editableField !== display) {
+                this.insertTemplateIntoField(editableField, templateName);
+                return;
+            }
+
+            // Если курсор находится в нулевом пробеле, заменяем его
+            if (range.startContainer.nodeType === Node.TEXT_NODE &&
+                range.startContainer.textContent === '\u200B') {
+                range.deleteContents();
+            }
+
+            // Вставляем шаблон в текущую позицию курсора
+            range.deleteContents();
+            range.insertNode(templateElement);
+
+            // Добавляем нулевой пробел после шаблона для возможности установки курсора
+            const zeroSpace = document.createTextNode('\u200B');
+            range.insertNode(zeroSpace);
+
+            // Перемещаем курсор после шаблона
+            range.setStartAfter(zeroSpace);
+            range.setEndAfter(zeroSpace);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            // Если нет выделения, добавляем в конец
+            display.appendChild(templateElement);
+            const zeroSpace = document.createTextNode('\u200B');
+            display.appendChild(zeroSpace);
+            this.setCursorToEnd(display);
+        }
+
+        this.updateCurrentFormula();
+    }
+
+    insertTemplateIntoField(field, templateName) {
+        const selection = window.getSelection();
+        const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.templates[templateName];
+        const templateElement = tempDiv.firstChild;
+
+        if (range) {
+            // Если курсор находится в placeholder, заменяем его
+            if (field.textContent === '□' || field.textContent.trim() === '□') {
+                range.selectNodeContents(field);
+                range.deleteContents();
+            }
+
+            range.insertNode(templateElement);
+
+            // Добавляем нулевой пробел после шаблона
+            const zeroSpace = document.createTextNode('\u200B');
+            range.insertNode(zeroSpace);
+
+            range.setStartAfter(zeroSpace);
+            range.setEndAfter(zeroSpace);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            // Если поле содержит только placeholder, заменяем его
+            if (field.textContent === '□' || field.textContent.trim() === '□') {
+                field.innerHTML = '';
+            }
+            field.appendChild(templateElement);
+            const zeroSpace = document.createTextNode('\u200B');
+            field.appendChild(zeroSpace);
+            this.setCursorToEnd(field);
+        }
+
+        this.updateCurrentFormula();
+    }
+
+    focusFirstEditableField(templateElement) {
+        setTimeout(() => {
+            const editableFields = templateElement.querySelectorAll('.editable-field, .numerator, .denominator, .stack-top, .stack-bottom');
+            if (editableFields.length > 0) {
+                const firstField = editableFields[0];
+                this.lastActiveElement = firstField;
+                firstField.focus();
+                this.setCursorToEnd(firstField);
+            }
+        }, 50);
+    }
+
+     restoreFocus() {
+        setTimeout(() => {
+            const display = document.getElementById('formulaDisplay');
+            if (display && document.body.contains(display)) {
+                display.focus();
+                this.setCursorToEnd(display);
+            }
+        }, 50);
+    }
+
+    setCursorToEnd(element) {
+        try {
+            const range = document.createRange();
+            const selection = window.getSelection();
+
+            // Простой способ - всегда в конец
+            range.selectNodeContents(element);
+            range.collapse(false);
+
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } catch (error) {
+            console.warn("Не удалось установить курсор:", error);
+        }
+    }
+
+    handleKeydown(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            this.navigateEditableFields(e.shiftKey);
+        } else if (e.key === 'Escape') {
+            // Выход из редактируемого поля в основной дисплей
+            const display = document.getElementById('formulaDisplay');
+            this.lastActiveElement = display;
+            display.focus();
+            this.setCursorToEnd(display);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            // Обработка стрелок для навигации между элементами
+            this.handleArrowNavigation(e);
+        }
+    }
+
+    // Навигация стрелками между элементами
+    handleArrowNavigation(e) {
+        const target = this.getInsertionTarget();
+        if (target === document.getElementById('formulaDisplay')) return;
+
+        const selection = window.getSelection();
+        if (!selection.rangeCount) return;
+
+        const range = selection.getRangeAt(0);
+        const isAtStart = range.startOffset === 0 && range.endOffset === 0;
+        const isAtEnd = range.startOffset === target.textContent.length;
+
+        if (e.key === 'ArrowLeft' && isAtStart) {
+            e.preventDefault();
+            this.navigateFromField(target, 'backward');
+        } else if (e.key === 'ArrowRight' && isAtEnd) {
+            e.preventDefault();
+            this.navigateFromField(target, 'forward');
+        }
+    }
+
+    // Навигация из поля редактирования
+    navigateFromField(field, direction) {
+        const display = document.getElementById('formulaDisplay');
+        const allElements = Array.from(display.childNodes);
+        const template = field.closest('.math-template');
+
+        if (!template) return;
+
+        if (direction === 'forward') {
+            this.setCursorAfterElement(template);
+        } else {
+            this.setCursorBeforeElement(template);
+        }
+    }
+
+    navigateEditableFields(backward = false) {
+        const display = document.getElementById('formulaDisplay');
+        const allEditables = Array.from(display.querySelectorAll('.editable-field, .numerator, .denominator, .stack-top, .stack-bottom'));
+
+        if (allEditables.length === 0) return;
+
+        const currentElement = this.lastActiveElement;
+        let currentIndex = allEditables.indexOf(currentElement);
+
+        if (currentIndex === -1) {
+            currentIndex = backward ? allEditables.length - 1 : 0;
+        } else {
+            if (backward) {
+                currentIndex = currentIndex > 0 ? currentIndex - 1 : allEditables.length - 1;
+            } else {
+                currentIndex = currentIndex < allEditables.length - 1 ? currentIndex + 1 : 0;
+            }
+        }
+
+        if (allEditables[currentIndex]) {
+            this.lastActiveElement = allEditables[currentIndex];
+            allEditables[currentIndex].focus();
+            this.setCursorToEnd(allEditables[currentIndex]);
+        }
+    }
+
+    handleBackspace() {
+        const display = document.getElementById('formulaDisplay');
+        const selection = window.getSelection();
+
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+
+            if (!range.collapsed) {
+                range.deleteContents();
+            } else {
+                // Удаляем предыдущий символ
+                range.setStart(range.startContainer, Math.max(0, range.startOffset - 1));
+                range.deleteContents();
+            }
+
+            this.updateCurrentFormula();
+        }
+    }
+
+    updateCurrentFormula() {
+        const display = document.getElementById('formulaDisplay');
+        this.currentFormula = display.innerHTML;
+    }
+
+    clear() {
+        this.showClearConfirmationModal();
+    }
+
+    showClearConfirmationModal() {
+        const modal = document.createElement('div');
+        modal.className = 'custom-confirm-modal';
+        modal.innerHTML = `
+            <div class="custom-confirm-backdrop"></div>
+            <div class="custom-confirm-container">
+                <div class="custom-confirm-header">
+                    <h3><i class="fi fi-sr-eraser"></i> Очистить формулу</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="custom-confirm-body">
+                    <p>Вы уверены, что хотите очистить всю формулу? Это действие нельзя отменить.</p>
+                    <div class="custom-confirm-buttons">
+                        <button class="custom-confirm-btn cancel-btn">Отмена</button>
+                        <button class="custom-confirm-btn confirm-btn btn-danger">Очистить</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        const closeModal = () => document.body.removeChild(modal);
+
+        modal.querySelector('.close-btn').addEventListener('click', closeModal);
+        modal.querySelector('.cancel-btn').addEventListener('click', closeModal);
+        modal.querySelector('.confirm-btn').addEventListener('click', () => {
+            this.clearWithoutConfirm();
+            closeModal();
+        });
+        modal.querySelector('.custom-confirm-backdrop').addEventListener('click', closeModal);
+    }
+
+    clearWithoutConfirm() {
+        const display = document.getElementById('formulaDisplay');
+        display.innerHTML = '';
+
+        // Добавляем нулевой пробел обратно
+        const zeroSpace = document.createTextNode('\u200B');
+        display.appendChild(zeroSpace);
+
+        this.currentFormula = '';
+        this.lastActiveElement = display;
+
+        setTimeout(() => {
+            display.focus();
+            this.setCursorToEnd(display);
+        }, 100);
+
+        this.showNotification('Формула очищена', 'info');
+    }
+
+    save() {
+        const data = {
+            formula: this.currentFormula,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('mathKeyboard', JSON.stringify(data));
+        this.showNotification('Формула сохранена!', 'info');
     }
 
     showPanel(panelName) {
@@ -2609,424 +4688,6 @@ class MathKeyboard {
             panel.classList.toggle('active', panel.id === panelName + 'Panel');
         });
     }
-
-    addSymbol(symbol) {
-        this.resetAutoClear();
-        const display = document.getElementById('formulaDisplay');
-        const activeElement = document.activeElement;
-
-        console.log("Active element:", activeElement);
-
-        // ПРОВЕРЯЕМ РЕДАКТИРУЕМЫЕ ПОЛЯ ДРОБИ
-        if (activeElement && activeElement.hasAttribute('contenteditable') && display.contains(activeElement)) {
-            console.log("Adding to contenteditable field:", symbol);
-
-            // Фокусируемся на поле
-            activeElement.focus();
-
-            // Добавляем символ в поле
-            this.insertAtCursor(activeElement, symbol);
-            return;
-        }
-
-        // Проверяем, есть ли активный плейсхолдер (старая логика)
-        const activePlaceholder = display.querySelector('.placeholder.editing');
-        if (activePlaceholder) {
-            console.log("Adding to placeholder:", symbol);
-            const placeholderId = activePlaceholder.dataset.id;
-            const currentData = this.placeholders.get(placeholderId) || { value: '' };
-            currentData.value += symbol;
-            this.placeholders.set(placeholderId, currentData);
-            this.updateDisplay();
-            return;
-        }
-
-        // Если ничего не активно, добавляем в общую формулу
-        console.log("Adding to formula:", symbol);
-        this.currentFormula += symbol;
-        this.updateDisplay();
-    }
-
-
-    insertAtCursor(element, html) {
-        const selection = window.getSelection();
-
-        if (selection.rangeCount > 0) {
-            const range = selection.getRangeAt(0);
-            range.deleteContents();
-
-            // Создаем временный элемент для вставки HTML
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-
-            // Вставляем HTML содержимое
-            const fragment = document.createDocumentFragment();
-            while (tempDiv.firstChild) {
-                fragment.appendChild(tempDiv.firstChild);
-            }
-            range.insertNode(fragment);
-
-            // Перемещаем курсор после вставленного содержимого
-            range.setStartAfter(fragment.lastChild);
-            range.setEndAfter(fragment.lastChild);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        } else {
-            // Если нет выделения, добавляем в конец
-            element.innerHTML += html;
-        }
-
-        element.focus();
-        this.updateCurrentFormulaFromDisplay();
-    }
-
-    updateCurrentFormulaFromDisplay() {
-        const display = document.getElementById('formulaDisplay');
-        this.currentFormula = display.innerHTML;
-    }
-
-    addTemplate(templateName) {
-
-        this.resetAutoClear();
-        const display = document.getElementById('formulaDisplay');
-        const activeElement = document.activeElement;
-
-        // ЕСЛИ ЕСТЬ АКТИВНОЕ РЕДАКТИРУЕМОЕ ПОЛЕ - добавляем шаблон ВНУТРЬ него
-        if (activeElement && activeElement.hasAttribute('contenteditable') && display.contains(activeElement)) {
-            console.log("Adding template to active editable field:", templateName);
-
-            if (this.templates[templateName]) {
-                let template = this.templates[templateName];
-
-                // Заменяем плейсхолдеры на простые символы для вставки в поле
-                template = template.replace(/{ph1}/g, '□').replace(/{ph2}/g, '□').replace(/{ph}/g, '□');
-
-                // Вставляем шаблон в активное поле
-                this.insertAtCursor(activeElement, template);
-            }
-            return;
-        }
-
-        // СТАРАЯ ЛОГИКА - если нет активного поля, добавляем в общую формулу
-        if (this.templates[templateName]) {
-            let template = this.templates[templateName];
-            const placeholders = [];
-
-            let phIndex = 1;
-            while (template.includes(`{ph${phIndex}}`)) {
-                const id = `ph_${++this.placeholderCounter}`;
-                placeholders.push(id);
-                template = template.replace(`{ph${phIndex}}`, this.createPlaceholder(id));
-                phIndex++;
-            }
-
-            if (template.includes('{ph}')) {
-                const id = `ph_${++this.placeholderCounter}`;
-                placeholders.push(id);
-                template = template.replace(/{ph}/g, this.createPlaceholder(id));
-            }
-
-            this.currentFormula += template;
-
-            placeholders.forEach(id => {
-                this.placeholders.set(id, { value: '', template: templateName });
-            });
-
-            this.updateDisplay();
-
-            // Автофокус для дроби
-            if (templateName === 'frac2') {
-                setTimeout(() => {
-                    const firstEditable = display.querySelector('[contenteditable="true"]');
-                    if (firstEditable) {
-                        firstEditable.focus();
-                        firstEditable.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 200);
-            }
-        }
-    }
-
-    createPlaceholder(id) {
-            return `<span class="placeholder" data-id="${id}">□</span>`;
-        }
-
-        editPlaceholder(id) {
-        const display = document.getElementById('formulaDisplay');
-
-        // Убираем класс editing у всех плейсхолдеров
-        display.querySelectorAll('.placeholder').forEach(ph => {
-            ph.classList.remove('editing');
-        });
-
-        // Добавляем класс editing к текущему плейсхолдеру
-        const currentPlaceholder = display.querySelector(`[data-id="${id}"]`);
-        if (currentPlaceholder) {
-            currentPlaceholder.classList.add('editing');
-        }
-
-        // СОЗДАЕМ КАСТОМНОЕ МОДАЛЬНОЕ ОКНО вместо prompt
-        this.showCustomInputModal(id);
-    }
-    // ДОБАВЬТЕ этот новый метод для кастомного ввода:
-showCustomInputModal(placeholderId) {
-    // Создаем модальное окно
-    const modal = document.createElement('div');
-    modal.className = 'custom-input-modal';
-    modal.innerHTML = `
-        <div class="custom-input-backdrop"></div>
-        <div class="custom-input-container">
-            <div class="custom-input-header">
-                <h3>Введите значение</h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="custom-input-body">
-                <input type="text"
-                       class="custom-input-field"
-                       placeholder="Введите число или выражение..."
-                       value="${this.placeholders.get(placeholderId)?.value || ''}">
-                <div class="custom-input-buttons">
-                    <button class="custom-input-btn cancel-btn">Отмена</button>
-                    <button class="custom-input-btn confirm-btn">Готово</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    // Добавляем в body
-    document.body.appendChild(modal);
-
-    // Фокусируемся на поле ввода
-    const inputField = modal.querySelector('.custom-input-field');
-    setTimeout(() => inputField.focus(), 100);
-
-    // Обработчики событий
-    const closeModal = () => {
-        document.body.removeChild(modal);
-        const currentPlaceholder = document.querySelector(`[data-id="${placeholderId}"]`);
-        if (currentPlaceholder) {
-            currentPlaceholder.classList.remove('editing');
-        }
-    };
-
-    // Кнопка закрытия
-    modal.querySelector('.close-btn').addEventListener('click', closeModal);
-    modal.querySelector('.cancel-btn').addEventListener('click', closeModal);
-
-    // Кнопка подтверждения
-    modal.querySelector('.confirm-btn').addEventListener('click', () => {
-        const newValue = inputField.value.trim();
-        this.placeholders.set(placeholderId, {
-            ...this.placeholders.get(placeholderId),
-            value: newValue
-        });
-        this.updateDisplay();
-        closeModal();
-    });
-
-    // Закрытие по клику на бэкдроп
-    modal.querySelector('.custom-input-backdrop').addEventListener('click', closeModal);
-
-    // Закрытие по Escape
-    inputField.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal();
-        } else if (e.key === 'Enter') {
-            modal.querySelector('.confirm-btn').click();
-        }
-    });
-}
-
-    backspace() {
-
-        this.resetAutoClear();
-        this.currentFormula = this.currentFormula.slice(0, -1);
-        this.updateDisplay();
-    }
-
-    clear() {
-    // Вместо confirm показываем кастомное модальное окно
-    this.showClearConfirmationModal();
-}
-
-showClearConfirmationModal() {
-    // Создаем модальное окно подтверждения очистки
-    const modal = document.createElement('div');
-    modal.className = 'custom-confirm-modal';
-    modal.innerHTML = `
-        <div class="custom-confirm-backdrop"></div>
-        <div class="custom-confirm-container">
-            <div class="custom-confirm-header">
-                <h3><i class="fi fi-sr-eraser"></i> Очистить формулу</h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="custom-confirm-body">
-                <p>Вы уверены, что хотите очистить всю формулу? Это действие нельзя отменить.</p>
-                <div class="custom-confirm-buttons">
-                    <button class="custom-confirm-btn cancel-btn">Отмена</button>
-                    <button class="custom-confirm-btn confirm-btn btn-danger">Очистить</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    // Добавляем в body
-    document.body.appendChild(modal);
-
-    // Обработчики событий
-    const closeModal = () => {
-        document.body.removeChild(modal);
-    };
-
-    // Кнопка закрытия
-    modal.querySelector('.close-btn').addEventListener('click', closeModal);
-    modal.querySelector('.cancel-btn').addEventListener('click', closeModal);
-
-    // Кнопка подтверждения очистки
-    modal.querySelector('.confirm-btn').addEventListener('click', () => {
-        this.clearWithoutConfirm();
-        closeModal();
-    });
-
-    // Закрытие по клику на бэкдроп
-    modal.querySelector('.custom-confirm-backdrop').addEventListener('click', closeModal);
-
-    // Закрытие по Escape
-    modal.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal();
-        }
-    });
-
-    // Фокусируемся на модальном окне
-    modal.focus();
-}
-
-    updateDisplay() {
-        let displayFormula = this.currentFormula;
-
-        // Заменяем плейсхолдеры на заполненные значения
-        this.placeholders.forEach((data, id) => {
-            const placeholderHtml = this.createPlaceholder(id);
-            const displayValue = data.value ?
-                `<span class="placeholder filled" data-id="${id}">${data.value}</span>` :
-                placeholderHtml;
-
-            displayFormula = displayFormula.split(placeholderHtml).join(displayValue);
-        });
-
-        const display = document.getElementById('formulaDisplay');
-        display.innerHTML = displayFormula || 'Ваша формула появится здесь...';
-
-        // ОБРАБОТЧИКИ ДЛЯ РЕДАКТИРУЕМЫХ ПОЛЕЙ ДРОБИ
-        display.querySelectorAll('[contenteditable="true"]').forEach(editable => {
-            // Убираем старые обработчики
-            const newEditable = editable.cloneNode(true);
-            editable.parentNode.replaceChild(newEditable, editable);
-
-            // Добавляем новые обработчики
-            newEditable.addEventListener('input', () => {
-                this.updateCurrentFormulaFromDisplay();
-            });
-
-            newEditable.addEventListener('click', (e) => {
-                e.stopPropagation();
-                newEditable.focus();
-            });
-
-            newEditable.addEventListener('focus', () => {
-                console.log("Editable field focused:", newEditable);
-            });
-        });
-
-        // Обработчики для плейсхолдеров (старая логика)
-        display.querySelectorAll('.placeholder').forEach(placeholder => {
-            placeholder.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.editPlaceholder(placeholder.dataset.id);
-            });
-        });
-    }
-    getFinalFormula() {
-        let finalFormula = this.currentFormula;
-
-        this.placeholders.forEach((data, id) => {
-            const placeholderHtml = this.createPlaceholder(id);
-            const value = data.value || '';
-            finalFormula = finalFormula.split(placeholderHtml).join(value);
-        });
-
-        return finalFormula;
-    }
-
-    getFinalFormulaForDisplay() {
-        let displayFormula = this.currentFormula;
-
-        this.placeholders.forEach((data, id) => {
-            const placeholderHtml = this.createPlaceholder(id);
-            const displayValue = data.value ?
-                `<span class="placeholder filled" data-id="${id}">${data.value}</span>` :
-                `<span class="placeholder" data-id="${id}">□</span>`;
-
-            displayFormula = displayFormula.split(placeholderHtml).join(displayValue);
-        });
-
-        return displayFormula;
-    }
-
-    save() {
-        const data = {
-            formula: this.currentFormula,
-            placeholders: Array.from(this.placeholders.entries()),
-            counter: this.placeholderCounter
-        };
-
-        localStorage.setItem('mathKeyboard', JSON.stringify(data));
-        alert('Формула сохранена!');
-    }
-
-    loadSavedData() {
-        try {
-            const saved = localStorage.getItem('mathKeyboard');
-            if (saved) {
-                const data = JSON.parse(saved);
-                this.currentFormula = data.formula || '';
-                this.placeholders = new Map(data.placeholders || []);
-                this.placeholderCounter = data.counter || 0;
-            }
-        } catch (e) {
-            console.log('Нет сохраненных данных или ошибка загрузки');
-        }
-    }
-    // ДОБАВЬТЕ ЭТИ МЕТОДЫ ПРЯМО ПЕРЕД ЗАКРЫВАЮЩЕЙ СКОБКОЙ КЛАССА
-
-    // Автоматическое очищение
-    startAutoClear() {
-        if (this.autoClear && this.clearTimeout > 0) {
-            this.clearTimer = setTimeout(() => {
-                this.clearWithoutConfirm();
-            }, this.clearTimeout);
-        }
-    }
-
-    resetAutoClear() {
-        if (this.clearTimer) {
-            clearTimeout(this.clearTimer);
-        }
-        if (this.autoClear && this.clearTimeout > 0) {
-            this.startAutoClear();
-        }
-    }
-
-    clearWithoutConfirm() {
-    this.currentFormula = '';
-    this.placeholders.clear();
-    this.placeholderCounter = 0;
-    this.updateDisplay();
-
-    // Показываем уведомление вместо alert
-    this.showNotification('Формула очищена', 'info');
-}
 
     showNotification(message, type = 'info') {
         const notification = document.createElement('div');
@@ -3053,12 +4714,127 @@ showClearConfirmationModal() {
             }
         }, 3000);
     }
+
+    // ДОБАВИМ функцию для очистки нулевых пробелов
+    cleanupZeroSpaces() {
+        const display = document.getElementById('formulaDisplay');
+        const walker = document.createTreeWalker(
+            display,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+        );
+
+        let node;
+        const nodesToRemove = [];
+
+        while (node = walker.nextNode()) {
+            if (node.textContent === '\u200B') {
+                nodesToRemove.push(node);
+            }
+        }
+
+        nodesToRemove.forEach(node => {
+            if (node.parentNode) {
+                node.parentNode.removeChild(node);
+            }
+        });
+    }
+
+    // ОБНОВЛЕННАЯ функция получения финальной формулы
+    getFinalFormulaForDisplay() {
+        // Сначала очищаем нулевые пробелы
+        this.cleanupZeroSpaces();
+
+        const display = document.getElementById('formulaDisplay');
+        let formulaHTML = display.innerHTML;
+
+        // Создаем временный элемент для обработки
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = formulaHTML;
+
+        // Удаляем атрибуты contenteditable и классы редактирования
+        const editableElements = tempDiv.querySelectorAll('[contenteditable="true"]');
+        editableElements.forEach(el => {
+            el.removeAttribute('contenteditable');
+            el.classList.remove('editable-field');
+            el.removeAttribute('data-placeholder');
+
+            // Заменяем плейсхолдеры на пустые строки
+            if (el.textContent === '□' || el.textContent.trim() === '□') {
+                el.textContent = '';
+            }
+        });
+
+        // Удаляем нулевые пробелы из текстовых узлов
+        const textNodes = [];
+        const walker = document.createTreeWalker(
+            tempDiv,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+        );
+
+        let node;
+        while (node = walker.nextNode()) {
+            node.textContent = node.textContent.replace(/\u200B/g, '');
+        }
+
+        return tempDiv.innerHTML;
+    }
+
+    // Тогда в insertFormula используйте:
+    getStaticFormula() {
+        if (!this.currentFormula) return '';
+
+        // Создаем временный элемент для обработки HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.currentFormula;
+
+        // Удаляем все атрибуты contenteditable
+        const editableElements = tempDiv.querySelectorAll('[contenteditable="true"]');
+        editableElements.forEach(el => {
+            el.removeAttribute('contenteditable');
+            el.classList.remove('editable-field');
+
+            // Заменяем placeholder на обычный текст если нужно
+            if (el.textContent === '□' || el.textContent.trim() === '□') {
+                el.textContent = 'x'; // или оставьте пустым ''
+            }
+
+            // Удаляем data-атрибуты
+            el.removeAttribute('data-placeholder');
+        });
+
+        // Удаляем нулевые пробелы через рекурсивный обход
+        function removeZeroSpaces(node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                if (node.textContent === '\u200B') {
+                    if (node.parentNode) {
+                        node.parentNode.removeChild(node);
+                    }
+                    return;
+                }
+                // Заменяем нулевые пробелы в тексте
+                node.textContent = node.textContent.replace(/\u200B/g, '');
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                Array.from(node.childNodes).forEach(child => {
+                    removeZeroSpaces(child);
+                });
+            }
+        }
+
+        removeZeroSpaces(tempDiv);
+
+        // Удаляем классы связанные с редактированием
+        const mathTemplates = tempDiv.querySelectorAll('.math-template');
+        mathTemplates.forEach(template => {
+            template.classList.remove('math-template');
+        });
+
+        return tempDiv.innerHTML;
+    }
 }
-
-
-
-
-
 
         // Добавьте эту функцию если хотите возможность удалять фото
 function removeImage(previewId) {

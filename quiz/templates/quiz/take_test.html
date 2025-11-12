@@ -8,6 +8,11 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <title>Тест: {{ test.title }}</title>
     <style>
         :root {
@@ -16,11 +21,14 @@
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
+            --gray-50: #f9fafb; /* Добавьте эту строку */
             --gray-100: #f8f9fa;
             --gray-200: #e9ecef;
             --gray-300: #dee2e6;
             --gray-600: #6c757d;
             --gray-800: #343a40;
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Добавьте эту тоже */
+
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --radius: 12px;
@@ -403,6 +411,11 @@
             .answer-label {
                 padding: 12px 14px;
             }
+            .answer-label:has(input:checked)::after {
+                left: 24px; /* 20px padding + 2px border + 2px gap */
+                top: 50%;
+
+            }
         }
 
         @media (max-width: 480px) {
@@ -427,10 +440,327 @@
                 justify-content: center;
             }
         }
+
+
+
+
+
+        /* СТИЛИ СИСТЕМЫ БЛОКИРОВКИ */
+.exam-permission-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.exam-permission-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalAppear 0.5s ease-out;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.exam-header {
+    margin-bottom: 30px;
+}
+
+.exam-header h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.exam-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.exam-requirements {
+    text-align: left;
+    margin: 30px 0;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.exam-requirements h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+}
+
+.req-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.req-text {
+    font-weight: 500;
+    color: #333;
+}
+
+.exam-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 25px 0;
+}
+
+.exam-warning p {
+    margin: 8px 0;
+    color: #856404;
+}
+
+.exam-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.exam-btn {
+    padding: 16px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 200px;
+}
+
+.exam-btn-allow {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.exam-btn-allow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+}
+
+.exam-btn-deny {
+    background: #6c757d;
+    color: white;
+}
+
+.exam-btn-deny:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Предупреждение о нарушении */
+.violation-warning {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    z-index: 10001;
+    display: none;
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.warning-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+}
+
+.warning-icon {
+    font-size: 1.5rem;
+}
+
+/* Полноэкранный режим */
+body:fullscreen {
+    background: white;
+}
+
+body:-webkit-full-screen {
+    background: white;
+}
+
+body:-moz-full-screen {
+    background: white;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .exam-permission-content {
+        margin: 10px;
+        padding: 30px 20px;
+    }
+
+    .exam-buttons {
+        flex-direction: column;
+    }
+
+    .exam-btn {
+        max-width: none;
+    }
+
+    .violation-warning {
+        left: 10px;
+        right: 10px;
+        transform: none;
+    }
+}
+
+
+        /* Стили модального окна */
+.rules-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.rules-modal-content {
+    background: white;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.rules-header {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rules-header h3 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.rules-body {
+    padding: 20px;
+}
+
+.rules-body p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.rules-footer {
+    padding: 15px 20px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.understand-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
     </style>
 </head>
 <body>
-    <div class="test-container">
+<!-- Добавьте этот код в тело страницы -->
+<div id="rulesModal" class="rules-modal">
+    <div class="rules-modal-content">
+        <div class="rules-header">
+            <h3><i class="fi fi-ss-rules-alt"></i> Правила теста</h3>
+            <button class="close-btn" onclick="closeRules()">×</button>
+        </div>
+        <div class="rules-body">
+            <p><strong><i class="fi fi-ss-mode-alt"></i> Режим:</strong> Полноэкранный, нельзя выходить</p>
+            <p><strong><i class="fi fi-br-ban"></i> Что НЕЛЬЗЯ делать:</strong> Выходить из полноэкранного режима, нажимать кнопку "Назад" в браузере, закрывать вкладку.</p>
+            <p><strong><i class="fi fi-br-sort-amount-up-alt"></i> Количество попыток:</strong> 1 или 2. Используй их внимательно!</p>
+            <p><strong><i class="fi fi-sr-copy-image"></i> Изображения:</strong> Нажимайте для увеличения</p>
+            <p><strong><i class="fi fi-br-answer-alt"></i> Ответы:</strong> Выбирайте все варианты</p>
+        </div>
+        <div class="rules-footer">
+            <button class="understand-btn" onclick="closeRules()">Понятно</button>
+        </div>
+    </div>
+</div>
+
+     <div id="violationWarning" class="violation-warning" style="display: none;">
+        <div class="warning-content">
+            <span class="warning-icon">⚠️</span>
+            <span class="warning-text" id="violationText"></span>
+        </div>
+    </div>
+
+    <div class="test-container fullscreen-test-container" id="mainTestContainer">
         <div class="test-header">
             <h1 class="test-title">{{ test.title }}</h1>
             {% if test.description %}
@@ -460,14 +790,14 @@
                         <h3 style="margin-bottom: 20px; color: white;"><i class="fi fi-ss-employee-man-alt"></i> Информация о себе</h3>
 
                         <div class="form-group">
-                            <label class="form-label required" for="student_name">Ваше имя</label>
+                            <label class="form-label required" for="student_name">Ваше имя (обязательно)</label>
                             <input type="text" id="student_name" name="student_name"
-                                   class="form-input" placeholder="Введите ваше имя" required>
+                                   class="form-input" placeholder="Введите ваше имя " required>
                             <div class="error-message" id="name-error">Пожалуйста, введите ваше имя</div>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label required" for="class_group"><i class="fi fi-ss-users-class"></i> Ваш класс</label>
+                            <label class="form-label required" for="class_group"><i class="fi fi-ss-users-class"></i> Ваш класс (обязательно)</label>
                             <select name="class_group" class="form-input form-select" required>
                             <option value="">-- Не выбрано --</option>
                             <option value="1-А">1-А</option>
@@ -645,102 +975,344 @@
     </div>
 
     <script>
-        // Таймер
-        {% if test.timer_seconds and test.timer_seconds > 0 %}
-        (function(){
-            let seconds = {{ test.timer_seconds }};
-            const timerElement = document.getElementById('secs');
-            const form = document.getElementById('quiz-form');
 
-            const timerInterval = setInterval(() => {
-                seconds--;
-                timerElement.textContent = seconds;
+        // Показываем модальное окно при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('rulesModal').style.display = 'flex';
+});
 
-                // Меняем цвет при малом времени
-                if (seconds <= 30) {
-                    document.getElementById('global-timer').style.background = '#dc2626';
-                }
+// Функция закрытия
+function closeRules() {
+    document.getElementById('rulesModal').style.display = 'none';
+}
 
-                if (seconds <= 0) {
-                    clearInterval(timerInterval);
-                    form.submit();
-                }
-            }, 1000);
-        })();
-        {% endif %}
+// Закрытие по клавише Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeRules();
+    }
+});
 
-        // Валидация формы
-        document.getElementById('quiz-form').addEventListener('submit', function(e) {
-            let isValid = true;
+    // АВТОМАТИЧЕСКИЙ ПОЛНОЭКРАННЫЙ РЕЖИМ
+    let examActive = false;
+    let violationCount = 0;
+    const MAX_VIOLATIONS = 3;
 
-            // Проверка имени
-            const nameInput = document.getElementById('student_name');
-            const nameError = document.getElementById('name-error');
-            if (!nameInput.value.trim()) {
-                nameInput.classList.add('error');
-                nameError.style.display = 'block';
-                isValid = false;
-            } else {
-                nameInput.classList.remove('error');
-                nameError.style.display = 'none';
-            }
+    // Автоматически переходим в полноэкранный режим при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Starting automatic fullscreen mode');
+        startAutomaticExam();
+    });
 
-            // Проверка класса
-            const classInput = document.getElementById('class_group');
-            const classError = document.getElementById('class-error');
-            if (!classInput.value) {
-                classInput.classList.add('error');
-                classError.style.display = 'block';
-                isValid = false;
-            } else {
-                classInput.classList.remove('error');
-                classError.style.display = 'none';
-            }
+    function startAutomaticExam() {
+        enterFullscreen()
+            .then(() => {
+                console.log('Automatic fullscreen successful');
+                examActive = true;
+                startMonitoring();
 
-            // Проверка ответов на вопросы
-            const questions = document.querySelectorAll('.question');
-            let unansweredQuestions = [];
+                // Показываем сообщение о начале теста
+                showTemporaryMessage('Тест начался! Не выходите из полноэкранного режима.');
+            })
+            .catch((error) => {
+                console.log('Automatic fullscreen failed, continuing normally:', error);
+                examActive = true;
+                startMonitoring();
 
-            questions.forEach((question, index) => {
-                const questionId = question.getAttribute('data-question-id');
-                const isAnswered = document.querySelector(`input[name="q_${questionId}"]:checked`);
-
-                if (!isAnswered) {
-                    unansweredQuestions.push(index + 1);
-                    question.style.borderColor = '#ef4444';
-                    question.style.background = '#fef2f2';
-                } else {
-                    question.style.borderColor = '';
-                    question.style.background = '';
-                }
+                // Показываем предупреждение, но продолжаем тест
+                showTemporaryMessage('Включите полноэкранный режим для лучшего опыта. Тест начался!');
             });
+    }
 
-            if (unansweredQuestions.length > 0) {
-                alert(`Пожалуйста, ответьте на все вопросы! Не отвечены вопросы: ${unansweredQuestions.join(', ')}`);
-                isValid = false;
+    function enterFullscreen() {
+        return new Promise((resolve, reject) => {
+            const element = document.documentElement;
 
-                // Прокрутка к первому неотвеченному вопросу
-                if (unansweredQuestions.length > 0) {
-                    const firstUnanswered = document.querySelectorAll('.question')[unansweredQuestions[0] - 1];
-                    firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
-
-            if (!isValid) {
-                e.preventDefault();
+            // Пытаемся войти в полноэкранный режим без запроса
+            if (element.requestFullscreen) {
+                element.requestFullscreen().then(resolve).catch(reject);
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen().then(resolve).catch(reject);
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen().then(resolve).catch(reject);
+            } else {
+                resolve(); // Если не поддерживается, просто продолжаем
             }
         });
+    }
 
-        // Выделение выбранных ответов
+    function showTemporaryMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10000;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 3000);
+    }
+
+    // СИСТЕМА МОНИТОРИНГА
+    function startMonitoring() {
+        console.log('Starting exam monitoring');
+
+        // Мониторинг выхода из полноэкранного режима
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+        // Мониторинг переключения приложений
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        // Мониторинг потери фокуса
+        window.addEventListener('blur', handleBlur);
+
+        // Блокировка клавиш
+        document.addEventListener('keydown', blockKeys);
+
+        // Блокировка обновления страницы
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Постоянная проверка полноэкранного режима
+        setInterval(checkFullscreenStatus, 1000);
+    }
+
+    function handleFullscreenChange() {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && examActive) {
+            violationCount++;
+            showViolation('Обнаружен выход из полноэкранного режима! Возвращаем...');
+
+            // Автоматически возвращаем в полноэкранный режим
+            setTimeout(() => {
+                enterFullscreen().catch(() => {
+                    showViolation('Не удалось вернуть полноэкранный режим!');
+                });
+            }, 500);
+
+            checkViolationLimit();
+        }
+    }
+
+    function handleVisibilityChange() {
+        if (document.hidden && examActive) {
+            violationCount++;
+            showViolation('Не переключайте приложения во время теста!');
+            checkViolationLimit();
+        }
+    }
+
+    function handleBlur() {
+        if (examActive) {
+            violationCount++;
+            showViolation('Не переключайтесь на другие окна!');
+            checkViolationLimit();
+        }
+    }
+
+    function blockKeys(e) {
+        if (!examActive) return;
+
+        // Блокируем F12, Ctrl+Shift+I, Ctrl+R
+        if (e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.ctrlKey && e.key === 'r')) {
+            e.preventDefault();
+            showViolation('Эта клавиша заблокирована во время теста!');
+            return false;
+        }
+    }
+
+    function handleBeforeUnload(e) {
+        if (examActive) {
+            e.preventDefault();
+            e.returnValue = 'Вы уверены, что хотите выйти из теста? Весь прогресс будет потерян!';
+            return e.returnValue;
+        }
+    }
+
+    function checkFullscreenStatus() {
+        if (!examActive) return;
+
+        // Автоматически возвращаем в полноэкранный режим если вышли
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            enterFullscreen().catch(() => {
+                // Игнорируем ошибки при повторных попытках
+            });
+        }
+    }
+
+    function showViolation(message) {
+        const warning = document.getElementById('violationWarning');
+        const violationText = document.getElementById('violationText');
+
+        if (warning && violationText) {
+            violationText.textContent = message;
+            warning.style.display = 'block';
+
+            // Вибрация на мобильных
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+
+            // Скрываем через 3 секунды
+            setTimeout(() => {
+                warning.style.display = 'none';
+            }, 3000);
+        }
+    }
+
+    function checkViolationLimit() {
+        if (violationCount >= MAX_VIOLATIONS) {
+            endExam('Многократные нарушения правил тестирования');
+        }
+    }
+
+    function endExam(reason) {
+        examActive = false;
+
+
+        const overlay = document.createElement('div');
+        overlay.id = 'customAlertOverlay';
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+        `;
+
+        const alertBox = document.createElement('div');
+        alertBox.style.cssText = `
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-left: 5px solid #ff4444;
+        `;
+
+        alertBox.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 15px;">🚫</div>
+            <h2 style="color: #ff4444; margin: 0 0 10px 0;">ТЕСТ ЗАВЕРШЕН</h2>
+            <p style="color: #333; margin: 0 0 20px 0; line-height: 1.5;">${reason}</p>
+            <button onclick="closeCustomAlert()" style="
+                padding: 12px 30px;
+                background: #ff4444;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+            ">Перейти к результатам</button>
+        `;
+
+        overlay.appendChild(alertBox);
+        document.body.appendChild(overlay);
+    }
+
+    function closeCustomAlert() {
+        const overlay = document.getElementById('customAlertOverlay');
+        if (overlay) {
+            document.body.removeChild(overlay)
+
+        }
+
+        // Выходим из полноэкранного режима
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+
+        // Отправляем форму
+        document.getElementById('quiz-form').submit();
+    }
+
+    // ИНТЕГРАЦИЯ С ВАШИМ СУЩЕСТВУЮЩИМ КОДОМ
+    {% if test.timer_seconds and test.timer_seconds > 0 %}
+    (function(){
+        let seconds = {{ test.timer_seconds }};
+        const timerElement = document.getElementById('secs');
+        const form = document.getElementById('quiz-form');
+
+        const timerInterval = setInterval(() => {
+            if (!examActive) return;
+
+            seconds--;
+            timerElement.textContent = seconds;
+
+            if (seconds <= 30) {
+                document.getElementById('global-timer').style.background = '#dc2626';
+            }
+
+            if (seconds <= 0) {
+                clearInterval(timerInterval);
+                examActive = false;
+
+                // Выходим из полноэкранного режима
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+
+                form.submit();
+            }
+        }, 1000);
+    })();
+    {% endif %}
+
+    // Функция для обновления состояния вопроса
+    function updateQuestionState(question) {
+        const inputs = question.querySelectorAll('input[type="radio"]');
+        const isAnswered = Array.from(inputs).some(input => input.checked);
+
+        if (isAnswered) {
+            question.classList.remove('unanswered');
+            question.classList.add('answered');
+        } else {
+            question.classList.remove('answered');
+            question.classList.add('unanswered');
+        }
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        const questions = document.querySelectorAll('.question');
+
+        // Проверяем начальное состояние всех вопросов
+        questions.forEach(question => {
+            updateQuestionState(question);
+        });
+
+        // Обработчик изменения радиокнопок - ОДИН ЕДИНСТВЕННЫЙ ОБРАБОТЧИК
         document.querySelectorAll('.answer-label input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                // Снимаем выделение со всех вариантов этого вопроса
                 const question = this.closest('.question');
-                question.querySelectorAll('.answer-label').forEach(label => {
-                    label.classList.remove('selected');
-                });
+
+                // Обновляем состояние вопроса
+                updateQuestionState(question);
 
                 // Выделяем выбранный вариант
+                const questionLabels = question.querySelectorAll('.answer-label');
+                questionLabels.forEach(label => {
+                    label.classList.remove('selected');
+                });
                 this.closest('.answer-label').classList.add('selected');
             });
         });
@@ -759,38 +1331,67 @@
                 document.getElementById('class-error').style.display = 'none';
             }
         });
-
-       document.addEventListener('DOMContentLoaded', () => {
-  const questions = document.querySelectorAll('.question');
-
-  questions.forEach(question => {
-    const inputs = question.querySelectorAll('input[type="radio"]');
-
-    inputs.forEach(input => {
-      input.addEventListener('change', () => {
-        // Убираем старый класс
-        question.classList.remove('unanswered');
-        // Добавляем новый
-        question.classList.add('answered');
-      });
     });
-  });
-});
 
+    // Валидация формы
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+        let isValid = true;
 
-        document.querySelectorAll('.answer-label input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-        // Убираем класс selected у всех вариантов
-        document.querySelectorAll('.answer-label').forEach(label => {
-            label.classList.remove('selected');
+        // Проверка имени
+        const nameInput = document.getElementById('student_name');
+        const nameError = document.getElementById('name-error');
+        if (!nameInput.value.trim()) {
+            nameInput.classList.add('error');
+            nameError.style.display = 'block';
+            isValid = false;
+        } else {
+            nameInput.classList.remove('error');
+            nameError.style.display = 'none';
+        }
+
+        // Проверка класса
+        const classInput = document.getElementById('class_group');
+        const classError = document.getElementById('class-error');
+        if (!classInput.value) {
+            classInput.classList.add('error');
+            classError.style.display = 'block';
+            isValid = false;
+        } else {
+            classInput.classList.remove('error');
+            classError.style.display = 'none';
+        }
+
+        // Проверка ответов на вопросы
+        const questions = document.querySelectorAll('.question');
+        let unansweredQuestions = [];
+
+        questions.forEach((question, index) => {
+            const questionId = question.getAttribute('data-question-id');
+            const isAnswered = document.querySelector(`input[name="q_${questionId}"]:checked`);
+
+            if (!isAnswered) {
+                unansweredQuestions.push(index + 1);
+                // Обновляем визуальное состояние
+                question.classList.add('unanswered');
+                question.classList.remove('answered');
+            }
         });
 
-        // Добавляем класс selected к выбранному варианту
-        if (this.checked) {
-            this.closest('.answer-label').classList.add('selected');
+        if (unansweredQuestions.length > 0) {
+            alert(`Пожалуйста, ответьте на все вопросы! Не отвечены вопросы: ${unansweredQuestions.join(', ')}`);
+            isValid = false;
+
+            // Прокрутка к первому неотвеченному вопросу
+            if (unansweredQuestions.length > 0) {
+                const firstUnanswered = document.querySelectorAll('.question')[unansweredQuestions[0] - 1];
+                firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        if (!isValid) {
+            e.preventDefault();
         }
     });
-});
-    </script>
+</script>
 </body>
 </html>

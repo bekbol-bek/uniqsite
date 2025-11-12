@@ -3,6 +3,19 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+class School(models.Model):
+    name = models.CharField(max_length=200, verbose_name="Название школы")
+    number = models.CharField(max_length=10, verbose_name="Номер школы")
+    city = models.CharField(max_length=100, verbose_name="Город")
+    address = models.TextField(blank=True, verbose_name="Адрес")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['name', 'number', 'city']
+
+    def __str__(self):
+        return f"{self.name} №{self.number}, {self.city}"
+
 class Test(models.Model):
     TEST_TYPES = [
             ('mixed', 'Смешанный тест'),
@@ -11,20 +24,78 @@ class Test(models.Model):
             ('image', 'Фото тест'),
             ('math', 'Математический тест')
     ]
+
+    # for public
+    VISIBILITY_CHOICES = [
+        ('private',  'Приватный'),
+        ('public', 'Публичный'),
+        ('unlisted', 'По ссылке')
+    ]
+
+
     test_format = models.CharField(max_length=10, choices=TEST_TYPES, default='text')
+
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     test_type = models.CharField(max_length=10, choices=TEST_TYPES, default='mixed')
+    views_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(default=timezone.now)  # дата создается автоматически
     public_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     timer_seconds = models.PositiveIntegerField(default=0, )  # таймер в секундах
     shuffle_questions = models.BooleanField(default=False, )
     shuffle_answers = models.BooleanField(default=False, )
 
+
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True, blank=True)
+
+    # ⚠️ ИСПРАВЬТЕ ЭТИ ДВЕ СТРОКИ:
+    is_published = models.BooleanField(default=False, verbose_name="Опубликован")  # default=True
+    visibility = models.CharField(
+        max_length=10,
+        choices=VISIBILITY_CHOICES,
+        default='private',  # default='public'
+        verbose_name="Видимость теста"
+    )
+
+    allow_copying = models.BooleanField(default=True, verbose_name="Разрешить копирование")
+    copied_from = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Скопирован из"
+    )
+    # ДОБАВЬТЕ ЭТИ ПОЛЯ ДЛЯ ШКОЛЫ:
+    school_name = models.CharField(max_length=200, blank=True, verbose_name="Название школы")
+    school_number = models.CharField(max_length=10, blank=True, verbose_name="Номер школы")
+    school_city = models.CharField(max_length=100, blank=True, verbose_name="Город")
+    teacher_name = models.CharField(max_length=100, blank=True, verbose_name="ФИО учителя")
+
+
+
     def __str__(self):
         return self.title
+
+    @property
+    def test_link(self):
+        return f'/test/{self.public_id}/'
+
+    def can_be_accessed_by(self, user):
+        """Проверяет, может ли пользователь получить доступ к тесту"""
+        if self.creator == user:
+            return True
+        if not self.is_published:
+            return False
+        if self.visibility == "public":
+            return True
+        if self.visibility == "unlisted":
+            return True  # ИСПРАВЛЕНО: должно быть True для доступа по ссылке
+        return False
+
+
+
 
 
 class Question(models.Model):
@@ -145,6 +216,8 @@ class Student(models.Model):
 
     def __str__(self):
         return f"{self.full_name} ({self.class_group.name})"
+
+
 
 
 

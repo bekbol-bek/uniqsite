@@ -7,6 +7,8 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-chubby/css/uicons-regular-chubby.css'>
    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     {% load static %}
@@ -513,6 +515,607 @@
             width: 100%;
         }
     }
+        /* Мобильная адаптация для страницы голосового теста */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px !important;
+        font-size: 16px;
+    }
+
+    .voice-test-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+        max-width: 100%;
+    }
+
+    /* Основной контент - УВЕЛИЧИВАЕМ */
+    .main-content {
+        border-radius: 20px;
+        margin: 0 auto;
+    }
+
+    /* Шапка - КРУПНЕЕ */
+    .header {
+        padding: 25px 20px !important;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .header h2 {
+        font-size: 1.8em !important;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .header p {
+        font-size: 1.1em !important;
+        line-height: 1.4;
+    }
+
+    /* Контент - БОЛЬШЕ ОТСТУПЫ */
+    .content {
+        padding: 25px 20px !important;
+    }
+
+    /* Боковая панель помощи */
+    .help-sidebar {
+        padding: 25px 20px !important;
+        border-radius: 20px;
+        position: static;
+    }
+
+    .help-sidebar h2 {
+        font-size: 1.4em;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .help-item {
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+        border-radius: 15px;
+    }
+
+    .help-item h4 {
+        font-size: 1.1em;
+    }
+
+    .help-item p {
+        font-size: 1em;
+        line-height: 1.5;
+    }
+
+    /* Секции вопросов и ответов - КРУПНЕЕ */
+    .question-section {
+        padding: 20px 15px !important;
+        margin: 25px 0;
+        border-radius: 15px;
+        border-left-width: 6px;
+    }
+
+    .answer-section {
+        padding: 20px 15px !important;
+        margin: 20px 0;
+        border-radius: 15px;
+        border-width: 3px;
+    }
+
+    /* Поля ввода - БОЛЬШЕ */
+    input[type="text"],
+    textarea,
+    .textareaa {
+        padding: 18px 15px !important;
+        font-size: 18px !important;
+        border-radius: 15px;
+        min-height: 55px;
+        margin: 12px 0;
+    }
+
+    .textareaa {
+        font-size: 1.2em !important;
+        min-height: 120px;
+    }
+
+    /* Аудио контролы - ВЕРТИКАЛЬНО */
+    .audio-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin: 20px 0;
+    }
+
+    .record-btn {
+        padding: 18px 20px !important;
+        font-size: 17px !important;
+        font-weight: 600;
+        border-radius: 12px;
+        min-height: 60px;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .record-btn.recording {
+        animation: pulse-mobile 1s infinite;
+    }
+
+    @keyframes pulse-mobile {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+
+    /* Аудио превью */
+    .audio-preview {
+        padding: 20px 15px;
+        margin: 20px 0;
+        border-radius: 12px;
+    }
+
+    .audio-preview audio {
+        width: 100%;
+        height: 50px;
+    }
+
+    .audio-file-name {
+        font-size: 1em;
+        margin-top: 15px;
+    }
+
+    /* Загрузка аудио */
+    .audio-upload {
+        padding: 20px 15px;
+        margin: 15px 0;
+        border-radius: 15px;
+        border-width: 3px;
+    }
+
+    .audio-upload-label {
+        font-size: 1.1em;
+        gap: 15px;
+    }
+
+    /* Правильный ответ */
+    .div-correct-option {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+
+    .correct-option {
+        padding: 18px 20px !important;
+        font-size: 16px;
+        border-radius: 25px;
+        min-height: 60px;
+        width: 100%;
+    }
+
+    .correct-option input[type="radio"] {
+        transform: scale(1.5);
+    }
+
+    .delete-btn {
+        padding: 15px 20px !important;
+        font-size: 16px;
+        border-radius: 25px;
+        min-height: 55px;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* Информационная панель */
+    .info-panel {
+        padding: 25px 20px;
+        margin-bottom: 25px;
+        border-radius: 15px;
+        border-left-width: 6px;
+    }
+
+    .info-panel h3 {
+        font-size: 1.2em;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .info-panel ul {
+        font-size: 1em;
+        line-height: 1.6;
+    }
+
+    .info-panel li {
+        margin-bottom: 12px;
+    }
+
+    /* Кнопки - ОЧЕНЬ БОЛЬШИЕ */
+    .button-container {
+        flex-direction: column;
+        gap: 15px;
+        margin: 35px 0;
+    }
+
+    .btn {
+        padding: 20px 25px !important;
+        font-size: 17px !important;
+        font-weight: 600;
+        border-radius: 15px;
+        min-height: 65px;
+        width: 100% !important;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .add-question {
+        order: 1;
+    }
+
+    .add-answer {
+        order: 2;
+        margin-top: 15px;
+    }
+
+    .submit-btn {
+        order: 3;
+        font-size: 18px !important;
+        min-height: 70px;
+    }
+
+    /* Бейджи форматов */
+    .format-badge {
+        padding: 8px 16px;
+        font-size: 0.9em;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+
+    /* Улучшение фокуса для мобильных */
+    textarea:focus,
+    input[type="text"]:focus {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+        transform: translateY(-2px);
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px !important;
+    }
+
+    .header {
+        padding: 20px 15px !important;
+    }
+
+    .header h2 {
+        font-size: 1.6em !important;
+    }
+
+    .content {
+        padding: 20px 15px !important;
+    }
+
+    .help-sidebar {
+        padding: 20px 15px !important;
+    }
+
+    input[type="text"],
+    textarea,
+    .textareaa {
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .btn {
+        padding: 18px 20px !important;
+        font-size: 16px !important;
+        min-height: 60px;
+    }
+
+    .record-btn {
+        padding: 16px 18px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 10px !important;
+    }
+
+    .voice-test-container {
+        gap: 15px;
+    }
+
+    .content,
+    .help-sidebar {
+        padding: 20px !important;
+    }
+
+    input[type="text"],
+    textarea,
+    .textareaa {
+        min-height: 45px;
+        padding: 14px 12px !important;
+    }
+
+    .btn {
+        padding: 16px 20px !important;
+        min-height: 55px;
+    }
+}
+
+/* Улучшение касаний для мобильных */
+@media (max-width: 768px) {
+    .btn,
+    .record-btn,
+    .delete-btn,
+    .correct-option,
+    .audio-upload,
+    input[type="text"],
+    textarea,
+    input[type="radio"] {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+
+    .btn:active,
+    .record-btn:active,
+    .delete-btn:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Увеличиваем область клика */
+    .correct-option {
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Оптимизация анимаций для мобильных */
+@media (max-width: 768px) {
+    .record-btn.recording {
+        animation-duration: 1.5s;
+    }
+
+    .answer-section:hover,
+    .audio-upload:hover,
+    .btn:hover {
+        transform: none;
+    }
+
+    .answer-section:active,
+    .audio-upload:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Убираем масштабирование при фокусе на iOS */
+@media (max-width: 768px) {
+    input[type="text"],
+    textarea,
+    .textareaa {
+        font-size: 16px !important;
+    }
+}
+
+/* Улучшение для длинных текстов */
+@media (max-width: 768px) {
+    .header h2,
+    .help-item h4,
+    .audio-file-name {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .textareaa {
+        line-height: 1.5;
+    }
+}
+        /* Мобильная подсказка с тремя точками - ТОЛЬКО ДЛЯ МОБИЛЬНЫХ */
+@media (max-width: 768px) {
+    .mobile-help-toggle {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 65px;
+        height: 65px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4);
+        border: 3px solid white;
+    }
+
+    .dots-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        cursor: pointer;
+    }
+
+    .dots-menu span {
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-help-toggle.active .dots-menu span:nth-child(1) {
+        transform: translateY(2px);
+    }
+
+    .mobile-help-toggle.active .dots-menu span:nth-child(3) {
+        transform: translateY(-2px);
+    }
+
+    /* Мобильное меню помощи */
+    .mobile-help-menu {
+        position: fixed;
+        bottom: 100px;
+        right: 25px;
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        border: 1px solid var(--border);
+        z-index: 999;
+        display: none;
+        width: 320px;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .mobile-help-menu.show {
+        display: block;
+        animation: slideUpMobile 0.3s ease;
+    }
+
+    @keyframes slideUpMobile {
+        from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .mobile-help-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--border);
+    }
+
+    .mobile-help-header h2 {
+        color: var(--dark);
+        font-size: 1.4em;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+    }
+
+    .close-help {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--gray);
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .close-help:hover {
+        background: var(--border);
+        color: var(--dark);
+    }
+
+    .mobile-help-item {
+        padding: 18px;
+        border-radius: 16px;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--primary);
+        background: rgba(99, 102, 241, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .mobile-help-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .mobile-help-item h4 {
+        color: var(--dark);
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mobile-help-item p {
+        color: var(--dark);
+        font-size: 0.95em;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .mobile-format-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background: var(--primary);
+        color: white;
+        border-radius: 8px;
+        font-size: 0.9em;
+    }
+
+    /* Скрываем обычную боковую панель на мобильных */
+    .help-sidebar {
+        display: none !important;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .mobile-help-menu {
+        width: 280px;
+        right: 15px;
+        bottom: 90px;
+        padding: 20px;
+    }
+
+    .mobile-help-toggle {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    .mobile-help-menu {
+        max-height: 60vh;
+        bottom: 80px;
+    }
+}
+
+/* На компьютерах скрываем мобильную кнопку */
+@media (min-width: 769px) {
+    .mobile-help-toggle {
+        display: none !important;
+    }
+
+    .mobile-help-menu {
+        display: none !important;
+    }
+
+    .help-sidebar {
+        display: block !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -682,38 +1285,86 @@
             </div>
         </div>
 
-        <!-- Sidebar -->
+
+            <!-- ДОБАВЬТЕ ЭТУ БОКОВУЮ ПАНЕЛЬ ПОМОЩИ -->
         <div class="help-sidebar">
-            <h2>💡 Подсказки</h2>
+            <h2>💡 Помощник</h2>
 
             <div class="help-item">
-                <h4><span class="format-badge"><i class="fi fi-sr-microphone"></i></span>Запись голоса</h4>
+                <h4><i class="fi fi-sr-microphone"></i> Запись голоса</h4>
                 <p>Используйте кнопку записи для создания голосовых вопросов и ответов. Убедитесь, что микрофон работает.</p>
             </div>
 
             <div class="help-item">
-                <h4><span class="format-badge"><i class="fi fi-sr-music"></i></span>Загрузка аудио</h4>
+                <h4><i class="fi fi-sr-music"></i> Загрузка аудио</h4>
                 <p>Можно загрузить готовые аудиофайлы в форматах MP3, WAV, OGG.</p>
             </div>
 
             <div class="help-item">
-                <h4><span class="format-badge"><i class="fi fi-br-check"></i></span>Правильные ответы</h4>
+                <h4><i class="fi fi-br-check"></i> Правильные ответы</h4>
                 <p>Не забудьте отметить правильный ответ для каждого вопроса радио-кнопкой.</p>
             </div>
 
             <div class="help-item">
-                <h4><span class="format-badge"><i class="fi fi-sr-add"></i></span>Добавление вопросов</h4>
+                <h4><i class="fi fi-sr-add"></i> Добавление вопросов</h4>
                 <p>Используйте кнопку "Добавить новый вопрос" для создания нескольких вопросов в одном тесте.</p>
             </div>
 
             <div class="help-item">
                 <h4>💡 Советы по записи</h4>
-                <p>• Говорите четко и разборчиво</p>
-                <p>• Записывайте в тихом помещении</p>
-                <p>• Проверяйте запись перед сохранением</p>
-                <p>• Длительность записи 10-30 секунд</p>
+                <p>• Говорите четко и разборчиво<br>
+                   • Записывайте в тихом помещении<br>
+                   • Проверяйте запись перед сохранением<br>
+                   • Длительность записи 10-30 секунд</p>
             </div>
         </div>
+
+
+        <!-- Плавающая кнопка помощи для мобильных - появляется ТОЛЬКО на мобильных -->
+        <div class="mobile-help-toggle" id="mobileHelpToggle">
+            <div class="dots-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Мобильное меню помощи - появляется ТОЛЬКО на мобильных -->
+        <div class="mobile-help-menu" id="mobileHelpMenu">
+            <div class="mobile-help-header">
+                <h2>💡 Подсказки</h2>
+                <button class="close-help" id="closeHelp">&times;</button>
+            </div>
+
+            <div class="mobile-help-item">
+                <h4><span class="mobile-format-badge"><i class="fi fi-sr-microphone"></i></span>Запись голоса</h4>
+                <p>Используйте кнопку записи для создания голосовых вопросов и ответов. Убедитесь, что микрофон работает.</p>
+            </div>
+
+            <div class="mobile-help-item">
+                <h4><span class="mobile-format-badge"><i class="fi fi-sr-music"></i></span>Загрузка аудио</h4>
+                <p>Можно загрузить готовые аудиофайлы в форматах MP3, WAV, OGG.</p>
+            </div>
+
+            <div class="mobile-help-item">
+                <h4><span class="mobile-format-badge"><i class="fi fi-br-check"></i></span>Правильные ответы</h4>
+                <p>Не забудьте отметить правильный ответ для каждого вопроса радио-кнопкой.</p>
+            </div>
+
+            <div class="mobile-help-item">
+                <h4><span class="mobile-format-badge"><i class="fi fi-sr-add"></i></span>Добавление вопросов</h4>
+                <p>Используйте кнопку "Добавить новый вопрос" для создания нескольких вопросов в одном тесте.</p>
+            </div>
+
+            <div class="mobile-help-item">
+                <h4><span class="mobile-format-badge">💡</span>Советы по записи</h4>
+                <p>• Говорите четко и разборчиво<br>
+                   • Записывайте в тихом помещении<br>
+                   • Проверяйте запись перед сохранением<br>
+                   • Длительность записи 10-30 секунд</p>
+            </div>
+        </div>
+
     </div>
 
 
@@ -1154,6 +1805,65 @@ document.getElementById('voiceTestForm').addEventListener('submit', function(e) 
     });
 
     console.log('===================');
+});
+        // Управление мобильной подсказкой - работает ТОЛЬКО на мобильных
+// Управление мобильной подсказкой - работает ТОЛЬКО на мобильных
+document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем, мобильное ли устройство
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        const helpToggle = document.querySelector('.mobile-help-toggle'); // ← ИСПРАВЛЕНО
+        const helpMenu = document.getElementById('mobileHelpMenu');
+        const closeHelp = document.getElementById('closeHelp');
+
+        if (helpToggle && helpMenu) {
+            console.log('Мобильное меню помощи инициализировано');
+
+            // Открытие/закрытие по клику на кнопку
+            helpToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                helpMenu.classList.toggle('show');
+                helpToggle.classList.toggle('active');
+                console.log('Меню помощи переключено');
+            });
+
+            // Закрытие по крестику
+            if (closeHelp) {
+                closeHelp.addEventListener('click', function() {
+                    helpMenu.classList.remove('show');
+                    helpToggle.classList.remove('active');
+                    console.log('Меню помощи закрыто');
+                });
+            }
+
+            // Закрытие при клике вне меню
+            document.addEventListener('click', function(e) {
+                if (!helpToggle.contains(e.target) && !helpMenu.contains(e.target)) {
+                    helpMenu.classList.remove('show');
+                    helpToggle.classList.remove('active');
+                }
+            });
+
+            // Закрытие при скролле
+            window.addEventListener('scroll', function() {
+                helpMenu.classList.remove('show');
+                helpToggle.classList.remove('active');
+            });
+
+            // Предотвращение закрытия при клике внутри меню
+            helpMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        } else {
+            console.log('Элементы мобильного меню не найдены:', {
+                helpToggle: !!helpToggle,
+                helpMenu: !!helpMenu
+            });
+        }
+    } else {
+        console.log('Это не мобильное устройство, мобильное меню не инициализировано');
+    }
 });
     </script>
 </body>

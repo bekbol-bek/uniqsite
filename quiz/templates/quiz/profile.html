@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -9,6 +9,11 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-chubby/css/uicons-solid-chubby.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <link rel="icon" href="{% static 'img/favicon-64x64_11zon__1_-removebg-preview.ico' %}" type="image/png" sizes="64x64">
+
+
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
      <meta name="csrf-token" content="{{ csrf_token }}">
@@ -684,7 +689,373 @@
 
 
         }
+/* Мобильные стили для профиля - УВЕЛИЧЕННАЯ ВЕРСИЯ */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px;
+        font-size: 18px; /* Увеличиваем базовый размер шрифта */
+    }
 
+    .profile-container {
+        border-radius: 20px;
+        margin: 0 auto;
+    }
+
+    /* Шапка профиля - БОЛЬШАЯ */
+    .profile-header {
+        padding: 30px 20px !important;
+    }
+
+    .profile-header h2 {
+        font-size: 2.5em !important; /* Увеличили */
+        margin-right: 0 !important;
+        gap: 25px !important;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-icon {
+        width: 150px !important; /* Увеличили */
+        height: 150px !important;
+    }
+
+    /* Контент профиля */
+    .profile-content {
+        padding: 25px 20px !important;
+    }
+
+    /* Секция создания тестов - КРУПНЕЕ */
+    .create-section {
+        padding: 25px;
+        margin-bottom: 25px;
+        border-left-width: 8px; /* Толще */
+    }
+
+    .create-section h3 {
+        font-size: 1.6em !important; /* Увеличили */
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .create-buttons {
+        grid-template-columns: 1fr !important;
+        gap: 20px; /* Больше расстояние */
+        margin-bottom: 25px;
+    }
+
+    .test-type-btn {
+        padding: 25px 20px !important; /* Увеличили паддинг */
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: left;
+        gap: 20px;
+        border-radius: 15px;
+        border-width: 3px;
+    }
+
+    .test-type-btn .icon {
+        font-size: 3em !important; /* Увеличили иконки */
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .test-type-btn .icon img {
+        width: 60px !important; /* Увеличили */
+        height: 60px !important;
+    }
+
+    .test-type-btn .title {
+        font-size: 1.3em !important; /* Увеличили */
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .test-type-btn .desc {
+        font-size: 1em !important; /* Увеличили */
+        line-height: 1.4;
+    }
+
+    .all-variants-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 18px 30px !important;
+        font-size: 1.2em !important;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+
+    /* Секция списка тестов - КРУПНЕЕ */
+    .tests-section {
+        padding: 25px;
+    }
+
+    .tests-section h3 {
+        font-size: 1.6em !important;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .test-list {
+        gap: 20px;
+    }
+
+    .test-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        padding: 25px 20px !important;
+        border-radius: 15px;
+        border-left-width: 6px;
+    }
+
+    .test-info {
+        width: 100%;
+    }
+
+    .test-title {
+        font-size: 1.3em !important;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .test-meta {
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 12px;
+        font-size: 1em !important;
+    }
+
+    .test-type-badge {
+        padding: 6px 18px !important;
+        font-size: 0.9em !important;
+        border-radius: 20px;
+    }
+
+    .test-actions {
+        margin-left: 0 !important;
+        width: 100%;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+    }
+
+    .test-link,
+    .copy-btn,
+    .delete-btn {
+        flex: 1;
+        text-align: center;
+        padding: 15px 20px !important; /* Увеличили */
+        font-size: 1.1em !important; /* Увеличили */
+        font-weight: 600;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        border-radius: 25px;
+        min-height: 55px; /* Минимальная высота для касания */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .test-link {
+        order: 1;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    }
+
+    .copy-btn {
+        order: 2;
+        background: #17a2b8;
+    }
+
+    .delete-btn {
+        order: 3;
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    }
+
+    /* Кнопка выхода - БОЛЬШАЯ */
+    .logout-section {
+        margin-top: 30px;
+        padding-top: 30px;
+    }
+
+    .logout-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 18px 30px !important;
+        font-size: 1.2em !important;
+        font-weight: 600;
+        border-radius: 30px;
+        min-height: 60px;
+    }
+
+    /* Уведомления - КРУПНЕЕ */
+    .notification {
+        left: 15px;
+        right: 15px;
+        top: 15px;
+        padding: 20px 25px !important;
+        font-size: 1.1em !important;
+        border-radius: 15px;
+        min-height: 70px;
+    }
+
+    .notification button {
+        width: 30px;
+        height: 30px;
+        font-size: 22px;
+    }
+
+    /* Модальные окна - КРУПНЕЕ */
+    .modal-content {
+        margin: 5% auto;
+        width: 90%;
+        border-radius: 20px;
+    }
+
+    .modal-header {
+        padding: 25px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header h3 {
+        font-size: 1.5em;
+    }
+
+    .close {
+        font-size: 32px;
+    }
+
+    .modal-body {
+        padding: 30px 25px;
+    }
+
+    .warning-icon {
+        font-size: 4em;
+        margin-bottom: 25px;
+    }
+
+    .test-to-delete {
+        padding: 20px;
+        font-size: 1.1em;
+        border-left-width: 6px;
+    }
+
+    .warning-text {
+        font-size: 1.1em;
+        margin-top: 20px;
+    }
+
+    .modal-footer {
+        padding: 25px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 18px 25px !important;
+        font-size: 1.1em !important;
+        font-weight: 600;
+        border-radius: 30px;
+        min-height: 60px;
+    }
+}
+
+/* Стили для очень маленьких экранов - ЕЩЕ КРУПНЕЕ */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px;
+        font-size: 16px;
+    }
+
+    .profile-header h2 {
+        font-size: 2.2em !important;
+    }
+
+    .header-icon {
+        width: 130px !important;
+        height: 130px !important;
+    }
+
+    .create-section,
+    .tests-section {
+        padding: 20px !important;
+    }
+
+    .create-section h3 {
+        font-size: 1.4em !important;
+    }
+
+    .test-type-btn {
+        padding: 22px 18px !important;
+        gap: 18px;
+    }
+
+    .test-type-btn .icon {
+        font-size: 2.5em !important;
+    }
+
+    .test-type-btn .icon img {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .test-type-btn .title {
+        font-size: 1.2em !important;
+    }
+
+    .test-item {
+        padding: 22px 18px !important;
+    }
+
+    .test-title {
+        font-size: 1.2em !important;
+    }
+
+    .test-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .test-link,
+    .copy-btn,
+    .delete-btn {
+        width: 100%;
+        font-size: 1em !important;
+        padding: 14px 18px !important;
+        min-height: 50px;
+    }
+}
+
+/* Особо крупные элементы для удобства */
+@media (max-width: 768px) {
+    /* Увеличиваем все интерактивные элементы */
+    .btn, .nav-link, .test-type-btn, .test-link, .copy-btn, .delete-btn {
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    /* Увеличиваем все заголовки */
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+    }
+
+    /* Увеличиваем отступы между секциями */
+    .create-section, .tests-section, .logout-section {
+        margin-bottom: 30px;
+    }
+}
+
+/* Улучшение читаемости текста */
+@media (max-width: 768px) {
+    .test-type-btn .desc,
+    .test-meta,
+    .warning-text {
+        line-height: 1.5;
+        font-weight: 500;
+    }
+}
     </style>
 </head>
 <body>
@@ -732,6 +1103,9 @@
                 </a>
                 <a href="{% url 'quiz:student_results' %}" class="all-variants-btn">
                     <i class="fi fi-br-chart-simple-horizontal"></i> Результаты учеников
+                </a>
+                <a class="all-variants-btn" href="{% url 'quiz:test_catalog' %}">
+                    <i class="fi fi-sr-search"></i> Каталог тестов
                 </a>
             </div>
 

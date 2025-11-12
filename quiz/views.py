@@ -15,7 +15,8 @@ from django.utils import timezone
 import re
 from django.http import JsonResponse, HttpResponseForbidden, HttpResponseServerError, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
-
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 
@@ -489,9 +490,10 @@ def test_created(request, public_id):
     test_link = request.build_absolute_uri(
         reverse('quiz:take_test', args=[str(test.public_id)])
     )
-    return render(request, 'quiz/test_created.html', {'test_link': test_link})
-
-
+    return render(request, 'quiz/test_created.html', {
+        'test_link': test_link,
+        'test': test  # ← ДОБАВЬТЕ ЭТУ СТРОКУ!
+    })
 
 @require_http_methods(["POST"])
 @login_required
@@ -1690,15 +1692,319 @@ def class_group_detail(request, class_id):
     return render(request, 'quiz/class_group_detail.html', context)
 
 
+from django.db.models import Q
+from django.core.paginator import Paginator
+from django.shortcuts import render
+
+def test_catalog(request):
+    """Каталог всех тестов"""
+    search_query = request.GET.get('q', '').strip()
+    selected_type = request.GET.get('type', '')
+    sort_by = request.GET.get('sort', 'newest')
+
+    # ИСПРАВЛЕННЫЙ ЗАПРОС - только опубликованные публичные тесты
+    tests = Test.objects.filter(
+        is_published=True,
+        visibility='public'
+    ).select_related('creator').prefetch_related('questions')
+
+    # Остальной код без изменений...
+    test_type = request.GET.get('type', '')
+    if test_type:
+        tests = tests.filter(test_format=test_type)
+
+
+    if search_query:
+        search_words = search_query.split()
+
+        title_queries = Q()
+        description_queries = Q()
+        school_queries = Q()
+        teacher_queries = Q()
+
+        for word in search_words:
+            if len(word) >= 2:
+                title_queries |= Q(title__icontains=word)
+                description_queries |= Q(description__icontains=word)
+                school_queries |= Q(school_name__icontains=word)
+                teacher_queries |= Q(teacher_name__icontains=word)
+
+        tests = tests.filter(
+            title_queries |
+            description_queries |
+            school_queries |
+            teacher_queries
+        )
+    if selected_type:
+        tests = tests.filter(test_type=selected_type)
+
+
+    if sort_by == 'popular':
+        tests = tests.order_by('-created_at')
+    elif sort_by == 'title':
+        tests = tests.order_by('title')
+    else:
+        tests = tests.order_by('-created_at')
+
+    paginator = Paginator(tests, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'test_types': Test.TEST_TYPES,
+        'search_query': search_query,
+        'selected_type': test_type,
+        'sort_by': sort_by,
+    }
+    return render(request, 'quiz/test_catalog.html', context)
+
+@login_required
+def unpublish_test(request, test_id):
+    """Снятие теста с публикации"""
+    test = get_object_or_404(Test, id=test_id, creator=request.user)
+
+    test.is_published = False
+    test.save()@login_required
 
 
 
+@login_required
+def publish_test(request, test_id):
+    """Публикация теста с информацией о школе"""
+    try:
+        print("🎯 ===== ФУНКЦИЯ PUBLISH_TEST НАЧАЛАСЬ =====")
+        print(f"🎯 Метод запроса: {request.method}")
+        print(f"🎯 Пользователь: {request.user}")
+        print(f"🎯 ID теста: {test_id}")
+
+        # Получаем тест
+        test = get_object_or_404(Test, id=test_id, creator=request.user)
+        print(f"🎯 Найден тест: {test.title} (ID: {test_id})")
+
+        if request.method == 'POST':
+            print("🎯 POST запрос получен!")
+
+            # ДЕТАЛЬНАЯ ОТЛАДКА POST ДАННЫХ
+            print("🎯 Все данные POST:")
+            for key, value in request.POST.items():
+                print(f"   {key}: '{value}'")
+
+            # Получаем данные
+            visibility = request.POST.get('visibility', 'public')
+            allow_copying = request.POST.get('allow_copying', 'false') == 'true'
+            school_name = request.POST.get('school_name', '').strip()
+            school_number = request.POST.get('school_number', '').strip()
+            school_city = request.POST.get('school_city', '').strip()
+            teacher_name = request.POST.get('teacher_name', '').strip()
+
+            print(f"🎯 Обработанные данные:")
+            print(f"   visibility: '{visibility}'")
+            print(f"   allow_copying: {allow_copying}")
+            print(f"   school_name: '{school_name}'")
+            print(f"   school_number: '{school_number}'")
+            print(f"   school_city: '{school_city}'")
+            print(f"   teacher_name: '{teacher_name}'")
+
+            # Проверяем, что все обязательные поля заполнены
+            if not all([school_name, school_number, school_city, teacher_name]):
+                messages.error(request, 'Пожалуйста, заполните все поля информации о школе')
+                return redirect('quiz:test_created', public_id=test.public_id)
+
+            # Сохраняем данные
+            test.is_published = True
+            test.visibility = visibility
+            test.allow_copying = allow_copying
+            test.school_name = school_name
+            test.school_number = school_number
+            test.school_city = school_city
+            test.teacher_name = teacher_name
+
+            test.save()
+            print("🎯 Тест сохранен в базу!")
+
+            # ПРОВЕРКА из базы
+            test_refreshed = Test.objects.get(id=test_id)
+            print(f"🎯 ПРОВЕРКА из базы ПОСЛЕ сохранения:")
+            print(f"   school_name: '{test_refreshed.school_name}'")
+            print(f"   school_number: '{test_refreshed.school_number}'")
+
+            messages.success(request, 'Тест успешно опубликован!')
+            return redirect('quiz:test_created', public_id=test.public_id)
+
+        # Если GET запрос, показываем форму
+        return render(request, 'quiz/test_created.html', {
+            'test': test,
+            'test_link': request.build_absolute_uri(test.test_link)
+        })
+
+    except Exception as e:
+        print(f"🎯 ОШИБКА: {str(e)}")
+        import traceback
+        print(f"🎯 Traceback: {traceback.format_exc()}")
+        messages.error(request, f'Ошибка публикации: {str(e)}')
+        return redirect('quiz:test_created', public_id=test.public_id)
 
 
+@login_required
+def copy_test(request, test_id):
+    """Копирование чужого теста"""
+    try:
+        print("🎯 ===== ФУНКЦИЯ COPY_TEST НАЧАЛАСЬ =====")
+        print(f"🎯 Пользователь: {request.user}")
+        print(f"🎯 ID теста для копирования: {test_id}")
+
+        # Получаем оригинальный тест
+        original_test = get_object_or_404(Test, id=test_id, is_published=True, allow_copying=True)
+        print(f"🎯 Найден тест: '{original_test.title}'")
+
+        # ПРОВЕРКА: есть ли вопросы?
+        questions = original_test.questions.all()
+        print(f"🎯 Вопросов в оригинальном тесте: {questions.count()}")
+
+        # Детальная информация о каждом вопросе
+        for i, question in enumerate(questions):
+            answers = question.answers.all()
+            print(f"🎯 Вопрос {i + 1}: ID={question.id}, текст='{question.text}', ответов={answers.count()}")
+            for j, answer in enumerate(answers):
+                print(f"🎯   Ответ {j + 1}: '{answer.text}', правильный={answer.is_correct}")
+
+        # Создаем копию теста
+        new_test = Test.objects.create(
+            creator=request.user,
+            title=f"Копия: {original_test.title}",
+            description=original_test.description,
+            test_type=original_test.test_type,
+            timer_seconds=original_test.timer_seconds,
+            shuffle_questions=original_test.shuffle_questions,
+            shuffle_answers=original_test.shuffle_answers,
+            is_published=False,
+            visibility='private',
+            copied_from=original_test
+        )
+        print(f"🎯 Создан новый тест: '{new_test.title}' (ID: {new_test.id})")
+
+        # КОПИРУЕМ ВОПРОСЫ
+        copied_questions = 0
+        for question in questions:
+            print(f"🎯 Копируем вопрос: '{question.text}'")
+
+            # Создаем новый вопрос
+            new_question = Question.objects.create(
+                test=new_test,
+                text=question.text,
+                image=question.image,
+                audio=question.audio,
+                question_type=question.question_type,
+                question_format=question.question_format,
+                order=question.order
+            )
+            copied_questions += 1
+            print(f"🎯   Создан новый вопрос ID: {new_question.id}")
+
+            # КОПИРУЕМ ОТВЕТЫ
+            copied_answers = 0
+            for answer in question.answers.all():
+                print(f"🎯   Копируем ответ: '{answer.text}'")
+
+                new_answer = Answer.objects.create(
+                    question=new_question,
+                    text=answer.text,
+                    image=answer.image,
+                    is_correct=answer.is_correct,
+                    answer_type=answer.answer_type,
+                    order=answer.order
+                )
+                copied_answers += 1
+                print(f"🎯     Создан новый ответ ID: {new_answer.id}")
+
+            print(f"🎯   Скопировано ответов: {copied_answers}")
+
+        print(f"🎯 ИТОГО: скопировано {copied_questions} вопросов")
+
+        # ПРОВЕРКА РЕЗУЛЬТАТА
+        new_questions_count = new_test.questions.count()
+        print(f"🎯 ПРОВЕРКА: в новом тесте {new_questions_count} вопросов")
+
+        # Детальная проверка новых вопросов
+        for i, question in enumerate(new_test.questions.all()):
+            answers_count = question.answers.count()
+            print(f"🎯 Новый вопрос {i + 1}: '{question.text}', ответов: {answers_count}")
+
+        response_data = {
+            'success': True,
+            'message': 'Тест успешно скопирован!',
+            'new_test_id': new_test.id,
+            'new_test_title': new_test.title,
+            'questions_copied': copied_questions,
+            'new_questions_count': new_questions_count
+        }
+
+        print(f"🎯 ОТПРАВЛЯЕМ ОТВЕТ: {response_data}")
+        return JsonResponse(response_data)
+
+    except Exception as e:
+        print(f"🎯 ОШИБКА при копировании: {str(e)}")
+        import traceback
+        print(f"🎯 Traceback: {traceback.format_exc()}")
+
+        return JsonResponse({
+            'success': False,
+            'error': f'Ошибка при копировании теста: {str(e)}'
+        }, status=500)
 
 
+# views.py
+@login_required
+def edit_test(request, test_id):
+    """Перенаправление на соответствующую страницу редактирования теста"""
+    test = get_object_or_404(Test, id=test_id, creator=request.user)
+
+    # Перенаправляем на соответствующую страницу редактирования в зависимости от типа теста
+    if test.test_format == 'text':
+        return redirect('quiz:edit_text_test', test_id=test.id)
+    elif test.test_format == 'voice':
+        return redirect('quiz:edit_voice_test', test_id=test.id)
+    elif test.test_format == 'image':  # или 'photo' в зависимости от вашей модели
+        return redirect('quiz:edit_photo_test', test_id=test.id)
+    elif test.test_format == 'math':
+        return redirect('quiz:edit_math_test', test_id=test.id)
+    elif test.test_format == 'mixed':
+        return redirect('quiz:edit_mixed_test', test_id=test.id)
+    else:
+        # Если тип не распознан, перенаправляем на базовое редактирование
+        return redirect('quiz:edit_test_base', test_id=test.id)
 
 
+@login_required
+def edit_test_base(request, test_id):
+    """Редактирование базовой информации теста"""
+    test = get_object_or_404(Test, id=test_id, creator=request.user)
 
+    if request.method == 'POST':
+        # Обрабатываем форму
+        title = request.POST.get('title', '').strip()
+        description = request.POST.get('description', '').strip()
+        timer_seconds = request.POST.get('timer_seconds', 0)
+        shuffle_questions = request.POST.get('shuffle_questions') == 'on'
+        shuffle_answers = request.POST.get('shuffle_answers') == 'on'
+
+        if title:
+            test.title = title
+            test.description = description
+            test.timer_seconds = int(timer_seconds)
+            test.shuffle_questions = shuffle_questions
+            test.shuffle_answers = shuffle_answers
+            test.save()
+
+            messages.success(request, 'Тест успешно обновлен!')
+            return redirect('quiz:edit_test_base', test_id=test.id)
+        else:
+            messages.error(request, 'Название теста не может быть пустым')
+
+    context = {
+        'test': test,
+    }
+    return render(request, 'quiz/edit_test_base.html', context)
 
 

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Создать {{ test_type }} тест</title>
     {% load static %}
     <style>
@@ -288,6 +291,299 @@
         .breadcrumb a:hover {
             color: #667eea;
         }
+        /* Мобильная адаптация для страницы создания теста */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px !important;
+        align-items: flex-start !important;
+        min-height: 100vh;
+        font-size: 16px;
+    }
+
+    .create-test-container {
+        max-width: 100% !important;
+        border-radius: 15px;
+        margin: 0 auto;
+    }
+
+    /* Шапка - УВЕЛИЧИВАЕМ */
+    .header {
+        padding: 25px 20px !important;
+    }
+
+    .header h2 {
+        font-size: 1.8em !important;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .test-icon {
+        font-size: 2em !important;
+    }
+
+    .header p {
+        font-size: 1.1em !important;
+        line-height: 1.4;
+    }
+
+    /* Контент - УВЕЛИЧИВАЕМ */
+    .content {
+        padding: 25px 20px !important;
+    }
+
+    /* Секции формы - КРУПНЕЕ */
+    .form-section {
+        margin-bottom: 25px;
+    }
+
+    .form-section h3 {
+        font-size: 1.4em !important;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+    }
+
+    /* Поля формы - БОЛЬШЕ */
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        font-size: 16px !important;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 18px 15px !important;
+        font-size: 18px !important;
+        border-radius: 12px;
+        border-width: 2px !important;
+        min-height: 55px;
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        font-size: 16px !important;
+    }
+
+    /* Индикатор типа теста */
+    .test-type-indicator {
+        padding: 12px 20px !important;
+        font-size: 16px !important;
+        margin-bottom: 25px;
+    }
+
+    /* Кнопки - ОЧЕНЬ БОЛЬШИЕ */
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 35px;
+    }
+
+    .btn {
+        padding: 20px 25px !important;
+        font-size: 18px !important;
+        font-weight: 700;
+        border-radius: 30px;
+        min-height: 65px;
+        width: 100% !important;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        order: 1;
+    }
+
+    .btn-secondary {
+        order: 2;
+        background: #6c757d;
+    }
+
+    /* Ошибки - КРУПНЕЕ */
+    .errorlist li {
+        font-size: 15px !important;
+        padding: 10px 15px;
+        margin-top: 8px;
+    }
+
+    /* Хлебные крошки */
+    .breadcrumb {
+        font-size: 15px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+
+    /* Чекбоксы и радиокнопки - УВЕЛИЧИВАЕМ */
+    input[type="checkbox"],
+    input[type="radio"] {
+        transform: scale(1.5) !important;
+        margin-right: 12px;
+    }
+
+    /* Улучшение фокуса для мобильных */
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.2) !important;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px !important;
+    }
+
+    .header {
+        padding: 20px 15px !important;
+    }
+
+    .header h2 {
+        font-size: 1.6em !important;
+    }
+
+    .content {
+        padding: 20px 15px !important;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .btn {
+        padding: 18px 20px !important;
+        font-size: 16px !important;
+        min-height: 60px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 10px !important;
+    }
+
+    .create-test-container {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        min-height: 50px;
+        padding: 15px 12px !important;
+    }
+}
+
+/* Улучшение касаний */
+@media (max-width: 768px) {
+    .btn,
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+
+    .btn:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Увеличиваем область клика для всех интерактивных элементов */
+    .form-group label {
+        display: flex;
+        align-items: center;
+        min-height: 30px;
+    }
+}
+
+/* Поддержка тёмной темы на мобильных */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    .create-test-container {
+        background: #1a1a1a;
+        color: #ffffff;
+    }
+
+    .form-section h3 {
+        color: #ffffff;
+        border-bottom-color: #2d2d2d;
+    }
+
+    .form-group label {
+        color: #e0e0e0;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        background: #2d2d2d !important;
+        border-color: #404040 !important;
+        color: #ffffff;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        background: #363636 !important;
+        border-color: #4facfe !important;
+    }
+
+    .test-type-indicator {
+        background: #2d2d2d;
+        color: #4facfe;
+    }
+
+    .breadcrumb {
+        color: #b0b0b0;
+    }
+
+    .breadcrumb a {
+        color: #4facfe;
+    }
+}
+
+/* Оптимизация для медленных устройств */
+@media (max-width: 768px) {
+    .create-test-container {
+        animation: none;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        transform: none;
+    }
+}
+
+/* Убираем масштабирование при фокусе на iOS */
+@media (max-width: 768px) {
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 16px !important;
+    }
+
+    @media (max-width: 480px) {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            font-size: 16px !important;
+        }
+    }
+}
     </style>
 </head>
 <body>
@@ -352,7 +648,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_description">Описание теста</label>
+                        <label for="id_description">Описание теста (не обязательно)</label>
                         <textarea name="description" id="id_description"
                                   placeholder="Опишите что это за тест...">{{ form.description.value|default:'' }}</textarea>
                         {% if form.description.errors %}
@@ -365,7 +661,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_test_type">Тип доступа</label>
+                        <label for="id_test_type">Тип доступа (не обязательно)</label>
                         <select name="test_type" id="id_test_type">
                             {% for value, label in form.fields.test_type.choices %}
                                 <option value="{{ value }}"

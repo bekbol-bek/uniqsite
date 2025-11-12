@@ -798,10 +798,146 @@
             font-size: 1.1rem;
             box-shadow: var(--shadow);
         }
+
+        /* Стили для системы блокировки */
+        .violation-warning {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            z-index: 10001;
+            display: none;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .warning-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+        }
+
+        .warning-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Полноэкранный режим */
+        body:fullscreen .test-container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+        }
+
+
+              /* Стили модального окна */
+.rules-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.rules-modal-content {
+    background: white;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.rules-header {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rules-header h3 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.rules-body {
+    padding: 20px;
+}
+
+.rules-body p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.rules-footer {
+    padding: 15px 20px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.understand-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
     </style>
 </head>
 <body>
-    <div class="test-container">
+
+
+
+<div id="rulesModal" class="rules-modal">
+    <div class="rules-modal-content">
+        <div class="rules-header">
+            <h3><i class="fi fi-ss-rules-alt"></i> Правила теста</h3>
+            <button class="close-btn" onclick="closeRules()">×</button>
+        </div>
+        <div class="rules-body">
+            <p><strong><i class="fi fi-ss-mode-alt"></i> Режим:</strong> Полноэкранный, нельзя выходить</p>
+            <p><strong><i class="fi fi-br-ban"></i> Что НЕЛЬЗЯ делать:</strong> Выходить из полноэкранного режима, нажимать кнопку "Назад" в браузере, закрывать вкладку.</p>
+            <p><strong><i class="fi fi-br-sort-amount-up-alt"></i> Количество попыток:</strong> 1 или 2. Используй их внимательно!</p>
+            <p><strong><i class="fi fi-sr-copy-image"></i> Изображения:</strong> Нажимайте для увеличения</p>
+            <p><strong><i class="fi fi-br-answer-alt"></i> Ответы:</strong> Выбирайте все варианты</p>
+        </div>
+        <div class="rules-footer">
+            <button class="understand-btn" onclick="closeRules()">Понятно</button>
+        </div>
+    </div>
+</div>
+
+    <div id="violationWarning" class="violation-warning" style="display: none;">
+        <div class="warning-content">
+            <span class="warning-icon">⚠️</span>
+            <span class="warning-text" id="violationText"></span>
+        </div>
+    </div>
+
+
+    <div class="test-container fullscreen-test-container" id="mainTestContainer">
         <div class="test-header">
             <h1><i class="fi fi-br-bullseye-arrow"></i> Смешанный тест: {{ test.title }}</h1>
             {% if test.description %}
@@ -820,14 +956,14 @@
                 </a>
             </div>
             {% else %}
-            <form method="post" action="{% url 'quiz:process_test_results' test.public_id %}">
+            <form method="post" id="mixedTestForm" action="{% url 'quiz:process_test_results' test.public_id %}">
                 {% csrf_token %}
 
                 <div class="student-info">
-                    <h3 style="margin-bottom: 15px; color: white;"><i class="fi fi-sr-employee-man-alt"></i> Ваши данные</h3>
-                    <input type="text" name="student_name" placeholder="Введите ваше имя">
+                    <h3 style="margin-bottom: 15px; color: white;"><i class="fi fi-sr-employee-man-alt"></i> Ваши данные (обязательно)</h3>
+                    <input type="text" name="student_name" placeholder="Введите ваше имя ">
                     <div class="form-group">
-                    <label class="form-label required"><i class="fi fi-ss-users-class"></i> Ваш класс (опционально)</label>
+                    <label class="form-label required"><i class="fi fi-ss-users-class"></i> Ваш класс (обязательно)</label>
                     <select name="class_group" class="form-input form-select" required>
                             <option value="">-- Не выбрано --</option>
                             <option value="1-А">1-А</option>
@@ -1066,6 +1202,227 @@
 </div>
     <script>
 
+           // Показываем модальное окно при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('rulesModal').style.display = 'flex';
+});
+
+// Функция закрытия
+function closeRules() {
+    document.getElementById('rulesModal').style.display = 'none';
+}
+
+// Закрытие по клавише Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeRules();
+    }
+});
+
+
+let examActive = false;
+let violationCount = 0;
+const MAX_VIOLATIONS = 3;
+
+// Автоматически запускаем защиту при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Starting voice test protection system');
+    startVoiceTestProtection();
+});
+
+function startVoiceTestProtection() {
+    // Пытаемся войти в полноэкранный режим
+    enterFullscreen()
+        .then(() => {
+            console.log('✅ Fullscreen mode activated');
+            examActive = true;
+            startBasicMonitoring();
+            showTemporaryMessage(' тест начался! Не переключайте приложения.');
+        })
+        .catch((error) => {
+            console.log('⚠️ Fullscreen not available, starting test anyway');
+            examActive = true;
+            startBasicMonitoring();
+            showTemporaryMessage(' тест начался! Не переключайте приложения.');
+        });
+}
+
+function enterFullscreen() {
+    return new Promise((resolve, reject) => {
+        const element = document.documentElement;
+
+        if (element.requestFullscreen) {
+            element.requestFullscreen().then(resolve).catch(reject);
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen().then(resolve).catch(reject);
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen().then(resolve).catch(reject);
+        } else {
+            resolve(); // Если не поддерживается
+        }
+    });
+}
+
+function startBasicMonitoring() {
+    console.log('🔒 Starting basic monitoring for voice test');
+
+    // Только базовый мониторинг для голосового теста
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Восстановление полноэкранного режима
+    setInterval(checkFullscreenStatus, 2000);
+}
+
+function handleVisibilityChange() {
+    if (document.hidden && examActive) {
+        violationCount++;
+        showViolation('Не переключайте приложения во время теста!');
+        checkViolationLimit();
+    }
+}
+
+function handleBlur() {
+    if (examActive) {
+        violationCount++;
+        showViolation('Оставайтесь в тесте!');
+        checkViolationLimit();
+    }
+}
+
+function handleBeforeUnload(e) {
+    if (examActive) {
+        e.preventDefault();
+        e.returnValue = 'Вы уверены, что хотите выйти?';
+        return e.returnValue;
+    }
+}
+
+function checkFullscreenStatus() {
+    if (examActive && !document.fullscreenElement && !document.webkitFullscreenElement) {
+        // Автоматически восстанавливаем полноэкранный режим
+        enterFullscreen().catch(() => {
+            // Игнорируем ошибки
+        });
+    }
+}
+
+function showViolation(message) {
+    const warning = document.getElementById('violationWarning');
+    const violationText = document.getElementById('violationText');
+
+    if (warning && violationText) {
+        violationText.textContent = message;
+        warning.style.display = 'block';
+
+        // Вибрация на мобильных
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        }
+
+        setTimeout(() => {
+            warning.style.display = 'none';
+        }, 3000);
+    }
+}
+
+function checkViolationLimit() {
+    if (violationCount >= MAX_VIOLATIONS) {
+        endExam('Многократные нарушения во время  теста');
+    }
+}
+
+
+
+function endExam(reason) {
+    examActive = false;
+
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    `;
+
+    const alertBox = document.createElement('div');
+    alertBox.style.cssText = `
+        background: linear-gradient(135deg, #fff5f5, #fff);
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 400px;
+        box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+        border: 2px solid #ff4444;
+        font-family: Arial, sans-serif;
+    `;
+    alertBox.innerHTML = `
+        <div style="font-size: 50px; margin-bottom: 15px;">🚫</div>
+        <h2 style="color: #ff4444; margin: 0 0 15px 0; font-size: 24px;">ТЕСТ ПРЕРВАН</h2>
+        <p style="color: #666; margin: 0 0 20px 0; line-height: 1.5; font-size: 16px;">${reason}</p>
+        <button onclick="closeCustomAlert()" style="
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        ">Перейти к результатам</button>
+    `;
+
+    overlay.appendChild(alertBox);
+    document.body.appendChild(overlay);
+}
+
+    // Функция для закрытия алерта и продолжения логики
+function closeCustomAlert() {
+    const overlay = document.getElementById('customAlertOverlay');
+    if (overlay) {
+        document.body.removeChild(overlay);
+    }
+
+    // Продолжаем вашу оригинальную логику
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
+
+    // Отправляем форму
+    document.getElementById('mixedTestForm').submit();
+}
+
+function showTemporaryMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10000;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 3000);
+    }
         // Таймер
         {% if test.timer_seconds and test.timer_seconds > 0 %}
         (function(){

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-chubby/css/uicons-regular-chubby.css'>
    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
@@ -1176,6 +1177,610 @@
         .delete-btn {
             background: #ff0000;
         }
+
+        /* Мобильная адаптация для страницы фото-теста */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px !important;
+        font-size: 16px;
+    }
+
+    .photo-test-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+        max-width: 100%;
+    }
+
+    /* Основной контент */
+    .main-content {
+        border-radius: 20px;
+        margin: 0 auto;
+    }
+
+    /* Шапка */
+    .header {
+        padding: 25px 20px !important;
+        border-radius: 20px 20px 0 0;
+    }
+
+    h1 {
+        font-size: 1.8em !important;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Контент */
+    .content {
+        padding: 25px 20px !important;
+    }
+
+    /* Боковая панель помощи */
+    .help-sidebar {
+        padding: 25px 20px !important;
+        border-radius: 20px;
+        position: static;
+    }
+
+    .help-sidebar h2 {
+        font-size: 1.4em;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .help-item {
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+        border-radius: 15px;
+    }
+
+    .help-item h4 {
+        font-size: 1.1em;
+    }
+
+    .help-item p {
+        font-size: 1em;
+        line-height: 1.5;
+    }
+
+    /* Выбор формата */
+    .format-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+
+    .format-button-content {
+        padding: 15px 10px !important;
+        min-height: 90px;
+        gap: 8px;
+    }
+
+    .format-icon {
+        font-size: 1.8em !important;
+    }
+
+    .format-text strong {
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    .format-text small {
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    /* Поля ввода */
+    textarea, input[type="text"] {
+        padding: 18px 15px !important;
+        font-size: 18px !important;
+        border-radius: 15px;
+        min-height: 55px;
+        margin: 12px 0;
+    }
+
+    /* Секции формата */
+    .format-section {
+        margin-bottom: 25px;
+    }
+
+    .format-section h3 {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .format-selector {
+        padding: 16px 15px;
+        font-size: 16px;
+    }
+
+    /* Preview */
+    .format-preview {
+        padding: 25px 20px;
+        margin: 20px 0;
+        border-radius: 15px;
+    }
+
+    .format-preview h3 {
+        font-size: 1.2em;
+        justify-content: center;
+    }
+
+    /* Ответы - вертикальное расположение */
+    .answers-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    /* Элементы ответов */
+    .answer-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+    }
+
+    .image-upload {
+        flex: none !important;
+        width: 100% !important;
+        height: 150px !important;
+    }
+
+    .answer-item input[type="text"] {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Вертикальные фото-ответы */
+    .answer-item-photo-answer {
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+        gap: 15px;
+    }
+
+    .answer-row-top {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .image-upload-photo-answer {
+        flex: none !important;
+        width: 100% !important;
+        height: 150px !important;
+    }
+
+    .answer-row-bottom {
+        justify-content: center;
+    }
+
+    /* Горизонтальные ответы */
+    .answers-horizontal {
+        gap: 15px;
+    }
+
+    .answer-item-horizontal {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 20px 15px !important;
+    }
+
+    .image-upload-horizontal {
+        width: 100% !important;
+        height: 120px !important;
+    }
+
+    .answer-item-horizontal input[type="text"] {
+        min-width: auto;
+        width: 100%;
+    }
+
+    /* Радио-кнопки */
+    .answer-item label,
+    .radio-label-horizontal,
+    .correct_option {
+        width: 100%;
+        min-width: auto;
+        justify-content: center;
+        padding: 16px 20px !important;
+        font-size: 16px;
+    }
+
+    .answer-item input[type="radio"] + .correct-badge::before,
+    .radio-label-horizontal input[type="radio"] + .radio-custom {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Кнопки действий */
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    button {
+        padding: 18px 25px !important;
+        font-size: 17px !important;
+        font-weight: 600;
+        border-radius: 15px;
+        min-height: 60px;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .btn-primary {
+        order: 1;
+    }
+
+    /* Кнопки добавления/удаления */
+    .add-answer,
+    .delete-button,
+    .delete-button-horizontal,
+    .delete-btn {
+        padding: 16px 20px !important;
+        font-size: 16px;
+        min-height: 55px;
+        width: 100%;
+        justify-content: center;
+        margin: 5px 0 !important;
+    }
+
+    /* Улучшение фокуса */
+    textarea:focus,
+    input[type="text"]:focus {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+        transform: translateY(-2px);
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px !important;
+    }
+
+    .header {
+        padding: 20px 15px !important;
+    }
+
+    h1 {
+        font-size: 1.6em !important;
+    }
+
+    .content {
+        padding: 20px 15px !important;
+    }
+
+    .help-sidebar {
+        padding: 20px 15px !important;
+    }
+
+    .format-buttons {
+        grid-template-columns: 1fr !important;
+    }
+
+    .format-button-content {
+        min-height: 80px;
+        padding: 12px 8px !important;
+    }
+
+    textarea, input[type="text"] {
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+    }
+
+    button {
+        padding: 16px 20px !important;
+        font-size: 16px !important;
+        min-height: 55px;
+    }
+
+    .image-upload,
+    .image-upload-photo-answer,
+    .image-upload-horizontal {
+        height: 120px !important;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 10px !important;
+    }
+
+    .photo-test-container {
+        gap: 15px;
+    }
+
+    .content,
+    .help-sidebar {
+        padding: 20px !important;
+    }
+
+    .format-buttons {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .image-upload,
+    .image-upload-photo-answer,
+    .image-upload-horizontal {
+        height: 100px !important;
+    }
+
+    textarea, input[type="text"] {
+        min-height: 45px;
+        padding: 14px 12px !important;
+    }
+
+    button {
+        padding: 14px 18px !important;
+        min-height: 50px;
+    }
+}
+
+/* Улучшение касаний для мобильных */
+@media (max-width: 768px) {
+    button,
+    .answer-item label,
+    .radio-label-horizontal,
+    .correct_option,
+    .image-upload,
+    .image-upload-photo-answer,
+    .image-upload-horizontal,
+    input[type="text"],
+    textarea,
+    input[type="radio"] {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+
+    button:active,
+    .answer-item label:active,
+    .radio-label-horizontal:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Увеличиваем область клика */
+    .answer-item label,
+    .radio-label-horizontal,
+    .correct_option {
+        min-height: 55px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Оптимизация анимаций для мобильных */
+@media (max-width: 768px) {
+    .format-preview {
+        animation-duration: 0.3s;
+    }
+
+    .answer-item:hover,
+    .answer-item-photo-answer:hover,
+    .answer-item-horizontal:hover,
+    button:hover {
+        transform: none;
+    }
+
+    .answer-item:active,
+    .answer-item-photo-answer:active,
+    .answer-item-horizontal:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Убираем масштабирование при фокусе на iOS */
+@media (max-width: 768px) {
+    textarea, input[type="text"] {
+        font-size: 16px !important;
+    }
+}
+
+/* Улучшение для длинных текстов */
+@media (max-width: 768px) {
+    h1,
+    .help-item h4,
+    .format-preview h3 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .format-text strong,
+    .format-text small {
+        text-align: center;
+    }
+}
+
+
+
+/* Плавающая кнопка помощи для мобильных */
+@media (max-width: 768px) {
+    .mobile-help-toggle {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        width: 65px;
+        height: 65px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4);
+        border: 3px solid white;
+    }
+
+    .dots-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        cursor: pointer;
+    }
+
+    .dots-menu span {
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+    }
+
+    .help-sidebar {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-help-toggle {
+        display: none !important;
+    }
+
+    .help-sidebar {
+        display: block !important;
+    }
+}
+        /* Стили для мобильного меню помощи */
+.mobile-help-menu {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+    z-index: 999;
+    display: none;
+    width: 320px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.mobile-help-menu.show {
+    display: block;
+    animation: slideUpMobile 0.3s ease;
+}
+
+@keyframes slideUpMobile {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.mobile-help-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+}
+
+.mobile-help-header h2 {
+    color: var(--dark);
+    font-size: 1.4em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.close-help {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--gray);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-help:hover {
+    background: var(--border);
+    color: var(--dark);
+}
+
+.mobile-help-item {
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--primary);
+    background: rgba(99, 102, 241, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mobile-help-item:last-child {
+    margin-bottom: 0;
+}
+
+.mobile-help-item h4 {
+    color: var(--dark);
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-help-item p {
+    color: var(--dark);
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.mobile-format-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .mobile-help-menu {
+        width: 280px;
+        right: 15px;
+        bottom: 90px;
+        padding: 20px;
+    }
+
+    .mobile-help-toggle {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    .mobile-help-menu {
+        max-height: 60vh;
+        bottom: 80px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1257,36 +1862,68 @@
                 </div>
             </div>
 
-            <!-- Боковая панель с объяснениями -->
             <div class="help-sidebar">
-                <h2>💡 Подсказки</h2>
+
+                    <h2>💡 Подсказки</h2>
+
 
                 <div class="help-item">
-                    <h4><span class="format-badge"><i class="fi fi-sr-picture"></i></span>Вопрос с фото</h4>
-                    <p>Загрузите изображение и добавьте текстовые варианты ответов. Идеально для визуальных вопросов.</p>
+                    <h4><span class="format-badge"><i class="fi fi-sr-picture"></i></span>Форматы вопросов</h4>
+                    <p>Выберите подходящий формат: текст, фото-вопрос, фото-ответ или комбинированный.</p>
                 </div>
 
                 <div class="help-item">
-                    <h4><span class="format-badge"><i class="fi fi-sr-camera"></i></span>Ответы с фото</h4>
-                    <p>Текст вопроса + изображения в качестве вариантов ответов. Отлично для сравнения визуальных объектов.</p>
+                    <h4><span class="format-badge"><i class="fi fi-sr-camera"></i></span>Загрузка фото</h4>
+                    <p>Поддерживаются JPG, PNG, GIF. Рекомендуемый размер до 5MB.</p>
                 </div>
 
                 <div class="help-item">
-                    <h4><span class="format-badge"><i class="fi fi-br-gallery"></i></span>Сопоставление</h4>
-                    <p>Ученики сопоставляют изображения с правильными названиями. Подходит для изучения терминологии.</p>
+                    <h4><span class="format-badge"><i class="fi fi-br-gallery"></i></span>Правильные ответы</h4>
+                    <p>Не забудьте отметить правильный ответ для каждого вопроса.</p>
                 </div>
 
                 <div class="help-item">
-                    <h4><span class="format-badge"><i class="fi fi-sr-audit"></i></span>Найди ошибку</h4>
-                    <p>Загрузите изображение с ошибкой. Ученики должны найти и описать проблему.</p>
+                    <h4><span class="format-badge"><i class="fi fi-sr-audit"></i></span>Добавление вопросов</h4>
+                    <p>Создавайте несколько вопросов в одном тесте.</p>
+                </div>
+            </div>
+
+
+
+            <!-- Плавающая кнопка помощи для мобильных -->
+            <div class="mobile-help-toggle" id="mobileHelpToggle">
+                <div class="dots-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Мобильное меню помощи -->
+            <div class="mobile-help-menu" id="mobileHelpMenu">
+                <div class="mobile-help-header">
+                    <h2>💡 Подсказки</h2>
+                    <button class="close-help" id="closeHelp">&times;</button>
                 </div>
 
-                <div class="help-item">
-                    <h4>💡 Советы</h4>
-                    <p>• Используйте качественные изображения</p>
-                    <p>• Добавляйте 3-5 вариантов ответов</p>
-                    <p>• Четко формулируйте вопросы</p>
-                    <p>• Проверьте правильность ответов</p>
+                <div class="mobile-help-item">
+                    <h4><span class="mobile-format-badge"><i class="fi fi-sr-picture"></i></span>Форматы вопросов</h4>
+                    <p>Выберите подходящий формат: текст, фото-вопрос, фото-ответ или комбинированный.</p>
+                </div>
+
+                <div class="mobile-help-item">
+                    <h4><span class="mobile-format-badge"><i class="fi fi-sr-camera"></i></span>Загрузка фото</h4>
+                    <p>Поддерживаются JPG, PNG, GIF. Рекомендуемый размер до 5MB.</p>
+                </div>
+
+                <div class="mobile-help-item">
+                    <h4><span class="mobile-format-badge"><i class="fi fi-br-gallery"></i></span>Правильные ответы</h4>
+                    <p>Не забудьте отметить правильный ответ для каждого вопроса.</p>
+                </div>
+
+                <div class="mobile-help-item">
+                    <h4><span class="mobile-format-badge"><i class="fi fi-sr-audit"></i></span>Добавление вопросов</h4>
+                    <p>Создавайте несколько вопросов в одном тесте.</p>
                 </div>
             </div>
         </div>
@@ -1871,6 +2508,31 @@ function updatePhotoAnswerNumbers(questionIndex) {
         if (radio) radio.value = index;
     });
 }
+            // Управление мобильной подсказкой
+document.addEventListener('DOMContentLoaded', function() {
+    const helpToggle = document.getElementById('mobileHelpToggle');
+    const helpMenu = document.getElementById('mobileHelpMenu');
+    const closeHelp = document.getElementById('closeHelp');
+
+    if (helpToggle && helpMenu) {
+        helpToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            helpMenu.classList.toggle('show');
+        });
+
+        if (closeHelp) {
+            closeHelp.addEventListener('click', function() {
+                helpMenu.classList.remove('show');
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!helpToggle.contains(e.target) && !helpMenu.contains(e.target)) {
+                helpMenu.classList.remove('show');
+            }
+        });
+    }
+});
         </script>
 </body>
 </html>

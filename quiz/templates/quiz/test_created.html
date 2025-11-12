@@ -2,9 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тест создан успешно!</title>
     <style>
+        /* Ваши стили остаются без изменений */
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +30,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             animation: slideUp 0.6s ease-out;
         }
@@ -156,6 +159,17 @@
             transform: translateY(-2px);
         }
 
+        .btn-outline {
+            background: transparent;
+            color: #6c757d;
+            border: 2px solid #6c757d;
+        }
+
+        .btn-outline:hover {
+            background: #6c757d;
+            color: white;
+        }
+
         .copy-btn {
             background: #28a745;
             color: white;
@@ -194,6 +208,81 @@
             margin: 5px 0;
         }
 
+        /* Стили для секции публикации */
+        .publish-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .publish-section h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .publish-options {
+            margin-bottom: 15px;
+        }
+
+        .option-item {
+            display: block;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .option-item:hover {
+            border-color: #007bff;
+        }
+
+        .option-item input[type="radio"]:checked + .option-title {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .option-title {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .option-desc {
+            display: block;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .btn-publish {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-publish:hover {
+            background: #218838;
+        }
+
         @media (max-width: 480px) {
             .success-container {
                 padding: 30px 20px;
@@ -208,7 +297,502 @@
                 justify-content: center;
             }
         }
+
+        /* Стили для модального окна */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 25px 30px 15px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.4em;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #6c757d;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.modal-body {
+    padding: 25px 30px;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+/* Форма */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    outline: none;
+}
+
+/* Список школ */
+.school-search {
+    margin-bottom: 20px;
+}
+
+.schools-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.school-item {
+    padding: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.school-item:hover {
+    border-color: #6366f1;
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.school-item.selected {
+    border-color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.school-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.school-info {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.new-school {
+    background: rgba(40, 167, 69, 0.05);
+    border-color: #28a745;
+}
+
+.new-school:hover {
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.new-school-form {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.new-school-form h4 {
+    margin: 0 0 15px 0;
+    color: #2c3e50;
+}
     </style>
+
+    <!-- ПЕРЕМЕСТИТЕ СКРИПТ В HEAD -->
+    <script>
+
+
+let selectedSchoolId = null;
+
+function openSchoolModal(button) {
+    const modal = document.getElementById('schoolModal');
+
+    // Получаем текущие настройки из основной формы
+    const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    const allowCopying = document.querySelector('input[name="allow_copying"]').checked;
+
+    // УСТАНАВЛИВАЕМ ПРАВИЛЬНЫЕ ЗНАЧЕНИЯ В СКРЫТЫЕ ПОЛЯ
+    // Убедитесь, что эти элементы существуют в вашей форме
+    const modalVisibility = document.getElementById('modalVisibility');
+    const modalAllowCopying = document.getElementById('modalAllowCopying');
+
+    if (modalVisibility) modalVisibility.value = visibility;
+    if (modalAllowCopying) modalAllowCopying.value = allowCopying;
+
+    console.log("Открытие модального окна с параметрами:", {
+        visibility: visibility,
+        allowCopying: allowCopying
+    });
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSchoolModal() {
+    const modal = document.getElementById('schoolModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    selectedSchoolId = null;
+}
+
+function submitSchoolInfo() {
+    const form = document.getElementById('schoolForm');
+    const formData = new FormData(form);
+
+    // Добавляем данные из основной формы
+    const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    const allowCopying = document.querySelector('input[name="allow_copying"]').checked;
+
+    formData.append('visibility', visibility);
+    formData.append('allow_copying', allowCopying);
+
+    const testId = document.getElementById('publishBtn').getAttribute('data-test-id');
+
+    // Отправляем запрос на публикацию
+    publishTestWithSchool(testId, formData);
+}
+
+
+function openSchoolModal(button) {
+    const modal = document.getElementById('schoolModal');
+
+    // Получаем текущие настройки из основной формы
+    const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    const allowCopying = document.querySelector('input[name="allow_copying"]').checked;
+
+    // Устанавливаем значения в скрытые поля формы
+    document.getElementById('formVisibility').value = visibility;
+    document.getElementById('formAllowCopying').value = allowCopying;
+
+    console.log("Открытие модального окна с параметрами:", {
+        visibility: visibility,
+        allowCopying: allowCopying
+    });
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSchoolModal() {
+    const modal = document.getElementById('schoolModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// УДАЛИТЕ весь сложный JavaScript с fetch запросами!
+// Форма будет отправляться стандартным способом
+
+// Функция для получения CSRF токена (оставьте эту)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+
+
+// Закрытие модального окна при клике на оверлей
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+        closeSchoolModal();
+    }
+});
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSchoolModal();
+    }
+});
+
+// Функция для получения CSRF токена
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+
+        // Выбор школы из списка
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.school-item') && !e.target.closest('.new-school')) {
+                const schoolItem = e.target.closest('.school-item');
+                document.querySelectorAll('.school-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                schoolItem.classList.add('selected');
+                selectedSchoolId = schoolItem.getAttribute('data-school-id');
+            }
+        });
+
+
+
+    function publishTest(button) {
+    // Получаем ID теста из data-атрибута
+    const testId = button.getAttribute('data-test-id');
+
+    // Проверяем, что testId валидный
+    if (!testId || testId === '0') {
+        alert('Ошибка: ID теста не найден. Обновите страницу и попробуйте снова.');
+        console.error('Test ID not found. Current testId:', testId);
+        return;
+    }
+
+    const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    const allowCopying = document.querySelector('input[name="allow_copying"]').checked;
+
+    // Показываем загрузку
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fi fi-sr-spinner"></i> Публикация...';
+    button.disabled = true;
+
+    console.log('Отправка запроса на публикацию теста ID:', testId);
+
+    // Пробуем разные варианты URL
+    const urlVariants = [
+        `/publish-test/${testId}/`,  // Без префикса quiz
+        `/quiz/publish-test/${testId}/`,  // С префиксом quiz
+        `../../publish-test/${testId}/`  // Относительный путь
+    ];
+
+    // Функция для попытки запроса
+    function tryRequest(urlIndex = 0) {
+        if (urlIndex >= urlVariants.length) {
+            button.innerHTML = originalText;
+            button.disabled = false;
+            alert('Все URL варианты не работают. Проверьте:\n1. Настройки URLs\n2. Что функция publish_test существует в views.py');
+            return;
+        }
+
+        const url = urlVariants[urlIndex];
+        console.log(`Попытка ${urlIndex + 1}: ${url}`);
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCookie('csrftoken'),
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: `visibility=${visibility}&allow_copying=${allowCopying}`
+        })
+        .then(response => {
+            const contentType = response.headers.get('content-type');
+            console.log(`URL ${url}: Status ${response.status}, Content-Type: ${contentType}`);
+
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                return response.text().then(text => {
+                    console.log(`URL ${url} вернул HTML:`, text.substring(0, 500));
+                    throw new Error(`URL не найден (404). Попробуем следующий вариант...`);
+                });
+            }
+        })
+        .then(data => {
+            console.log('Успешный ответ от URL:', url, data);
+            if (data.success) {
+                button.innerHTML = '<i class="fi fi-sr-check"></i> Опубликовано!';
+                button.style.background = '#17a2b8';
+
+                if (data.test_link) {
+                    document.getElementById('testLink').href = data.test_link;
+                    document.getElementById('testLink').textContent = data.test_link;
+                }
+
+                alert('Тест успешно опубликован!');
+            } else {
+                throw new Error(data.error || 'Неизвестная ошибка сервера');
+            }
+        })
+        .catch(error => {
+            console.log(`URL ${url} не сработал:`, error.message);
+
+            if (urlIndex < urlVariants.length - 1) {
+                // Пробуем следующий URL
+                setTimeout(() => tryRequest(urlIndex + 1), 500);
+            } else {
+                // Все URL не сработали
+                button.innerHTML = '<i class="fi fi-sr-cross"></i> Ошибка';
+                button.style.background = '#dc3545';
+
+                let errorMessage = 'Не удалось опубликовать тест. ';
+                errorMessage += 'Проверьте:\n\n';
+                errorMessage += '1. Файл urls.py - есть ли маршрут publish-test/\n';
+                errorMessage += '2. Файл views.py - есть ли функция publish_test\n';
+                errorMessage += '3. Консоль браузера для деталей ошибок';
+
+                alert(errorMessage);
+
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                    button.disabled = false;
+                }, 3000);
+            }
+        });
+    }
+
+    // Начинаем с первого URL
+    tryRequest(0);
+}
+
+    function copyToClipboard(button) {
+        const testLink = document.getElementById('testLink');
+        const linkText = testLink.href || testLink.textContent;
+
+        navigator.clipboard.writeText(linkText).then(() => {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fi fi-sr-check"></i> Скопировано!';
+            button.style.background = '#17a2b8';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = '#28a745';
+            }, 2000);
+        }).catch(err => {
+            console.error('Ошибка копирования:', err);
+            alert('Не удалось скопировать ссылку');
+        });
+    }
+    // Добавляем анимацию для элементов при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        const elements = document.querySelectorAll('.test-link-container, .buttons-container, .test-info, .publish-section');
+        elements.forEach((element, index) => {
+            element.style.animation = `slideUp 0.6s ease-out ${index * 0.2}s both`;
+        });
+    });
+        function submitSchoolInfo() {
+    const form = document.getElementById('schoolForm');
+    const formData = new FormData(form);
+
+    // ДЕТАЛЬНАЯ ОТЛАДКА ФОРМЫ
+    console.log("📝 Данные формы перед отправкой:");
+    for (let [key, value] of formData.entries()) {
+        console.log(`   ${key}:`, value);
+    }
+
+    // Проверяем, что все обязательные поля заполнены
+    const schoolName = document.getElementById('schoolName').value.trim();
+    const schoolNumber = document.getElementById('schoolNumber').value.trim();
+    const schoolCity = document.getElementById('schoolCity').value.trim();
+    const teacherName = document.getElementById('teacherName').value.trim();
+
+    if (!schoolName || !schoolNumber || !schoolCity || !teacherName) {
+        alert('Пожалуйста, заполните все поля информации о школе');
+        return;
+    }
+
+    // Добавляем данные из основной формы
+    const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    const allowCopying = document.querySelector('input[name="allow_copying"]').checked;
+
+    formData.append('visibility', visibility);
+    formData.append('allow_copying', allowCopying);
+
+    const testId = document.getElementById('publishBtn').getAttribute('data-test-id');
+
+    console.log("📝 Все данные для отправки:");
+    for (let [key, value] of formData.entries()) {
+        console.log(`   ${key}:`, value);
+    }
+
+    // Отправляем запрос на публикацию
+    publishTestWithSchool(testId, formData);
+}
+    </script>
 </head>
 <body>
     <div class="success-container">
@@ -220,12 +804,96 @@
         <div class="test-link-container">
             <span class="test-link-label">Ссылка для прохождения теста:</span>
             <a href="{{ test_link }}" class="test-link" id="testLink">{{ test_link }}</a>
-            <button class="copy-btn" onclick="copyToClipboard()"><i class="fi fi-sr-duplicate"></i> Копировать ссылку</button>
+            <button class="copy-btn" onclick="copyToClipboard(this)">
+                <i class="fi fi-sr-duplicate"></i> Копировать ссылку
+            </button>
+        </div>
+
+        <!-- Секция публикации -->
+        <div class="publish-section">
+            <h4>📢 Опубликовать тест</h4>
+
+            <div class="publish-options">
+
+                <label class="option-item">
+                    <input type="radio" name="visibility" value="public" checked>
+                    <span class="option-title">Публичный доступ</span>
+                    <span class="option-desc">Тест будет виден в общем каталоге</span>
+                </label>
+
+                <label class="permission-item">
+                    <input type="checkbox" name="allow_copying" checked>
+                    <span class="permission-text">Разрешить другим учителям копировать этот тест</span>
+                </label>
+            </div>
+
+            <button class="btn btn-publish" onclick="openSchoolModal(this)"
+                    data-test-id="{% if test %}{{ test.id }}{% else %}0{% endif %}"
+                    id="publishBtn">
+                <i class="fi fi-sr-globe"></i> Опубликовать тест
+            </button>
+        </div>
+
+        <!-- Модальное окно для школы -->
+        <!-- В модальном окне добавьте hidden inputs -->
+        <!-- Модальное окно для школы -->
+
+        <!-- Модальное окно для школы -->
+        <div class="modal-overlay" id="schoolModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🏫 Информация о школе</h3>
+                    <button type="button" class="modal-close" onclick="closeSchoolModal()">&times;</button>
+                </div>
+
+                <!-- ОБЫЧНАЯ HTML ФОРМА -->
+                <form id="schoolForm" method="POST" action="{% url 'quiz:publish_test' test.id %}">
+                    {% csrf_token %}
+
+                    <div class="modal-body">
+                        <p>Пожалуйста, укажите информацию о вашей школе для публикации теста:</p>
+
+                        <div class="form-group">
+                            <label for="schoolName">Название школы:</label>
+                            <input type="text" id="schoolName" name="school_name"
+                                   placeholder="Например: Средняя школа №1" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="schoolNumber">Номер школы:</label>
+                            <input type="text" id="schoolNumber" name="school_number"
+                                   placeholder="Например: 1" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="schoolCity">Город:</label>
+                            <input type="text" id="schoolCity" name="school_city"
+                                   placeholder="Например: Бишкек" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacherName">Ваше ФИ:</label>
+                            <input type="text" id="teacherName" name="teacher_name"
+                                   placeholder="Бекбол Рысбеков " class="form-input" required>
+                        </div>
+
+                        <!-- Скрытые поля для настроек из основной формы -->
+                        <input type="hidden" id="formVisibility" name="visibility" value="public">
+                        <input type="hidden" id="formAllowCopying" name="allow_copying" value="true">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeSchoolModal()">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Опубликовать тест</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="test-info">
             <h4>💡 Что дальше?</h4>
             <p>• Поделитесь ссылкой с учениками</p>
+            <p>• Опубликуйте тест, чтобы другие учителя могли его найти</p>
             <p>• Отслеживайте результаты в своем профиле</p>
             <p>• Вы можете создать еще тесты в любое время</p>
         </div>
@@ -237,38 +905,25 @@
             <a href="{% url 'quiz:create_test' 'text' %}" class="btn btn-secondary">
                 <i class="fi fi-br-plus"></i> Создать еще тест
             </a>
+            <a href="{% url 'quiz:test_catalog' %}" class="btn btn-outline">
+                <i class="fi fi-sr-search"></i> Каталог тестов
+            </a>
         </div>
     </div>
+<script>
+// Проверка наличия объекта test
+console.log('=== DEBUG INFO ===');
+console.log('Test object exists:', {{ test|yesno:"true,false" }});
+console.log('Test ID:', '{% if test %}{{ test.id }}{% else %}not found{% endif %}');
+console.log('Test title:', '{% if test %}{{ test.title|escapejs }}{% else %}not found{% endif %}');
+console.log('Test public_id:', '{% if test %}{{ test.public_id }}{% else %}not found{% endif %}');
+console.log('Test is_published:', '{% if test %}{{ test.is_published }}{% else %}not found{% endif %}');
+console.log('==================');
 
-    <script>
-        function copyToClipboard() {
-            const testLink = document.getElementById('testLink');
-            const tempInput = document.createElement('input');
-            tempInput.value = testLink.href;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            // Показываем уведомление
-            const copyBtn = event.target;
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = '✅ Скопировано!';
-            copyBtn.style.background = '#17a2b8';
-
-            setTimeout(() => {
-                copyBtn.textContent = originalText;
-                copyBtn.style.background = '#28a745';
-            }, 2000);
-        }
-
-        // Добавляем анимацию для элементов при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.test-link-container, .buttons-container, .test-info');
-            elements.forEach((element, index) => {
-                element.style.animation = `slideUp 0.6s ease-out ${index * 0.2}s both`;
-            });
-        });
-    </script>
+// Проверка элементов на странице
+console.log('Publish button:', document.getElementById('publishBtn'));
+console.log('School modal:', document.getElementById('schoolModal'));
+console.log('School form:', document.getElementById('schoolForm'));
+</script>
 </body>
 </html>

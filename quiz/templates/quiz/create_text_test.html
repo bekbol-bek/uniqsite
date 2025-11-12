@@ -1,10 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Создать текстовый тест: {{ test.title }}</title>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- Для разных устройств -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     {% load static %}
     <style>
@@ -409,6 +423,380 @@
         .info-panel li {
             margin-bottom: 5px;
         }
+        /* Мобильная адаптация для страницы создания текстового теста - БЕЗ ТЕМНОЙ ТЕМЫ */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px !important;
+        font-size: 16px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
+
+    .create_text_test {
+        max-width: 100% !important;
+        border-radius: 15px;
+        margin: 0 auto;
+        background: white !important;
+    }
+
+    /* Шапка - УВЕЛИЧИВАЕМ */
+    .header {
+        padding: 25px 20px !important;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    }
+
+    .header h2 {
+        font-size: 1.8em !important;
+        font-weight: 700;
+        text-align: center;
+        color: white !important;
+    }
+
+    .header p {
+        font-size: 1.1em !important;
+        line-height: 1.4;
+        color: white !important;
+    }
+
+    /* Контент - УВЕЛИЧИВАЕМ */
+    .content {
+        padding: 25px 20px !important;
+        background: white !important;
+    }
+
+    /* Блок вопроса - КРУПНЕЕ */
+    .question-block {
+        padding: 25px 20px !important;
+        margin-bottom: 30px;
+        border-left-width: 6px;
+        border-radius: 12px;
+        background: #f8f9fa !important;
+    }
+
+    .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .question-title {
+        font-size: 1.3em !important;
+        width: 40%;
+        justify-content: space-between;
+        color: #2c3e50 !important;
+    }
+
+    .remove-btn {
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 18px !important;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #dc3545 !important;
+    }
+
+    /* Поля ввода - БОЛЬШЕ */
+    .input-group {
+        margin-bottom: 25px;
+    }
+
+    .input-group input[type="text"] {
+        padding: 18px 15px !important;
+        font-size: 18px !important;
+        border-radius: 12px;
+        min-height: 55px;
+        background: white !important;
+        border: 2px solid #e9ecef !important;
+        color: #495057 !important;
+    }
+
+    /* Заголовок ответов */
+    .answers-title {
+        font-size: 1.2em !important;
+        margin: 30px 0 20px 0;
+        color: #2c3e50 !important;
+    }
+
+    /* Блоки ответов - КРУПНЕЕ */
+    .answer-block {
+        padding: 20px 15px !important;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border-width: 2px;
+        background: white !important;
+        border: 2px solid #e9ecef !important;
+    }
+
+    .answer-block.correct {
+        border-color: #28a745 !important;
+        background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%) !important;
+    }
+
+    .answer-input {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .answer-input input[type="text"] {
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+        min-height: 50px;
+        border-radius: 10px;
+        background: white !important;
+        border: 2px solid #e9ecef !important;
+        color: #495057 !important;
+    }
+
+    /* Опция правильного ответа */
+    .correct-option {
+        padding: 12px 15px !important;
+        font-size: 16px;
+        border-radius: 25px;
+        justify-content: center;
+        margin-top: 10px;
+        background: #f8f9fa !important;
+        border: 2px solid var(--border) !important;
+        color: #495057 !important;
+    }
+
+    .correct-option input[type="radio"] {
+        transform: scale(1.5) !important;
+    }
+
+    /* Кнопки удаления ответов */
+    .remove-answer-btn {
+        position: relative !important;
+        top: 0 !important;
+
+        opacity: 1 !important;
+        width: 25% !important;
+        height: 40px !important;
+        border-radius: 8px !important;
+        font-size: 14px !important;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        background: red !important;
+        color: white !important;
+        left: 230px;
+    }
+
+    /* Контейнеры кнопок */
+    .buttons-container {
+        flex-direction: column;
+        gap: 15px;
+        margin: 35px 0;
+    }
+
+    .buttons-container .btn {
+        width: 100% !important;
+        min-width: auto !important;
+        justify-content: center;
+    }
+
+    /* Все кнопки - ОЧЕНЬ БОЛЬШИЕ */
+    .btn {
+        padding: 18px 25px !important;
+        font-size: 17px !important;
+        font-weight: 600;
+        border-radius: 12px;
+        min-height: 60px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .add-btn {
+        order: 1;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+        color: white !important;
+    }
+
+    .add-answer-btn {
+        order: 2;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+        color: white !important;
+    }
+
+    .submit-btn {
+        order: 3;
+        margin-top: 10px;
+        font-size: 18px !important;
+        min-height: 65px;
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+        color: white !important;
+    }
+
+    /* Информационная панель */
+    .info-panel {
+        padding: 20px 15px;
+        margin-bottom: 25px;
+        border-left-width: 6px;
+        background: #e7f3ff !important;
+    }
+
+    .info-panel h3 {
+        font-size: 1.2em;
+        justify-content: center;
+        color: #2c3e50 !important;
+    }
+
+    .info-panel ul {
+        font-size: 15px;
+        line-height: 1.5;
+        color: #495057 !important;
+    }
+
+    /* Улучшение фокуса */
+    .input-group input[type="text"]:focus,
+    .answer-input input[type="text"]:focus {
+        box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.2) !important;
+        transform: translateY(-2px);
+        border-color: #4facfe !important;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        padding: 10px 8px !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
+
+    .header {
+        padding: 20px 15px !important;
+    }
+
+    .header h2 {
+        font-size: 1.6em !important;
+    }
+
+    .content {
+        padding: 20px 15px !important;
+    }
+
+    .question-block {
+        padding: 20px 15px !important;
+    }
+
+    .input-group input[type="text"] {
+        padding: 16px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .answer-input input[type="text"] {
+        padding: 14px 12px !important;
+        font-size: 16px !important;
+    }
+
+    .btn {
+        padding: 16px 20px !important;
+        font-size: 16px !important;
+        min-height: 55px;
+    }
+
+    .remove-btn {
+        width: 40px !important;
+        height: 40px !important;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+/* Горизонтальная ориентация */
+@media (max-width: 768px) and (orientation: landscape) {
+    body {
+        padding: 10px !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
+
+    .create_text_test {
+        max-height: 90vh;
+        overflow-y: auto;
+        background: white !important;
+    }
+
+    .question-block {
+        padding: 20px !important;
+        background: #f8f9fa !important;
+    }
+
+    .input-group input[type="text"],
+    .answer-input input[type="text"] {
+        min-height: 45px;
+        padding: 14px 12px !important;
+        background: white !important;
+    }
+}
+
+/* Улучшение касаний для мобильных */
+@media (max-width: 768px) {
+    .btn,
+    .remove-btn,
+    .remove-answer-btn,
+    .correct-option,
+    input[type="text"],
+    input[type="radio"] {
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+    }
+
+    .btn:active,
+    .remove-btn:active,
+    .remove-answer-btn:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Увеличиваем область клика для радио-кнопок */
+    .correct-option {
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Оптимизация анимаций для мобильных */
+@media (max-width: 768px) {
+    .question-block {
+        animation-duration: 0.3s;
+    }
+
+    .question-block:hover {
+        transform: none;
+    }
+
+    .answer-block:hover {
+        transform: none;
+        border-color: #4facfe;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* Убираем масштабирование при фокусе на iOS */
+@media (max-width: 768px) {
+    .input-group input[type="text"],
+    .answer-input input[type="text"] {
+        font-size: 16px !important;
+    }
+}
+
+/* Улучшение для длинных текстов */
+@media (max-width: 768px) {
+    .question-title {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .answer-input input[type="text"] {
+        word-wrap: break-word;
+    }
+}
     </style>
 </head>
 <body>
@@ -449,7 +837,7 @@
                         <div id="answers-0">
                             <!-- Ответ 1 -->
                             <div class="answer-block">
-                                <button type="button" class="remove-answer-btn" onclick="removeAnswer(0, 0)">×</button>
+                                <button type="button" class="remove-answer-btn" onclick="removeAnswer(0, 0)"><i class="fi fi-sr-trash"></i></button>
                                 <div class="answer-input">
                                     <input type="text" name="answers_0" placeholder="Введите вариант ответа" required>
                                     <label class="correct-option">
@@ -461,7 +849,7 @@
 
                             <!-- Ответ 2 -->
                             <div class="answer-block">
-                                <button type="button" class="remove-answer-btn" onclick="removeAnswer(0, 1)">×</button>
+                                <button type="button" class="remove-answer-btn" onclick="removeAnswer(0, 1)"><i class="fi fi-sr-trash"></i></button>
                                 <div class="answer-input">
                                     <input type="text" name="answers_0" placeholder="Введите вариант ответа" required>
                                     <label class="correct-option">
@@ -558,7 +946,7 @@
 
             const newAnswer = `
                 <div class="answer-block">
-                    <button type="button" class="remove-answer-btn" onclick="removeAnswer(${questionIndex}, ${newAnswerIndex})">×</button>
+                    <button type="button" class="remove-answer-btn" onclick="removeAnswer(${questionIndex}, ${newAnswerIndex})"><i class="fi fi-sr-trash"></i></button>
                     <div class="answer-input">
                         <input type="text" name="answers_${questionIndex}" placeholder="Введите вариант ответа" required>
                         <label class="correct-option">
