@@ -6,6 +6,7 @@ app_name = 'quiz'
 
 
 urlpatterns = [
+
         path('', views.main, name='main'),
         path('profile/', views.profile, name='profile'),
         path('create/', views.select_test_type, name='select_test_type'),

@@ -125,7 +125,10 @@ class Question(models.Model):
     question_format = models.CharField(max_length=20, choices=Question_Formats, default='text_answers')
     audio_file = models.FileField(upload_to='questions/audio/', blank=True, null=True)
     order = models.IntegerField(default=0)
-
+    require_solution_photo = models.BooleanField(
+        default=False,
+        verbose_name="Требовать фото решения"
+    )
 
 
 

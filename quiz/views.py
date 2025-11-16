@@ -977,6 +977,7 @@ def create_math_test(request, test_id):
 
             # Получаем фото вопроса
             question_image = request.FILES.get(f'question_image_{i}')
+            require_solution_photo = request.POST.get(f'require_solution_photo_{i}') == 'true'
 
             # Создаем вопрос
             question = Question.objects.create(
@@ -986,7 +987,8 @@ def create_math_test(request, test_id):
                 question_type='math',
                 question_format=question_format,
                 order=i,
-                image=question_image
+                image=question_image,
+                require_solution_photo=require_solution_photo,
             )
 
             # Обрабатываем ответы для этого вопроса
@@ -1091,6 +1093,7 @@ def _process_math_proof_answers(request, question):
     proof_steps = request.POST.getlist('proof_step[]')
     proof_images = request.FILES.getlist('proof_images[]')  # Фото для шагов
 
+
     for i, step in enumerate(proof_steps):
         if step.strip():
             proof_image = proof_images[i] if i < len(proof_images) else None
@@ -1132,11 +1135,14 @@ def _process_math_integral_answers(request, question):
         )
 
 
+
+
 def take_math_test(request, public_id):
     """Прохождение математического теста с фото решениями"""
     test = get_object_or_404(Test, public_id=public_id)
 
     # ВАЖНО: Предзагружаем ответы с изображениями и математическими выражениями
+    # И ВЫБИРАЕМ поле require_solution_photo
     questions = test.questions.filter(question_type='math').prefetch_related(
         Prefetch('answers', queryset=Answer.objects.all())
     ).order_by('order')
@@ -1151,6 +1157,7 @@ def take_math_test(request, public_id):
         print(f"  - Формат: {question.question_format}")
         print(f"  - Мат. выражение: {question.math_expression}")
         print(f"  - Изображение: {question.image}")
+        print(f"  - Требует фото решения: {question.require_solution_photo}")  # ДОБАВЬТЕ ЭТУ СТРОКУ
         print(f"  - Количество ответов: {question.answers.count()}")
 
         for answer in question.answers.all():
@@ -1205,15 +1212,17 @@ def take_math_test(request, public_id):
             text_answer = None
             matching_data = None
 
-            # ВАЖНО: ПОЛУЧАЕМ ФОТО РЕШЕНИЯ ДЛЯ КАЖДОГО ВОПРОСА
-            solution_photo_key = f'solution_photo_{question.id}'
-            solution_photo = request.FILES.get(solution_photo_key)
+            # ВАЖНО: ПОЛУЧАЕМ ФОТО РЕШЕНИЯ ТОЛЬКО ЕСЛИ ВОПРОС ТРЕБУЕТ ФОТО
+            solution_photo = None
+            if question.require_solution_photo:  # ПРОВЕРЯЕМ УСЛОВИЕ
+                solution_photo_key = f'solution_photo_{question.id}'
+                solution_photo = request.FILES.get(solution_photo_key)
 
-            print(f"🔍 Поиск фото решения для вопроса {question.id} по ключу: '{solution_photo_key}'")
-            if solution_photo:
-                print(f"✅ Фото найдено: {solution_photo.name}, размер: {solution_photo.size} bytes")
-            else:
-                print(f"❌ Фото решения для вопроса {question.id} не найдено")
+                print(f"🔍 Поиск фото решения для вопроса {question.id} по ключу: '{solution_photo_key}'")
+                if solution_photo:
+                    print(f"✅ Фото найдено: {solution_photo.name}, размер: {solution_photo.size} bytes")
+                else:
+                    print(f"❌ Фото решения для вопроса {question.id} не найдено")
 
             if question.question_format == 'math_formula':
                 # Вопросы с выбором формулы
@@ -1272,8 +1281,8 @@ def take_math_test(request, public_id):
                 submitted_at=timezone.now()
             )
 
-            # ДОБАВЛЯЕМ ФОТО РЕШЕНИЯ ЕСЛИ ОНО ЕСТЬ
-            if solution_photo:
+            # ДОБАВЛЯЕМ ФОТО РЕШЕНИЯ ЕСЛИ ОНО ЕСТЬ И ВОПРОС ТРЕБУЕТ ФОТО
+            if solution_photo and question.require_solution_photo:
                 student_answer.solution_image = solution_photo
                 print(f"📸 Фото решения добавлено к вопросу {question.id}")
 
@@ -1315,7 +1324,6 @@ def take_math_test(request, public_id):
         "student_session": session_key,
     }
     return render(request, "quiz/take_math_test.html", context)
-
 
 def _normalize_math_expression(expression):
     """Нормализация математического выражения для сравнения"""
