@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'img/math_test.ico' %}">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
@@ -3300,6 +3302,38 @@ sub.editable-field {
     line-height: 1.4;
 }
     </style>
+    <style>
+        /* Стили для полей с плейсхолдерами */
+.math-placeholder-field {
+    position: relative;
+    min-width: 20px;
+    min-height: 1em;
+    border: 1px dashed #ccc;
+    padding: 0 4px;
+    margin: 0 2px;
+}
+
+.math-placeholder-field.show-placeholder::before {
+    content: var(--placeholder-text);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #999;
+    font-style: italic;
+    pointer-events: none;
+}
+
+.math-placeholder-field:focus {
+    border-color: #4F46E5;
+    outline: none;
+}
+
+/* Скрываем плейсхолдер при фокусе и когда есть текст */
+.math-placeholder-field:not(.show-placeholder)::before {
+    display: none;
+}
+    </style>
 </head>
 <body>
     <div class="math-test-container">
@@ -3547,18 +3581,18 @@ sub.editable-field {
                 <div class="keyboard-panel" id="calculusPanel">
                     <div class="keyboard-section">
                         <div class="keyboard-row">
-                            <div class="key" data-template="derivative">dy/dx</div>
-                            <div class="key" data-template="partial">∂f/∂x</div>
+<!--                            <div class="key" data-template="derivative">dy/dx</div>-->
+<!--                            <div class="key" data-template="partial">∂f/∂x</div>-->
                             <div class="key" data-template="integral">∫f(x)dx</div>
                             <div class="key" data-template="integral_limits">∫⁰₀</div>
                             <div class="key" data-template="def_integral">∫ₐᵇf(x)dx</div>
-                            <div class="key" data-template="integral_symbol">∫</div>
+                            <div class="key" data-symbol="∫">∫</div>
                         </div>
                         <div class="keyboard-row">
                             <div class="key" data-template="limit">lim</div>
-                            <div class="key" data-template="series">∑aₙ</div>
-                            <div class="key" data-template="nabla">∇</div>
-                            <div class="key" data-template="laplacian">Δ</div>
+<!--                            <div class="key" data-template="series">∑aₙ</div>-->
+<!--                            <div class="key" data-template="nabla">∇</div>-->
+<!--                            <div class="key" data-template="laplacian">Δ</div>-->
                         </div>
                     </div>
                 </div>
@@ -4117,97 +4151,108 @@ class MathKeyboard {
         this.lastActiveElement = null;
         this.isComposing = false;
 
-        // Шаблоны с редактируемыми полями
+       // Шаблоны с исправленными плейсхолдерами
         this.templates = {
             sqrt: `<span class="sqrt-symbol math-template">
                 <span>√</span>
                 <span class="sqrt-content">
-                    <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
+                    <span class="editable-field" contenteditable="true" data-placeholder=""></span>
                 </span>
             </span>`,
 
             sqrt_power: `<span class="sqrt-symbol math-template">
                 <span>√</span>
                 <span class="sqrt-content">
-                    <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
-                    <sup class="editable-field" contenteditable="true" data-placeholder="степень">□</sup>
+                    <span class="editable-field" contenteditable="true" data-placeholder=""></span>
+                    <sup class="editable-field" contenteditable="true" data-placeholder=""></span>
                 </span>
             </span>`,
 
+<!--            nroot: `<span class="sqrt-symbol math-template">-->
+<!--                <sup class="editable-field" contenteditable="true" data-placeholder="n"></span>-->
+<!--                <span>√</span>-->
+<!--                <span class="sqrt-content">-->
+<!--                    <span class="editable-field" contenteditable="true" data-placeholder=""></span>-->
+<!--                </span>-->
+<!--            </span>`,-->
+
             nroot: `<span class="sqrt-symbol math-template">
-                <sup class="editable-field" contenteditable="true" data-placeholder="n">□</sup>
+                <sup class="editable-field" contenteditable="true" data-placeholder="n"></sup>
                 <span>√</span>
                 <span class="sqrt-content">
-                    <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
+                    <span class="editable-field" contenteditable="true" data-placeholder=""></span>
                 </span>
             </span>`,
 
             power: `<span class="power-template math-template">
-                <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
-                <sup class="editable-field" contenteditable="true" data-placeholder="степень">□</sup>
+                <span class="editable-field" contenteditable="true" data-placeholder=""></span>
+                <sup class="editable-field" contenteditable="true" data-placeholder=""></span>
             </span>`,
 
             square: `<span class="square-template math-template">
-                <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder=""></span>
                 <sup>2</sup>
             </span>`,
 
             cube: `<span class="cube-template math-template">
-                <span class="editable-field" contenteditable="true" data-placeholder="основание">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder=""></span>
                 <sup>3</sup>
             </span>`,
 
-            small_power: `<sup class="editable-field small-power math-template" contenteditable="true" data-placeholder="степень">□</sup>`,
+            small_power: `<sup class="editable-field small-power math-template" contenteditable="true" data-placeholder=""></span>`,
 
             frac: `<span class="fraction math-template">
-                <span class="numerator editable-field" contenteditable="true" data-placeholder="числитель">□</span>
-                <span class="denominator editable-field" contenteditable="true" data-placeholder="знаменатель">□</span>
+                <span class="numerator editable-field" contenteditable="true" data-placeholder=""></span>
+                <span class="denominator editable-field" contenteditable="true" data-placeholder=""></span>
             </span>`,
 
-            subscript: `<sub class="editable-field math-template" contenteditable="true" data-placeholder="индекс">□</sub>`,
+            subscript: `<sub class="editable-field math-template" contenteditable="true" data-placeholder=""></span>`,
 
             big_parentheses_right: `<span class="big-brackets parentheses math-template">
                 <span class="bracket-left">(</span>
-                <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder=""></span>
             </span>`,
 
             big_parentheses_left: `<span class="big-brackets parentheses math-template">
-                <span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder=""></span>
                 <span class="bracket-right">)</span>
             </span>`,
 
-            sin: `<span class="function-template math-template">sin(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
-            cos: `<span class="function-template math-template">cos(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
-            tan: `<span class="function-template math-template">tg(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
-            cot: `<span class="function-template math-template">ctg(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
-            log: `<span class="function-template math-template">log(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
-            limit: `<span class="function-template math-template">lim(<span class="editable-field" contenteditable="true" data-placeholder="угол">□</span>)</span>`,
+            sin: `<span class="function-template math-template">sin(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
+            cos: `<span class="function-template math-template">cos(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
+            tan: `<span class="function-template math-template">tg(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
+            cot: `<span class="function-template math-template">ctg(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
+            log: `<span class="function-template math-template">log(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
+            limit: `<span class="function-template math-template">lim(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
 
-            just: `<span class="parentheses-template math-template">(<span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>)</span>`,
-            abs: `<span class="abs-template math-template">|<span class="editable-field" contenteditable="true" data-placeholder="выражение">□</span>|</span>`,
+            just: `<span class="parentheses-template math-template">(<span class="editable-field" contenteditable="true" data-placeholder=""></span>)</span>`,
+            abs: `<span class="abs-template math-template">|<span class="editable-field" contenteditable="true" data-placeholder=""></span>|</span>`,
 
             vertical_stack: `<span class="vertical-stack-container math-template">
-                <span class="stack-top editable-field" contenteditable="true" data-placeholder="верх">□</span>
-                <span class="stack-bottom editable-field" contenteditable="true" data-placeholder="низ">□</span>
+                <span class="stack-top editable-field" contenteditable="true" data-placeholder=""></span>
+                <span class="stack-bottom editable-field" contenteditable="true" data-placeholder=""></span>
             </span>`,
+
             def_integral: `<span class="integral-template math-template" style="display: inline-flex; align-items: center; vertical-align: middle;">
                 <span class="integral-limits" style="display: inline-flex; flex-direction: column; align-items: center; margin-right: 3px;">
-                    <sup class="editable-field" contenteditable="true" data-placeholder="b" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sup>
+                    <sup class="editable-field" contenteditable="true" data-placeholder="" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;"></sup>
                     <span style="font-size: 1.2em; line-height: 1;">∫</span>
-                    <sub class="editable-field" contenteditable="true" data-placeholder="a" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sub>
+                    <sub class="editable-field" contenteditable="true" data-placeholder="" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;"></sub>
                 </span>
-                <span class="editable-field" contenteditable="true" data-placeholder="f(x)" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 20px; margin: 0 2px;">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder="" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 20px; margin: 0 2px;"></span>
                 <span>d</span>
-                <span class="editable-field" contenteditable="true" data-placeholder="x" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 10px; margin-left: 2px;">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder="" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 10px; margin-left: 2px;"></span>
             </span>`,
+
             integral_symbol: "∫",
+
             integral_limits: `<span class="integral-template math-template" style="display: inline-flex; align-items: center; vertical-align: middle;">
                 <span style="display: inline-flex; flex-direction: column; align-items: center; margin-right: 3px;">
-                    <sup class="editable-field" contenteditable="true" data-placeholder="b" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sup>
+                    <sup class="editable-field" contenteditable="true" data-placeholder="" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;"></sup>
                     <span style="font-size: 1.2em; line-height: 1;">∫</span>
-                    <sub class="editable-field" contenteditable="true" data-placeholder="a" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;">□</sub>
+                    <sub class="editable-field" contenteditable="true" data-placeholder="" style="font-size: 0.7em; line-height: 1; border: 1px dashed #ccc; padding: 0 2px; min-width: 10px;"></sub>
                 </span>
-                <span class="editable-field" contenteditable="true" data-placeholder="f(x)" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 20px; margin: 0 2px;">□</span>
+                <span class="editable-field" contenteditable="true" data-placeholder="" style="border: 1px dashed #ccc; padding: 0 4px; min-width: 20px; margin: 0 2px;"></span>
             </span>`,
         };
 
@@ -4217,6 +4262,7 @@ class MathKeyboard {
     init() {
         this.setupEventListeners();
         this.initializeDisplay();
+        this.setupPlaceholderBehavior();
         this.showPanel('basic');
     }
 
@@ -4438,64 +4484,88 @@ class MathKeyboard {
         sel.removeAllRanges();
         sel.addRange(range);
     }
+     // Добавьте этот метод для управления плейсхолдерами
+    setupPlaceholderBehavior() {
+        const display = document.getElementById('formulaDisplay');
 
-    // Исправленный метод insertTemplate
-    // Упрощенная вставка шаблона
-insertTemplate(templateName) {
-    if (!this.templates[templateName]) return;
+        // Обработчик для фокуса - скрываем плейсхолдер
+        display.addEventListener('focusin', (e) => {
+            const field = e.target.closest('.editable-field');
+            if (field && field.hasAttribute('data-placeholder')) {
+                field.classList.remove('show-placeholder');
+            }
+        });
 
-    const display = document.getElementById('formulaDisplay');
-    const selection = window.getSelection();
-    const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+        // Обработчик для потери фокуса - показываем плейсхолдер если пусто
+        display.addEventListener('focusout', (e) => {
+            const field = e.target.closest('.editable-field');
+            if (field && field.hasAttribute('data-placeholder')) {
+                if (!field.textContent.trim()) {
+                    field.classList.add('show-placeholder');
+                }
+            }
+        });
 
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = this.templates[templateName];
-    const templateElement = tempDiv.firstChild;
-
-    // ВРЕМЕННО отключаем ВСЕ редактируемые поля в шаблоне
-    const editableFields = templateElement.querySelectorAll('[contenteditable="true"]');
-    editableFields.forEach(field => {
-        field.setAttribute('contenteditable', 'false');
-        field.style.pointerEvents = 'none';
-    });
-
-    if (range) {
-        // Удаляем нулевой пробел если он есть
-        if (range.startContainer.nodeType === Node.TEXT_NODE &&
-            range.startContainer.textContent === '\u200B') {
-            range.deleteContents();
-        }
-
-        // Вставляем шаблон
-        range.insertNode(templateElement);
-
-        // Добавляем нулевой пробел после шаблона
-        const zeroSpace = document.createTextNode('\u200B');
-        range.insertNode(zeroSpace);
-
-        // Ставим курсор после шаблона
-        range.setStartAfter(zeroSpace);
-        range.setEndAfter(zeroSpace);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    } else {
-        // Если нет выделения, добавляем в конец
-        display.appendChild(templateElement);
-        const zeroSpace = document.createTextNode('\u200B');
-        display.appendChild(zeroSpace);
-        this.setCursorToEnd(display);
+        // Обработчик ввода - убираем плейсхолдер при вводе
+        display.addEventListener('input', (e) => {
+            const field = e.target.closest('.editable-field');
+            if (field && field.hasAttribute('data-placeholder')) {
+                field.classList.remove('show-placeholder');
+            }
+        });
     }
 
-    // Включаем редактируемые поля обратно, но с задержкой
-    setTimeout(() => {
-        editableFields.forEach(field => {
-            field.setAttribute('contenteditable', 'true');
-            field.style.pointerEvents = 'auto';
-        });
-    }, 50);
+// Обновите метод insertTemplate
+    insertTemplate(templateName) {
+        if (!this.templates[templateName]) return;
 
-    this.updateCurrentFormula();
-}
+        const display = document.getElementById('formulaDisplay');
+        const selection = window.getSelection();
+        const range = selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.templates[templateName];
+        const templateElement = tempDiv.firstChild;
+
+        // Настраиваем плейсхолдеры для редактируемых полей
+        const editableFields = templateElement.querySelectorAll('.editable-field');
+        editableFields.forEach(field => {
+            const placeholder = field.getAttribute('data-placeholder');
+
+            // Добавляем CSS класс для плейсхолдера
+            field.classList.add('math-placeholder-field');
+
+            // Устанавливаем плейсхолдер как псевдо-элемент через CSS
+            field.style.setProperty('--placeholder-text', `"${placeholder}"`);
+
+            // Показываем плейсхолдер изначально
+            field.classList.add('show-placeholder');
+        });
+
+        if (range) {
+            if (range.startContainer.nodeType === Node.TEXT_NODE &&
+                range.startContainer.textContent === '\u200B') {
+                range.deleteContents();
+            }
+
+            range.insertNode(templateElement);
+
+            const zeroSpace = document.createTextNode('\u200B');
+            range.insertNode(zeroSpace);
+
+            range.setStartAfter(zeroSpace);
+            range.setEndAfter(zeroSpace);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        } else {
+            display.appendChild(templateElement);
+            const zeroSpace = document.createTextNode('\u200B');
+            display.appendChild(zeroSpace);
+            this.setCursorToEnd(display);
+        }
+
+        this.updateCurrentFormula();
+    }
 
 // Упрощенная установка курсора после элемента
 setCursorAfter(element) {
@@ -4766,43 +4836,45 @@ setCursorAfter(element) {
         return tempDiv.innerHTML;
     }
 
+    // Обновите метод getStaticFormula для обработки плейсхолдеров
     getStaticFormula() {
-    const display = document.getElementById('formulaDisplay');
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = display.innerHTML;
+        const display = document.getElementById('formulaDisplay');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = display.innerHTML;
 
-    // Удаляем нулевые пробелы
-    const walker = document.createTreeWalker(
-        tempDiv,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-    );
+        // Удаляем нулевые пробелы
+        const walker = document.createTreeWalker(
+            tempDiv,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+        );
 
-    let node;
-    while (node = walker.nextNode()) {
-        if (node.textContent === '\u200B') {
-            node.parentNode.removeChild(node);
-        } else {
-            node.textContent = node.textContent.replace(/\u200B/g, '');
+        let node;
+        while (node = walker.nextNode()) {
+            if (node.textContent === '\u200B') {
+                node.parentNode.removeChild(node);
+            } else {
+                node.textContent = node.textContent.replace(/\u200B/g, '');
+            }
         }
-    }
 
-    // Удаляем атрибуты редактирования
-    const editableElements = tempDiv.querySelectorAll('[contenteditable="true"]');
-    editableElements.forEach(el => {
-        el.removeAttribute('contenteditable');
-        el.classList.remove('editable-field');
-        el.removeAttribute('data-placeholder');
+        // Обрабатываем редактируемые поля
+        const editableElements = tempDiv.querySelectorAll('.editable-field');
+        editableElements.forEach(el => {
+            el.removeAttribute('contenteditable');
+            el.classList.remove('editable-field', 'math-placeholder-field', 'show-placeholder');
+            el.removeAttribute('data-placeholder');
+            el.style.removeProperty('--placeholder-text');
 
-        // Заменяем плейсхолдеры
-        if (el.textContent === '□' || el.textContent.trim() === '□') {
-            el.textContent = '';
-        }
-    });
+            // Удаляем пустые поля
+            if (!el.textContent.trim()) {
+                el.remove();
+            }
+        });
 
-    // Удаляем классы шаблонов
-    const mathTemplates = tempDiv.querySelectorAll('.math-template');
+        // Удаляем классы шаблонов
+        const mathTemplates = tempDiv.querySelectorAll('.math-template');
         mathTemplates.forEach(template => {
             template.classList.remove('math-template');
         });
