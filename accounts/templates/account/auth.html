@@ -286,6 +286,14 @@
                             <span class="field-error">{{ login_form.password.errors.0 }}</span>
                         {% endif %}
                     </div>
+                    {{ login_form.username }}
+                    {{ login_form.password }}
+
+                    <!-- Чекбокс "запомнить меня" -->
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
+                        <label class="form-check-label" for="remember_me">Запомнить меня</label>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Войти в аккаунт</button>
                 </form>

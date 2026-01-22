@@ -146,10 +146,13 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Убедитесь, что у вас правильные настройки сессий
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # или 'django.contrib.sessions.backends.cached_db'
-SESSION_COOKIE_AGE = 86400  # 24 часа
+SESSION_COOKIE_AGE = 86400 * 7 #
 SESSION_COOKIE_SECURE = False  # True для HTTPS
 SESSION_COOKIE_HTTPONLY = True
 SESSION_SAVE_EVERY_REQUEST = True  # Важно для Safari!
+ # 7 дней в секундах (по умолчанию 2 недели)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Сессия не завершается при закрытии браузера
+
 
 
 

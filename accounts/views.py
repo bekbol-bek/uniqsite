@@ -6,8 +6,6 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
 
-
-
 def auth_view(request):
     """Объединенный view для входа и регистрации"""
     login_form = AuthenticationForm()
@@ -21,6 +19,17 @@ def auth_view(request):
             if login_form.is_valid():
                 user = login_form.get_user()
                 login(request, user)
+
+                # Проверяем чекбокс "запомнить меня"
+                remember_me = request.POST.get('remember_me', False)
+
+                if not remember_me:
+                    # Если не "запомнить меня" - сессия на 24 часа
+                    request.session.set_expiry(86400)  # 24 часа в секундах
+                else:
+                    # Если "запомнить меня" - длительная сессия
+                    request.session.set_expiry(86400 * 30)  # 30 дней
+
                 messages.success(request, f'Добро пожаловать, {user.username}!')
                 return redirect('quiz:profile')
             else:
@@ -31,6 +40,10 @@ def auth_view(request):
             if register_form.is_valid():
                 user = register_form.save()
                 login(request, user)
+
+                # Для новых пользователей можно установить длительную сессию
+                request.session.set_expiry(86400 * 7)  # 7 дней
+
                 messages.success(request, f'Аккаунт создан! Добро пожаловать, {user.username}!')
                 return redirect('quiz:profile')
             else:
@@ -41,7 +54,6 @@ def auth_view(request):
         'register_form': register_form,
     }
     return render(request, 'account/auth.html', context)
-
 
 def user_logout(request):
     logout(request)
